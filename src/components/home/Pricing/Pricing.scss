@@ -1,0 +1,140 @@
+@use "../../../styles/index" as *;
+
+.pricing {
+  background: #ffffff;
+  padding: 20px $padding 40px; // 🔒 global padding safe
+}
+
+.pricing__container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.pricing__title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 64px;
+}
+
+.pricing__underline {
+  display: block;
+  width: 140px;
+  height: 4px;
+  background: #ffc107;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* ===== LAYOUT ===== */
+.pricing__box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ===== LEFT IMAGE ===== */
+.pricing__image {
+  width: 572px;
+  height: 478px;
+  overflow: hidden;       // 🔥 IMPORTANT
+  border-radius: 12px;
+}
+.pricing__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      // 🔥 exact fit
+  display: block;
+}
+
+/* ===== RIGHT CARD ===== */
+.pricing__content {
+  width: 572px;
+  height: 478px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(75, 34, 163, 0.06);
+  padding: 0 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* 🔵 TOP BLUE STRIP (FIGMA STYLE) */
+.pricing__content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: #053b73;
+  border-radius: 12px 12px 0 0;
+}
+
+/* ===== TEXT ===== */
+.pricing__content h3 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.pricing__content .plan {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: $primary;
+}
+
+.pricing__content .desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 20px;
+}
+
+/* ===== LIST (NO BLUE BARS) ===== */
+.pricing__content ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+}
+
+.pricing__content li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: $text-dark;
+  margin-bottom: 12px;
+}
+
+.pricing__content li::before {
+  content: "✔";
+  color: $primary;
+  font-size: 14px;
+}
+
+/* ===== BUTTON ===== */
+.pricing__content button {
+  width: 100%;
+  background: #053b73;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    background: #042e59;
+  }
+}

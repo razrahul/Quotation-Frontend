@@ -1,0 +1,9 @@
+@use "../../styles/index" as *;
+
+.total {
+  margin-top: 20px;
+  width: 300px;
+  margin-left: auto;
+  padding: 14px;
+  @include card;
+}

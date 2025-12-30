@@ -1,0 +1,88 @@
+@use "../../../styles/index" as *;
+
+/* ===== NAVBAR WRAPPER ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;            // 🔥 full width
+  height: $navbar-height;           // figma height
+  z-index: 1000;
+  background: $white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== INNER CONTAINER (WIDTH + PADDING HERE) ===== */
+.navbar__container {
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: $padd-left-right;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===== LINKS RESET ===== */
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ❌ logo pe underline kabhi nahi */
+.logo-link::after {
+  display: none !important;
+}
+
+/* ===== LOGO ===== */
+.logo {
+  width: 120px;
+}
+
+/* ===== MENU ===== */
+.navbar__menu {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+  align-items: center;
+  font-weight: 500;
+}
+
+/* underline ONLY active menu links */
+.navbar__menu li a {
+  position: relative;
+}
+
+/* active link underline */
+.navbar__menu li a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #ffc107;
+  border-radius: 2px;
+}
+
+/* ===== REGISTER BUTTON ===== */
+.navbar__menu .btn {
+  background: $primary;
+  padding: 8px 28px;
+  border-radius: 20px;
+}
+
+.navbar__menu .btn a {
+  color: $white;
+}
+
+/* register pe underline nahi */
+.navbar__menu .btn a::after {
+  display: none;
+}
+
+/* ===== CONTENT PUSH (NO HOME.SCSS NEEDED) ===== */
+.navbar + * {
+  margin-top: 80px;   // navbar height ke barabar
+}

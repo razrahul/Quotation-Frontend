@@ -1,0 +1,42 @@
+@use "../../styles/index" as *;
+
+.items-wrapper {
+  margin-top: 24px;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background: #f1f5f9;
+    padding: 10px;
+    font-size: 13px;
+    border: 1px solid $border;
+  }
+
+  td {
+    border: 1px solid $border;
+    padding: 8px;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+
+  button {
+    border: none;
+    background: none;
+    color: red;
+    cursor: pointer;
+  }
+}
+
+.add-row {
+  margin-top: 10px;
+  font-size: 13px;
+  color: $primary;
+  cursor: pointer;
+}

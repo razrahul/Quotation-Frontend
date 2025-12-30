@@ -1,0 +1,7 @@
+@use "./variables" as v;
+
+@mixin card {
+  background: v.$white;
+  border: 1px solid v.$border;
+  border-radius: v.$radius;
+}

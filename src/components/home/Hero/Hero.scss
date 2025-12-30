@@ -1,0 +1,116 @@
+@use "../../../styles/index" as *;
+
+/* ================= HERO WRAPPER ================= */
+.hero {
+  background: #eef6ff;
+  position: relative;
+  overflow: hidden;
+  // padding: 0 40px;
+}
+
+/* ================= MAIN CONTAINER ================= */
+.hero-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 10px $padding; // 🔧 thoda compact (80px heavy lag raha tha)
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= LEFT CONTENT ================= */
+.left {
+  max-width: 720px;
+
+  h1 {
+    font-size: 62px; // 🔧 44 → 42 (better balance)
+    line-height: 1.25;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 22px;
+    position: relative;
+
+    /* yellow underline (FIGMA STYLE) */
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 210px;
+      height: 4px;
+      background: #ffc107;
+      border-radius: 2px;
+    }
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #475569;
+    margin: 26px 0 34px;
+    max-width: 520px;
+  }
+
+  .cta-btn {
+    background: $primary;
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 26px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(11, 94, 215, 0.25);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $primary-dark;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* ================= RIGHT IMAGE ================= */
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+// * 🔥 THIS FIXES THE RECTANGLE */
+.image-wrap {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: rotate(-8deg);
+}
+
+.image-wrap img {
+  width: 536px;
+  max-width: 100%;
+  display: block;
+
+  /* 🔥 MOST IMPORTANT LINES */
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+
+  /* only natural shadow */
+  filter: drop-shadow(0 28px 50px rgba(0, 0, 0, 0.15));
+}
+
+
+
+/* ================= BACKGROUND SHAPE ================= */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  background: rgba(11, 94, 215, 0.08);
+  border-radius: 50%;
+  top: 90px;
+  right: 200px;
+  z-index: 0;
+}

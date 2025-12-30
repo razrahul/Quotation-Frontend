@@ -1,0 +1,22 @@
+
+
+
+@use "../../styles//index.scss" as *;
+
+.quotation-page {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 24px;
+  @include card;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.actions {
+  margin-top: 20px;
+  text-align: right;
+}

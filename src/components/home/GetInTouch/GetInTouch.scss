@@ -1,0 +1,58 @@
+@use "../../../styles/index" as *;
+
+.getintouch {
+//   max-width: 1200px;
+  padding: 0 $padding;
+  margin: 0 auto;
+  margin-bottom: -120px; // 🔥 overlap footer
+  position: relative;
+  z-index: 2;
+}
+
+.getintouch__overlay {
+  background: linear-gradient(
+      rgba(0, 59, 115, 0.75),
+      rgba(0, 59, 115, 0.75)
+    ),
+    url("../../../assets/images/get-in-touch-bg.png") center/cover no-repeat;
+  border-radius: 120px;
+  padding: 40px 80px;
+}
+
+.getintouch__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.getintouch h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.getintouch p {
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.getintouch__btn {
+  border-radius: 24px;          // figma rounded
+  padding: 12px 32px;           // CTA size
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);   // 🔥 smooth lift
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+

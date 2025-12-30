@@ -1,0 +1,15 @@
+@use "./index" as *;
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui;
+  background: $bg;
+  color: $text-dark;
+}
+
+input {
+  padding: 8px 10px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  width: 100%;
+}

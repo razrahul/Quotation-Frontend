@@ -1,0 +1,14 @@
+@use "./variables" as v;
+
+.btn-primary {
+  background: v.$primary;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background: v.$primary-dark;
+  }
+}
