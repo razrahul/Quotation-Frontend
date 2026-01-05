@@ -1,0 +1,52 @@
+@use "../../../styles/index" as *;
+
+.auth-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fff;
+}
+
+/* LEFT PANEL */
+.auth-layout__left {
+  background: #053b73;
+  color: #fff;
+  padding: 80px 70px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    font-size: 44px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 15px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  /* decorative dots */
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 60px;
+    left: 70px;
+    width: 120px;
+    height: 80px;
+    background-image: radial-gradient(#2f80ed 2px, transparent 2px);
+    background-size: 12px 12px;
+    opacity: 0.5;
+  }
+}
+
+/* RIGHT PANEL */
+.auth-layout__right {
+  padding: 80px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
