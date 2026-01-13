@@ -1,0 +1,55 @@
+@use "../../../styles/index" as *;
+
+.privacy {
+  background: #fbfbfb;
+  padding: 50px 0;
+}
+
+.privacy__container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 $padding;
+}
+
+.privacy h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: $text-dark;
+}
+
+.privacy__effective {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.privacy__intro {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.privacy__content {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.privacy__section {
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: $text-dark;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #475569;
+  }
+}

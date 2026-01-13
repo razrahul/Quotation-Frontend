@@ -52,7 +52,11 @@ export default function Register() {
             </div>
 
             <label className="checkbox">
-              <input type="checkbox" /> I agree to the Terms & Privacy Policy
+              <input type="checkbox" />
+              <span>
+                I agree to the <Link to="/terms">Terms & Conditions</Link> and{" "}
+                <Link to="/privacy-policy">Privacy Policy</Link>
+              </span>
             </label>
 
             <button className="btn-primary">Register</button>
