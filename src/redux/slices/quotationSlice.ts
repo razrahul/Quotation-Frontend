@@ -1,52 +1,90 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
+import type { QuoteApiResponse } from "../../types/quotationApi.types";
 
-export type Item = {
-  id: string;
-  name: string;
-  qty: number;
-  rate: number;
+type QuotationSliceState = {
+  loading: boolean;
+  quotation: QuoteApiResponse | null;
+  error: string | null;
+  success: boolean;
+  items: any[];
 };
 
-type State = {
-  items: Item[];
+const initialState: QuotationSliceState = {
+  loading: false,
+  quotation: null,
+  error: null,
+  success: false,
+  items: [],
 };
 
-const initialState: State = {
-  items: [{ id: crypto.randomUUID(), name: "", qty: 1, rate: 0 }],
-};
+
 
 const quotationSlice = createSlice({
   name: "quotation",
   initialState,
   reducers: {
+    /* ================= REQUEST / FAIL ================= */
+    quotationRequest(state) {
+      state.loading = true;
+      state.error = null;
+      state.success = false;
+    },
+
+    quotationFail(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    /* ================= CREATE QUOTE ================= */
+    createQuoteSuccess(state, action) {
+      state.loading = false;
+      state.success = true;
+      state.quotation = action.payload;
+    },
+
+    /* ================= GET QUOTE (EDIT) ================= */
+    getQuoteSuccess(state, action) {
+      state.loading = false;
+      state.quotation = action.payload;
+    },
+
+    /* ================= UI: ITEMS TABLE ================= */
     addRow(state) {
       state.items.push({
-        id: crypto.randomUUID(),
         name: "",
         qty: 1,
+        unit: "Service",
         rate: 0,
       });
     },
-    removeRow(state, action: PayloadAction<string>) {
-      state.items = state.items.filter(i => i.id !== action.payload);
+
+    removeRow(state, action) {
+      state.items = state.items.filter(
+        (_, idx) => idx !== action.payload
+      );
     },
-    updateItem(
-      state,
-      action: PayloadAction<{
-        id: string;
-        field: keyof Item;
-        value: string | number;
-      }>
-    ) {
-      const item = state.items.find(i => i.id === action.payload.id);
-      if (item) {
-        item[action.payload.field] = action.payload.value as never;
-      }
+
+    updateRow(state, action) {
+      const { index, field, value } = action.payload;
+      state.items[index][field] = value;
+    },
+
+    clearError(state) {
+      state.error = null;
     },
   },
 });
 
-export const { addRow, removeRow, updateItem } = quotationSlice.actions;
+export const {
+  quotationRequest,
+  quotationFail,
+  createQuoteSuccess,
+  getQuoteSuccess,
+  addRow,
+  removeRow,
+  updateRow,
+  clearError,
+} = quotationSlice.actions;
+
 export default quotationSlice.reducer;

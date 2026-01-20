@@ -1,0 +1,21 @@
+@use "../../styles/quotation.tokens" as *;
+
+.summary {
+  margin-top: 20px;
+  width: 300px;
+  margin-left: auto;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+
+  .total {
+    font-size: 20px;
+    font-weight: 700;
+    border-top: 1px solid $border;
+    padding-top: 10px;
+  }
+}

@@ -7,6 +7,14 @@ export const store = configureStore({
     quotation: quotationReducer,
     auth: authReducer,
   },
+
+  // thunk already included by RTK
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // safe for forms / dates / payloads
+    }),
+
+  devTools: import.meta.env.DEV,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
