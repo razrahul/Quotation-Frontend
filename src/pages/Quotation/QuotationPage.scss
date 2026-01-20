@@ -1,0 +1,36 @@
+@use "../../styles/index" as *;
+
+.quotation-page {
+  // margin: 24px auto;
+  padding: 36px $padding;
+  background: white;
+  border-radius: 8px;
+}
+
+.top-quotes {
+  display: flex;
+  justify-content: space-between;
+   align-items: flex-end;     // 👈 RIGHT ALIGN
+  // min-width: 320px;          // 👈 IMPORTANT
+  gap: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 20px;
+}
+
+.save-btn {
+  margin: 30px auto;
+  background: $primary-blue;
+  color: white;
+  padding: 12px 36px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  // margin-left: auto;
+}

@@ -3,7 +3,9 @@ import "./UploadLogo.scss";
 export default function UploadLogo() {
   return (
     <div className="upload-logo">
-      <p>+ Add Company Logo</p>
+      <div className="icon">🖼</div>
+      <div>Add Company Logo</div>
+      <small>Upto 100x80 px</small>
     </div>
   );
 }

@@ -1,13 +1,20 @@
 
+//page/Quotation/Quotation.scss
 
-
-@use "../../styles//index.scss" as *;
+@use "../../styles/index.scss" as *;
 
 .quotation-page {
   max-width: 1100px;
   margin: 24px auto;
   padding: 24px;
   @include card;
+}
+
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 .grid {

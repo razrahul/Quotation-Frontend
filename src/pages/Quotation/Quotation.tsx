@@ -1,25 +1,27 @@
-import UploadLogo from "../../components/quotation/UploadLogo";
-import QuotationMeta from "../../components/quotation/QuotationMeta";
-import YourDetails from "../../components/quotation/YourDetails";
-import ClientDetails from "../../components/quotation/ClientDetails";
-import ItemsTable from "../../components/quotation/ItemsTable";
-import TotalSection from "../../components/quotation/TotalSection";
+//page/Quotation/Quotation.tsx
+import UploadLogo from "../../components/quotationComponents/UploadLogo";
+// import QuotationHeader from "../../components/quotationComponents/QuotationHeader";
+// import PartyDetails from "../../components/quotationComponents/PartyDetails";
+// import ItemsTable from "../../components/quotationComponents/ItemsTable";
+// import SummarySection from "../../components/quotationComponents/SummarySection";
 import Button from "../../components/common/Button/Button";
 import "./Quotation.scss";
 
 export default function Quotation() {
   return (
     <div className="quotation-page">
-      <UploadLogo />
-      <QuotationMeta />
+      <div className="quote-header">
+        <UploadLogo />
 
-      <div className="grid">
-        <YourDetails />
-        <ClientDetails />
+        {/* <QuotationHeader /> */}
       </div>
 
-      <ItemsTable />
-      <TotalSection />
+      <div className="grid">
+        {/* <PartyDetails /> */}
+      </div>
+
+      {/* <ItemsTable /> */}
+      {/* <SummarySection /> */}
 
       <div className="actions">
         <Button>Save & Continue</Button>

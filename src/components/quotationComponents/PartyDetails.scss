@@ -1,0 +1,112 @@
+@use "../../styles/index.scss" as *;
+
+.party-card {
+  border: 1px solid $border;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-bottom: 8px;
+
+  .header {
+    background: $primary-blue;
+    color: $white;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    padding: 8px 14px;
+    gap: 0px;
+
+    label {
+      font-size: 15px;
+      color: $text-dark;
+      white-space: nowrap;
+    }
+  }
+
+  .field-control {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .party-input,
+  select {
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+    border-bottom: 1px solid $border;
+    border-radius: 0;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+
+    &:focus {
+      border-bottom-color: $primary;
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  .phone-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .country-code {
+      font-size: 13px;
+      color: $text-light;
+      white-space: nowrap;
+    }
+  }
+
+  .error-text {
+    font-size: 11px;
+    color: #dc2626;
+    margin-top: 4px;
+  }
+}
+
+
+
+// @use "../../styles/index.scss" as *;
+
+// .party-card {
+//   border: 1px solid $border;
+//   border-radius: 8px;
+//   overflow: hidden;
+
+//   .header {
+//     background: $primary-blue;
+//     color: $white;
+//     padding: 10px 12px;
+//     font-weight: 600;
+//     font-size: 15px;
+//   }
+
+//   .party-input {
+//     width: 100%;
+//     padding: 10px 0;          // 👈 left-right curve avoid
+//     margin-bottom: 8px;
+//     border: none;
+//     border-bottom: 1px solid $border;
+//     border-radius: 0;         // ✅ THIS fixes the curve
+//     font-size: 14px;
+//     outline: none;
+//     background: transparent;
+//     box-sizing: border-box;  // 👈 safety
+
+//     &:last-child {
+//       margin-bottom: 0;
+//     }
+
+//     &:focus {
+//       border-bottom-color: $primary;
+//     }
+//   }
+// }
