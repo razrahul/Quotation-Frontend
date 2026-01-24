@@ -48,7 +48,7 @@ export default function Features() {
           <span className="underline" />
         </h2>
 
-        <div className="grid">
+        <div className="grid-features">
           {features.map((f) => (
             <div className="feature-card" key={f.title}>
               <img src={f.icon} alt={f.title} />

@@ -7,6 +7,7 @@ import QuotationHeader from "../../components/quotationComponents/QuotationHeade
 import PartyDetails from "../../components/quotationComponents/PartyDetails";
 import ItemsTable from "../../components/quotationComponents/ItemsTable";
 import SummarySection from "../../components/quotationComponents/SummarySection";
+import GSTPopup from "../../components/quotationComponents/GSTSection";
 
 import type { RootState, AppDispatch } from "../../redux/store";
 import { createQuotation } from "../../redux/action/quotationActions";
@@ -51,16 +52,22 @@ export default function QuotationPage() {
     gstEnabled: true,
   });
 
+  const [gstOpen, setGstOpen] = useState(false);
+
   console.log("🚀 QUOTATION PAGE STATE:", quotation);
 
   /* ========= CALC ========= */
   const subTotal = quotation.items.reduce((sum, i) => sum + i.qty * i.rate, 0);
 
-  const grandTotal = subTotal;
+  const gstAmount =
+    quotation.gstEnabled && quotation.gst
+      ? (subTotal * quotation.gst.percentage) / 100
+      : 0;
+
+  const grandTotal = subTotal + gstAmount;
 
   /* ========= SAVE ========= */
   const handleSave = () => {
-
     console.log("🔥 handleSave called");
     const payload = {
       quoteNo: quotation.quoteNo,
@@ -78,14 +85,15 @@ export default function QuotationPage() {
           amount: i.qty * i.rate,
         })),
 
-        // gst: quotation.gstEnabled
-        //   ? {
-        //       percentage: 100,
-        //       amount: subTotal,
-        //     }
-        //   : null,
+        // ✅ GST final format
+        gst: quotation.gstEnabled
+          ? {
+              percentage: quotation.gst!.percentage,
+              amount: quotation.gst!.amount,
+            }
+          : null,
 
-        gst: null,
+        // gst: null,
 
         discount: {
           type: "FLAT",
@@ -166,8 +174,23 @@ export default function QuotationPage() {
           }))
         }
       />
+      <div className="quote-footer">
+        <div className="summary-actions">
+          <button
+            type="button"
+            className="add-gst-btn"
+            onClick={() => setGstOpen(true)}
+          >
+            + Add GST
+          </button>
 
-      <SummarySection total={grandTotal} />
+          <SummarySection
+            subTotal={subTotal}
+            gstAmount={gstAmount}
+            total={grandTotal}
+          />
+        </div>
+      </div>
 
       <button
         type="button" // 🔴 YE LINE BAHUT IMPORTANT HAI
@@ -179,6 +202,20 @@ export default function QuotationPage() {
       </button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <GSTPopup
+        open={gstOpen}
+        subTotal={subTotal}
+        initialPercentage={quotation.gst?.percentage ?? 0}
+        onClose={() => setGstOpen(false)}
+        onApply={(gst) =>
+          setQuotation((prev) => ({
+            ...prev,
+            gstEnabled: true,
+            gst,
+          }))
+        }
+      />
     </div>
   );
 }
