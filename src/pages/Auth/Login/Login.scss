@@ -1,9 +1,9 @@
 @use "../../../styles/index" as *;
 
 /* ================= OUTER ================= */
-.auth-wrapper {
+.authlogin-wrapper {
   min-height: calc(100vh - 80px);
-  padding: 40px $padding;
+  padding: 10px $padding;
   display: flex;
 }
 

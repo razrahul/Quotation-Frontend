@@ -1,0 +1,26 @@
+.invoice-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+
+  .preview {
+    height: 140px;
+    border: 1px dashed #d1d5db;
+    margin-bottom: 16px;
+  }
+
+  button {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #0b5ed7;
+    background: none;
+    padding: 8px;
+    color: #0b5ed7;
+
+    &.filled {
+      background: #0b5ed7;
+      color: #fff;
+    }
+  }
+}

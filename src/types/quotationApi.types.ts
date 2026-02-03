@@ -18,3 +18,45 @@ export type QuoteApiResponse = {
     };
   };
 };
+
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  country: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type AuthResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    user: User;
+    token: string;
+  };
+};
+
+export type MeResponse = {
+  success: boolean;
+  message: string;
+  data: User;
+};
+
+
+
+export type UserResponce = {
+  success: boolean;
+  message: string;
+  data: {
+    user: {
+      id: number;
+      name: string;
+      email: string;
+      country: string;
+      createdAt?: string;
+      updatedAt?: string;
+    };
+    token: string;
+  };
+};

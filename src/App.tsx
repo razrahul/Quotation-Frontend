@@ -10,7 +10,43 @@ import PrivacyPolicyPage from "./pages/legal/PrivacyPolicyPage";
 import DisclaimerPage from "./pages/legal/DisclaimerPage";
 import QuotationPage from "./pages/Quotation/QuotationPage";
 
+import AppLayout from "./components/dashboardLayout/AppLayout";
+import ProtectedRoute from "./routes/ProtectedRoute";
+
+// for dashboard
+
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import PersonalInfo from "./pages/Profile/components/PersonalInfo";
+import AccountSecurity from "./pages/Profile/components/AccountSecurity";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+import { loadUser, logoutUser } from "./redux/action/userActions";
+import type { AppDispatch, RootState } from "./redux/store";
+
 export default function App() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const ranOnce = useRef(false);
+
+  const { isAuthenticated, user, authChecked } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  console.log(isAuthenticated, user);
+
+  useEffect(() => {
+    if (ranOnce.current) return;
+    ranOnce.current = true;
+
+    if (!authChecked && localStorage.getItem("tt_token")) {
+      dispatch(loadUser());
+    }
+
+    if (!authChecked && !localStorage.getItem("tt_token")) {
+      dispatch(logoutUser());
+    }
+  }, [authChecked, dispatch]);
   return (
     <>
       <ScrollToTop />
@@ -24,6 +60,19 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/disclaimer" element={<DisclaimerPage />} />
         <Route path="/quotationpage" element={<QuotationPage />} />
+
+        {/* /* ========== PROTECTED ROUTES ========== */}
+
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+
+            <Route path="/profile" element={<ProfilePage />}>
+              <Route index element={<PersonalInfo />} />
+              <Route path="security" element={<AccountSecurity />} />
+            </Route>
+          </Route>
+        </Route>
       </Routes>
     </>
   );
