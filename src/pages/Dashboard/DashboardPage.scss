@@ -1,0 +1,15 @@
+.dashboard {
+  .top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .primary {
+    background: #0b5ed7;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 18px;
+    border: none;
+  }
+}
