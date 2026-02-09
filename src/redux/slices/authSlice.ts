@@ -62,11 +62,35 @@ const authSlice = createSlice({
     },
 
     logout(state) {
+      state.loading = false;
       state.isAuthenticated = false;
       state.user = null;
       state.success = false;
       state.error = null;
       state.authChecked = true; // ❗ important
+    },
+
+    updateProfileSucess(state, action) {
+      state.loading = false;
+      state.user = action.payload.data.user;
+      state.success = true;
+      state.isAuthenticated = true;
+      state.authChecked = true;
+    },
+
+    deleteProfileSucess(state) {
+      state.loading = false;
+      state.user = null;
+      state.success = true;
+      state.isAuthenticated = false;
+      state.authChecked = true;
+    },
+
+    changePasswordSucess(state) {
+      state.loading = false;
+      state.success = true;
+      state.isAuthenticated = false;
+      state.authChecked = true;
     },
   },
 });
@@ -78,5 +102,8 @@ export const {
   authRegister,
   logout,
   loadUserSuccess,
+  updateProfileSucess,
+  deleteProfileSucess,
+  changePasswordSucess,
 } = authSlice.actions;
 export default authSlice.reducer;

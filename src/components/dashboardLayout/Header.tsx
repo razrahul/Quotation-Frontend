@@ -1,20 +1,54 @@
 import { useState } from "react";
 import "./Header.scss";
+import { logout } from "../../redux/slices/authSlice";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("tt_token");
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <header className="header">
-      <div className="logo">Nex<span>Quote</span></div>
+      <div className="logo">
+        <Link to="/">
+          Nex<span>Quote</span>
+        </Link>
+      </div>
 
       <div className="user" onClick={() => setOpen(!open)}>
-        <div className="avatar">N</div>
+        <div className="avatar">
+          {user?.name?.[0] ?? "U"}
+        </div>
+
         {open && (
           <div className="dropdown">
-            <button>Profile</button>
-            <button>Settings</button>
-            <button className="danger">Log out</button>
+            <Link to="/profile" className="menu-item">
+              Profile
+            </Link>
+
+            <Link to="/profile/security" className="menu-item">
+              Security
+            </Link>
+
+            <button
+              className="menu-item danger"
+              type="button"
+              onClick={logoutHandler}
+            >
+              Log out
+            </button>
           </div>
         )}
       </div>

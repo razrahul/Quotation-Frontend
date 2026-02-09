@@ -1,28 +1,4 @@
-.header {
-  height: 64px;
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 0 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-weight: 700;
-  color: #0b5ed7;
-
-  a {
-    text-decoration: none;
-    color: #0b5ed7;
-  }
-
-  span {
-    color: #fbbf24;
-  }
-}
-
-.user {
+.user-menu {
   position: relative;
   cursor: pointer;
 }
@@ -35,6 +11,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
+  font-weight: 600;
 }
 
 .dropdown {
@@ -43,7 +20,7 @@
   top: 44px;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
   min-width: 160px;
   overflow: hidden;
 
@@ -57,7 +34,6 @@
     border: none;
     text-align: left;
     cursor: pointer;
-    font-size: 14px;
 
     &:hover {
       background: #f3f4f6;
@@ -72,4 +48,3 @@
     }
   }
 }
-
