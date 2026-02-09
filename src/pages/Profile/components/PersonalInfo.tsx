@@ -1,46 +1,86 @@
 import { useState } from "react";
 import "./PersonalInfo.scss";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from "../../../redux/store";
+import { updateProfile } from "../../../redux/action/userActions";
 
 const PersonalInfo = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const [edit, setEdit] = useState(false);
+
+  // split name
+  const fullName = user?.name || "";
+  const nameParts = fullName.split(" ");
+
+  const [firstName, setFirstName] = useState(nameParts[0] || "");
+  const [lastName, setLastName] = useState(nameParts.slice(1).join(" ") || "");
+  const [country, setCountry] = useState(user?.country || "");
+
+  const handleSave = async () => {
+    const updatedName = `${firstName} ${lastName}`.trim();
+
+    const payload = {
+      name: updatedName,
+      country,
+    };
+    console.log(payload);
+    await dispatch(updateProfile(payload));
+    setEdit(false);
+  };
 
   return (
     <div className="personal-info">
-      <div className="header">
+      <div className="per_header">
         <h3>Personal Information</h3>
         <button className="edit-btn" onClick={() => setEdit(!edit)}>
-          Edit
+          {edit ? "Cancel" : "Edit"}
         </button>
       </div>
 
-      <div className="info-card">
-        <div className="field">
-          <label>First Name</label>
-          <input disabled={!edit} defaultValue="Neha" />
+      <div className="per_info-card">
+        <div className="per_field">
+          <label className="per_label">First Name</label>
+          <input
+            className="per_input"
+            disabled={!edit}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
         </div>
 
-        <div className="field">
-          <label>Last Name</label>
-          <input disabled={!edit} defaultValue="Verma" />
+        <div className="per_field">
+          <label className="per_label">Last Name</label>
+          <input
+            className="per_input"
+            disabled={!edit}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
         </div>
 
-        <div className="field">
-          <label>Email Address</label>
-          <input disabled value="neha@gmail.com" />
+        <div className="per_field">
+          <label className="per_label">Email Address</label>
+          <input className="per_input" disabled value={user?.email || ""} />
         </div>
 
-        <div className="field">
-          <label>Phone Number</label>
-          <input disabled={!edit} defaultValue="+91 78654 67544" />
-        </div>
-
-        <div className="field">
-          <label>Country</label>
-          <input disabled={!edit} defaultValue="India" />
+        <div className="per_field">
+          <label className="per_label">Country</label>
+          <input
+            className="per_input"
+            disabled={!edit}
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
         </div>
       </div>
 
-      {edit && <button className="save-btn">Save Changes</button>}
+      {edit && (
+        <button className="per_save-btn" onClick={handleSave}>
+          Save Changes
+        </button>
+      )}
     </div>
   );
 };

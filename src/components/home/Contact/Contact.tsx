@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Contact.scss";
 
 const contactInfo = [
@@ -61,10 +62,16 @@ export default function Contact() {
                 Send Message
               </button>
 
-              <p className="privacy">
+              <p className="contact-form__privacy">
                 By submitting this form, you agree to our{" "}
-                <strong>Terms of Service</strong> and{" "}
-                <strong>Privacy Policy</strong>.
+                <Link to="/terms">
+                  <strong>Terms of Service</strong>
+                </Link>{" "}
+                and{" "}
+                <Link to="/privacy-policy">
+                  <strong>Privacy Policy</strong>
+                </Link>
+                .
               </p>
             </form>
           </div>

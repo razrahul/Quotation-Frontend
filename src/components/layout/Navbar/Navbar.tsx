@@ -1,8 +1,16 @@
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
 import logo from "../../../assets/logo.png";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../redux/store";
+import UserMenu from "../Common/UserMenu";
 
 export default function Navbar() {
+  const { isAuthenticated, authChecked } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  const showUserMenu = isAuthenticated && authChecked;
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -21,8 +29,15 @@ export default function Navbar() {
             <NavLink to="/contact-us">Contact Us</NavLink>
           </li>
 
-          <li className="btn">
-            <NavLink to="/register">Register</NavLink>
+          {/* 🔐 Auth based UI */}
+          <li className="auth-area">
+            {showUserMenu ? (
+              <UserMenu />
+            ) : (
+              <NavLink to="/register" className="btn">
+                Register
+              </NavLink>
+            )}
           </li>
         </ul>
       </div>

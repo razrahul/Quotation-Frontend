@@ -8,7 +8,10 @@ import {
   authRegister,
   login,
   logout,
-  loadUserSuccess
+  loadUserSuccess,
+  updateProfileSucess,
+  deleteProfileSucess,
+  changePasswordSucess,
 } from "../slices/authSlice";
 
 
@@ -63,8 +66,6 @@ export const loadUser = () => async (dispatch: any) => {
   try {
     dispatch(authRequest());
 
-    console.log("loadUser called")
-
     const { data } = await api.get("/auth/me");
 
     // expected: data.user
@@ -73,5 +74,41 @@ export const loadUser = () => async (dispatch: any) => {
     // ❌ token invalid / expired
     localStorage.removeItem("tt_token");
     dispatch(logout());
+  }
+};
+
+export const updateProfile = (payload: any) => async (dispatch: any) => {
+  try {
+    dispatch(authRequest());
+    const { data } = await api.put("/auth/me", payload);
+    dispatch(updateProfileSucess(data));
+  } catch (error: any) {
+    dispatch(authFail(error.response?.data?.message || "Failed to update profile"));
+  }
+};
+
+export const deleteProfile = () => async (dispatch: any) => {
+  try {
+    dispatch(authRequest());
+    const { data } = await api.delete("/auth/me");
+
+     // ✅ token delete
+    localStorage.removeItem("tt_token");
+    dispatch(deleteProfileSucess(data));
+  } catch (error: any) {
+    dispatch(authFail(error.response?.data?.message || "Failed to delete profile"));
+  }
+};
+
+export const changePassword = (payload: any) => async (dispatch: any) => {
+  try {
+    dispatch(authRequest());
+    const { data } = await api.put("/auth/password", payload);
+
+     // ✅ token delete
+    localStorage.removeItem("tt_token");
+    dispatch(changePasswordSucess(data));
+  } catch (error: any) {
+    dispatch(authFail(error.response?.data?.message || "Failed to change password"));
   }
 };
