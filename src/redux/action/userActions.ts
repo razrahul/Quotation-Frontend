@@ -103,7 +103,7 @@ export const deleteProfile = () => async (dispatch: any) => {
 export const changePassword = (payload: any) => async (dispatch: any) => {
   try {
     dispatch(authRequest());
-    const { data } = await api.put("/auth/password", payload);
+    const { data } = await api.post("/auth/me/password", payload);
 
      // ✅ token delete
     localStorage.removeItem("tt_token");

@@ -6,8 +6,10 @@
   h3 {
     font-size: 18px;
     font-weight: 600;
+    color: #111827;
   }
 
+  /* Top card */
   .security-card {
     border: 1px solid #e5e7eb;
     border-radius: 12px;
@@ -15,23 +17,86 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #fff;
+
+    p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    small {
+      color: #6b7280;
+    }
   }
 
   .change-btn {
     background: none;
     border: 1px solid #d1d5db;
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 20px;
     cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f3f4f6;
+    }
   }
 
-  .save-btn {
-    align-self: flex-end;
+  .password-form {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    background: #fff;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .pass_field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%; // ✅ important
+  }
+
+  .pass_label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .pass_input {
+    width: 100%; // ✅ main fix
+    box-sizing: border-box; // ✅ prevent overflow
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background: #f9fafb;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #0b5ed7;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(11, 94, 215, 0.1);
+    }
+  }
+
+  /* Save button */
+  .password-form .pass-btn {
+    grid-column: span 2;
+    justify-self: center;
+    margin-top: 10px;
+
     background: #0b5ed7;
     color: #fff;
     border: none;
-    padding: 10px 18px;
+    padding: 10px 22px;
     border-radius: 20px;
     cursor: pointer;
+    font-size: 14px;
   }
 }
