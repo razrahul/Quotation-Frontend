@@ -17,7 +17,7 @@ export default function PartyDetails({ title, value, onChange }: Props) {
       {/* Country */}
       <div className="field-row">
         <label>Country :</label>
-        <select value="India">
+        <select defaultValue="India">
           <option>India</option>
         </select>
       </div>
@@ -33,6 +33,7 @@ export default function PartyDetails({ title, value, onChange }: Props) {
                 ? "Clients Business Name (required)"
                 : "Your Business Name (required)"
             }
+            required
             value={value.name}
             onChange={(e) => onChange("name", e.target.value)}
           />

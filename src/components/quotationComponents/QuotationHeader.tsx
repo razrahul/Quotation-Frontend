@@ -22,6 +22,7 @@ export default function QuotationHeader({ value, onChange }: Props) {
           </label>
           <input
             className="quote-input"
+            required
             value={value.quoteNo}
             onChange={(e) => onChange("quoteNo", e.target.value)}
           />

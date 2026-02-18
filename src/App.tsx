@@ -12,6 +12,7 @@ import QuotationPage from "./pages/Quotation/QuotationPage";
 
 import AppLayout from "./components/dashboardLayout/AppLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicQutations from "./pages/Quotation/PublicQutations";
 
 // for dashboard
 
@@ -59,7 +60,9 @@ export default function App() {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/disclaimer" element={<DisclaimerPage />} />
-        <Route path="/quotationpage" element={<QuotationPage />} />
+        <Route element={<PublicQutations />}>
+          <Route path="/quotation" element={<QuotationPage />} />
+        </Route>
 
         {/* /* ========== PROTECTED ROUTES ========== */}
 
