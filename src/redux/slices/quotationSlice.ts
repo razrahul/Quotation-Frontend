@@ -49,6 +49,12 @@ const quotationSlice = createSlice({
       state.quotation = action.payload;
     },
 
+    /* NEW */
+    finalizeQuoteSuccess(state) {
+      state.loading = false;
+      state.success = true;
+    },
+
     /* ================= UI: ITEMS TABLE ================= */
     addRow(state) {
       state.items.push({
@@ -81,6 +87,7 @@ export const {
   quotationFail,
   createQuoteSuccess,
   getQuoteSuccess,
+  finalizeQuoteSuccess,
   addRow,
   removeRow,
   updateRow,

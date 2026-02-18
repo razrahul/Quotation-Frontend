@@ -4,6 +4,7 @@ import {
   quotationFail,
   createQuoteSuccess,
   getQuoteSuccess,
+  finalizeQuoteSuccess
 } from "../slices/quotationSlice";
 
 /* ================= CREATE QUOTE ================= */
@@ -39,3 +40,30 @@ export const getQuotationById = (id: number) => async (dispatch: any) => {
     );
   }
 };
+
+
+/* ================= FINALIZE & DOWNLOAD ================= */
+export const finalizeAndDownloadQuote = (payload: any) => async (dispatch: any) => {
+    try {
+      dispatch(quotationRequest());
+
+      const { data } = await api.post("/quote/finalize", payload, {
+        responseType: "blob",
+      });
+
+      // trigger browser download
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${payload.quoteNo}.pdf`;
+      a.click();
+
+      dispatch(finalizeQuoteSuccess());
+    } catch (error: any) {
+      dispatch(
+        quotationFail(
+          error.response?.data?.message || "Failed to download quotation"
+        )
+      );
+    }
+  };

@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.scss";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../../redux/store";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../../redux/store";
 import { loginUser } from "../../../redux/action/userActions";
 import Navbar from "../../../components/layout/Navbar/Navbar";
 
@@ -18,7 +18,23 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const location = useLocation();
+  const naviagte = useNavigate();
+
+  const redirectTo = location.state?.redirectTo;
+  const quotation = location.state?.quotation;
+
   const dispatch = useDispatch<AppDispatch>();
+
+  const { isAuthenticated, success } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  useEffect(() => {
+    if (isAuthenticated && redirectTo) {
+      naviagte(redirectTo, { state: { quotation } });
+    }
+  }, [isAuthenticated, redirectTo, quotation, naviagte]);
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,8 +123,22 @@ export default function Login() {
                 {loading ? "Logging In..." : "Log In"}
               </button>
 
+              {success && !redirectTo && (
+                <p className="login-success">Login successful</p>
+              )}
+
               <p className="switch">
-                Don’t have an account? <Link to="/register">Sign up now</Link>
+                Don’t have an account?{" "}
+                <Link
+                  to="/register"
+                  state={
+                    redirectTo && quotation
+                      ? { redirectTo, quotation }
+                      : undefined
+                  }
+                >
+                  Sign up now
+                </Link>
               </p>
 
               <div className="divider">OR</div>

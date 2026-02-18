@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import "./QuotationPage.scss";
 import UploadLogo from "../../components/quotationComponents/UploadLogo";
@@ -18,10 +19,14 @@ export default function QuotationPage() {
 
   const { loading, error } = useSelector((state: RootState) => state.quotation);
 
+  const navigate = useNavigate();
+
+  const today = new Date().toISOString().split("T")[0];
+
   /* ========= UI STATE (SIMPLE & STABLE) ========= */
   const [quotation, setQuotation] = useState<QuotationFormState>({
     quoteNo: "",
-    quoteDate: "",
+    quoteDate: today,
 
     company: {
       country: "India",
@@ -49,12 +54,12 @@ export default function QuotationPage() {
     discount: { type: "FLAT", value: 0 },
     terms: "",
     notes: "",
-    gstEnabled: true,
+    gstEnabled: false,
   });
 
   const [gstOpen, setGstOpen] = useState(false);
 
-  console.log("🚀 QUOTATION PAGE STATE:", quotation);
+  // console.log("🚀 QUOTATION PAGE STATE:", quotation);
 
   /* ========= CALC ========= */
   const subTotal = quotation.items.reduce((sum, i) => sum + i.qty * i.rate, 0);
@@ -67,11 +72,20 @@ export default function QuotationPage() {
   const grandTotal = subTotal + gstAmount;
 
   /* ========= SAVE ========= */
-  const handleSave = () => {
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     console.log("🔥 handleSave called");
+    e.preventDefault();
+
+    if (!quotation.quoteNo.trim()) {
+      alert("Quotation number is required");
+      return;
+    }
+
+    const finalDate = quotation.quoteDate || today;
+
     const payload = {
       quoteNo: quotation.quoteNo,
-      quoteDate: quotation.quoteDate,
+      quoteDate: finalDate,
 
       payload: {
         company: quotation.company,
@@ -86,12 +100,13 @@ export default function QuotationPage() {
         })),
 
         // ✅ GST final format
-        gst: quotation.gstEnabled
-          ? {
-              percentage: quotation.gst!.percentage,
-              amount: quotation.gst!.amount,
-            }
-          : null,
+        gst:
+          quotation.gstEnabled && quotation.gst
+            ? {
+                percentage: quotation.gst.percentage,
+                amount: quotation.gst.amount,
+              }
+            : null,
 
         // gst: null,
 
@@ -114,11 +129,12 @@ export default function QuotationPage() {
     };
 
     // console.log("🚀 CREATE payload:", payload);
-    dispatch(createQuotation(payload));
+    // dispatch(createQuotation(payload));
+    navigate("/preview", { state: { quotation: payload } });
   };
 
   return (
-    <div className="quotation-page">
+    <form className="quotation-page" onSubmit={handleSave}>
       <div className="top-quotes">
         <UploadLogo />
         <QuotationHeader
@@ -193,9 +209,8 @@ export default function QuotationPage() {
       </div>
 
       <button
-        type="button" // 🔴 YE LINE BAHUT IMPORTANT HAI
+        type="submit" // 🔴 YE LINE BAHUT IMPORTANT HAI
         className="save-btn"
-        onClick={handleSave}
         disabled={loading}
       >
         {loading ? "Saving..." : "Save & Continue"}
@@ -216,6 +231,6 @@ export default function QuotationPage() {
           }))
         }
       />
-    </div>
+    </form>
   );
 }

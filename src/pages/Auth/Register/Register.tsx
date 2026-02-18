@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Register.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createUser } from "../../../redux/action/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../redux/store";
 import Navbar from "../../../components/layout/Navbar/Navbar";
+import type { RootState } from "../../../redux/store";
 
 type RegisterFormSubmit = {
   name: string;
@@ -22,7 +23,21 @@ export default function Register() {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const location = useLocation();
+  const naviagte = useNavigate();
+
+  const redirectTo = location.state?.redirectTo;
+  const quotation = location.state?.quotation;
+
   const dispatch = useDispatch<AppDispatch>();
+
+  const { isAuthenticated, success } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated && redirectTo) {
+      naviagte(redirectTo, { state: { quotation } });
+    }
+  }, [isAuthenticated, redirectTo, quotation, naviagte]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -148,8 +163,22 @@ export default function Register() {
                 {loading ? "Registering..." : "Register"}
               </button>
 
+              {success && !redirectTo && (
+                <p className="register-success">Register successful</p>
+              )}
+
               <p className="switch">
-                Already a user? <Link to="/login">Login Here</Link>
+                Already a user?{" "}
+                <Link
+                  to="/login"
+                  state={
+                    redirectTo && quotation
+                      ? { redirectTo, quotation }
+                      : undefined
+                  }
+                >
+                  Login Here
+                </Link>
               </p>
 
               <div className="divider">OR</div>
