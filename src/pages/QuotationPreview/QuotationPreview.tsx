@@ -147,7 +147,10 @@ export default function QuotationPreview() {
 
           {/* ACTIONS */}
           <div className="preview-actions">
-            <button className="edit-btn" onClick={() => navigate(-1)}>
+            <button
+              className="edit-btn"
+              onClick={() => navigate("/quotation", { state: { quotation: data } })}
+            >
               Edit
             </button>
 

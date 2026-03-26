@@ -40,3 +40,26 @@ export const formatPhoneWithCountryCode = (
 
   return `${getCountryPhoneCode(countryName)} ${trimmedPhone}`;
 };
+
+export const stripCountryPhoneCode = (
+  countryName: string,
+  phoneNumber?: string | null,
+) => {
+  const trimmedPhone = phoneNumber?.trim() ?? "";
+
+  if (!trimmedPhone) {
+    return "";
+  }
+
+  const phoneCode = getCountryPhoneCode(countryName);
+
+  if (trimmedPhone.startsWith(`${phoneCode} `)) {
+    return trimmedPhone.slice(phoneCode.length + 1);
+  }
+
+  if (trimmedPhone.startsWith(phoneCode)) {
+    return trimmedPhone.slice(phoneCode.length).trim();
+  }
+
+  return trimmedPhone;
+};

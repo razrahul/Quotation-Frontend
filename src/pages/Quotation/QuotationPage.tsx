@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "./QuotationPage.scss";
 import UploadLogo from "../../components/quotationComponents/UploadLogo";
@@ -13,47 +13,54 @@ import GSTPopup from "../../components/quotationComponents/GSTSection";
 import type { RootState } from "../../redux/store";
 import type { QuotationFormState } from "../../types/quotation.types";
 import { formatPhoneWithCountryCode } from "../../utils/countryOptions";
+import { mapQuoteToForm } from "../../utils/mapQuoteToForm";
 
 export default function QuotationPage() {
   const { loading, error } = useSelector((state: RootState) => state.quotation);
 
+  const location = useLocation();
   const navigate = useNavigate();
 
   const today = new Date().toISOString().split("T")[0];
+  const incomingQuotation = location.state?.quotation;
 
   /* ========= UI STATE (SIMPLE & STABLE) ========= */
   const [quotation, setQuotation] = useState<QuotationFormState>({
-    quoteName: "",
-    quoteNo: "",
-    quoteDate: today,
+    ...(incomingQuotation
+      ? mapQuoteToForm(incomingQuotation)
+      : {
+          quoteName: "",
+          quoteNo: "",
+          quoteDate: today,
 
-    company: {
-      country: "India",
-      name: "",
-      phone: "",
-      gstin: null,
-      address: "",
-      city: "",
-      state: "",
-    },
+          company: {
+            country: "India",
+            name: "",
+            phone: "",
+            gstin: null,
+            address: "",
+            city: "",
+            state: "",
+          },
 
-    client: {
-      country: "India",
-      name: "",
-      phone: "",
-      gstin: null,
-      address: "",
-      city: "",
-      state: "",
-    },
+          client: {
+            country: "India",
+            name: "",
+            phone: "",
+            gstin: null,
+            address: "",
+            city: "",
+            state: "",
+          },
 
-    items: [{ name: "", qty: 1, unit: "Service", rate: 0 }],
+          items: [{ name: "", qty: 1, unit: "Service", rate: 0 }],
 
-    gst: null,
-    discount: { type: "FLAT", value: 0 },
-    terms: "",
-    notes: "",
-    gstEnabled: false,
+          gst: null,
+          discount: { type: "FLAT", value: 0 },
+          terms: "",
+          notes: "",
+          gstEnabled: false,
+        }),
   });
 
   const [gstOpen, setGstOpen] = useState(false);
