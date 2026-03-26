@@ -29,7 +29,7 @@ export default function QuotationPreview() {
     );
   }
 
-  const { quoteNo, quoteDate, payload } = data;
+  const { quoteName = "Quotation", quoteNo, quoteDate, payload } = data;
 
   const handleDownload = async () => {
     // auth status abhi check hi nahi hua
@@ -66,7 +66,7 @@ export default function QuotationPreview() {
           {/* HEADER */}
           <div className="preview-header">
             <div>
-              <h2>Quotation</h2>
+              <h2>{quoteName}</h2>
               <p>No: {quoteNo}</p>
               <p>Date: {quoteDate}</p>
             </div>

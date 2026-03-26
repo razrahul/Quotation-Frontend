@@ -3,6 +3,7 @@ import "./PersonalInfo.scss";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../../redux/store";
 import { updateProfile } from "../../../redux/action/userActions";
+import { COUNTRY_OPTIONS } from "../../../utils/countryOptions";
 
 const PersonalInfo = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -67,12 +68,18 @@ const PersonalInfo = () => {
 
         <div className="per_field">
           <label className="per_label">Country</label>
-          <input
+          <select
             className="per_input"
             disabled={!edit}
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-          />
+          >
+            {COUNTRY_OPTIONS.map((countryOption) => (
+              <option key={countryOption.value} value={countryOption.value}>
+                {countryOption.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 

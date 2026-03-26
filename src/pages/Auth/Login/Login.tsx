@@ -31,8 +31,12 @@ export default function Login() {
   );
 
   useEffect(() => {
-    if (isAuthenticated && redirectTo) {
+    if (!isAuthenticated) return;
+
+    if (redirectTo) {
       naviagte(redirectTo, { state: { quotation } });
+    } else {
+      naviagte("/dashboard");
     }
   }, [isAuthenticated, redirectTo, quotation, naviagte]);
 

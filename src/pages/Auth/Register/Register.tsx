@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../redux/store";
 import Navbar from "../../../components/layout/Navbar/Navbar";
 import type { RootState } from "../../../redux/store";
+import { COUNTRY_OPTIONS } from "../../../utils/countryOptions";
 
 type RegisterFormSubmit = {
   name: string;
@@ -97,9 +98,11 @@ export default function Register() {
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               >
-                <option value="India">🇮🇳 India</option>
-                <option value="USA">🇺🇸 USA</option>
-                <option value="UK">🇬🇧 UK</option>
+                {COUNTRY_OPTIONS.map((countryOption) => (
+                  <option key={countryOption.value} value={countryOption.value}>
+                    {countryOption.label}
+                  </option>
+                ))}
               </select>
 
               <div className="field">

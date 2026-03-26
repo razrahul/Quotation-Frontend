@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import "./QuotationPage.scss";
@@ -10,13 +10,11 @@ import ItemsTable from "../../components/quotationComponents/ItemsTable";
 import SummarySection from "../../components/quotationComponents/SummarySection";
 import GSTPopup from "../../components/quotationComponents/GSTSection";
 
-import type { RootState, AppDispatch } from "../../redux/store";
-import { createQuotation } from "../../redux/action/quotationActions";
+import type { RootState } from "../../redux/store";
 import type { QuotationFormState } from "../../types/quotation.types";
+import { formatPhoneWithCountryCode } from "../../utils/countryOptions";
 
 export default function QuotationPage() {
-  const dispatch = useDispatch<AppDispatch>();
-
   const { loading, error } = useSelector((state: RootState) => state.quotation);
 
   const navigate = useNavigate();
@@ -25,6 +23,7 @@ export default function QuotationPage() {
 
   /* ========= UI STATE (SIMPLE & STABLE) ========= */
   const [quotation, setQuotation] = useState<QuotationFormState>({
+    quoteName: "",
     quoteNo: "",
     quoteDate: today,
 
@@ -71,6 +70,13 @@ export default function QuotationPage() {
 
   const grandTotal = subTotal + gstAmount;
 
+  const buildPartyPayload = (
+    party: QuotationFormState["company"] | QuotationFormState["client"],
+  ) => ({
+    ...party,
+    phone: formatPhoneWithCountryCode(party.country, party.phone),
+  });
+
   /* ========= SAVE ========= */
   const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     console.log("🔥 handleSave called");
@@ -84,12 +90,13 @@ export default function QuotationPage() {
     const finalDate = quotation.quoteDate || today;
 
     const payload = {
+      quoteName: quotation.quoteName.trim() || "Quotation",
       quoteNo: quotation.quoteNo,
       quoteDate: finalDate,
 
       payload: {
-        company: quotation.company,
-        client: quotation.client,
+        company: buildPartyPayload(quotation.company),
+        client: buildPartyPayload(quotation.client),
 
         items: quotation.items.map((i) => ({
           name: i.name,

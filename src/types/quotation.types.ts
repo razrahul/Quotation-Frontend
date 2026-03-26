@@ -17,6 +17,7 @@ export type Party = {
 };
 
 export type QuotationFormState = {
+  quoteName: string;
   quoteNo: string;
   quoteDate: string;
   company: Party;

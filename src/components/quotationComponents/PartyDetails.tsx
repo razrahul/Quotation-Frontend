@@ -1,4 +1,8 @@
 import type { Party } from "../../types/quotation.types";
+import {
+  COUNTRY_OPTIONS,
+  getCountryPhoneCode,
+} from "../../utils/countryOptions";
 import "./PartyDetails.scss";
 
 type Props = {
@@ -9,6 +13,7 @@ type Props = {
 
 export default function PartyDetails({ title, value, onChange }: Props) {
   const isClient = title === "Client Details";
+  const phoneCode = getCountryPhoneCode(value.country);
 
   return (
     <div className="party-card">
@@ -17,8 +22,16 @@ export default function PartyDetails({ title, value, onChange }: Props) {
       {/* Country */}
       <div className="field-row">
         <label>Country :</label>
-        <select defaultValue="India">
-          <option>India</option>
+        <select
+          className="party-input"
+          value={value.country}
+          onChange={(e) => onChange("country", e.target.value)}
+        >
+          {COUNTRY_OPTIONS.map((country) => (
+            <option key={country.value} value={country.value}>
+              {country.label}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -47,7 +60,7 @@ export default function PartyDetails({ title, value, onChange }: Props) {
       <div className="field-row">
         <label>Phone :</label>
         <div className="phone-field">
-          <span className="country-code">IN +91</span>
+          <span className="country-code">{phoneCode}</span>
           <input
             className="party-input"
             placeholder={
