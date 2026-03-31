@@ -58,7 +58,16 @@ const InvoiceCard = ({ quote }: Props) => {
           <span>First Item: {firstItemName}</span>
         </div>
       </div>
-      <button onClick={() => navigate("/preview", { state: { quotation: quote } })}>
+      <button
+        onClick={() =>
+          navigate("/preview", {
+            state: {
+              quotation: quote,
+              originalQuotation: quote,
+            },
+          })
+        }
+      >
         View Invoice
       </button>
     </div>

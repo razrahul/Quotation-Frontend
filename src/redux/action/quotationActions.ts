@@ -17,6 +17,7 @@ export const createQuotation = (payload: any) => async (dispatch:any) => {
     const { data } = await api.post("/quote", payload);
 
     dispatch(createQuoteSuccess(data));
+    return data;
   } catch (error: any) {
     dispatch(
       quotationFail(
@@ -34,6 +35,7 @@ export const getQuotationById = (id: number) => async (dispatch: any) => {
     const { data } = await api.get(`/quote/${id}`);
 
     dispatch(getQuoteSuccess(data));
+    return data;
   } catch (error: any) {
     dispatch(
       quotationFail(
@@ -61,12 +63,60 @@ export const finalizeAndDownloadQuote = (payload: any) => async (dispatch: any) 
       a.click();
 
       dispatch(finalizeQuoteSuccess());
+      return true;
     } catch (error: any) {
       dispatch(
         quotationFail(
           error.response?.data?.message || "Failed to download quotation"
         )
       );
+    }
+  };
+
+export const downloadQuoteById =
+  (quoteId: number, quoteNo: string) => async (dispatch: any) => {
+    try {
+      dispatch(quotationRequest());
+
+      const { data } = await api.get(`/quote/${quoteId}/download`, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${quoteNo}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      dispatch(finalizeQuoteSuccess());
+      return true;
+    } catch (error: any) {
+      dispatch(
+        quotationFail(
+          error.response?.data?.message || "Failed to download quotation"
+        )
+      );
+      return false;
+    }
+  };
+
+export const updateQuotation =
+  (id: number, payload: any) => async (dispatch: any) => {
+    try {
+      dispatch(quotationRequest());
+
+      const { data } = await api.put(`/quote/${id}`, payload);
+
+      dispatch(getQuoteSuccess(data));
+      return data;
+    } catch (error: any) {
+      dispatch(
+        quotationFail(
+          error.response?.data?.message || "Failed to update quotation"
+        )
+      );
+      return null;
     }
   };
 

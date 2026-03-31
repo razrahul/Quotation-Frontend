@@ -98,6 +98,13 @@
   }
 }
 
+.preview-note {
+  margin: 0 0 18px;
+  color: #9a3412;
+  font-size: 14px;
+  text-align: right;
+}
+
 /* ACTIONS */
 .preview-actions {
   display: flex;
@@ -119,6 +126,13 @@
     &:hover {
       transform: translateY(-1px);
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      transform: none;
+      opacity: 0.6;
+      box-shadow: none;
+    }
   }
 
   .edit-btn {
@@ -131,6 +145,17 @@
       background: #eef5fb;
       border-color: rgba(30, 79, 128, 0.35);
       box-shadow: 0 6px 14px rgba(30, 79, 128, 0.12);
+    }
+  }
+
+  .update-btn {
+    background: #e17b16;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(225, 123, 22, 0.2);
+
+    &:hover {
+      background: #c96609;
+      box-shadow: 0 12px 24px rgba(201, 102, 9, 0.24);
     }
   }
 

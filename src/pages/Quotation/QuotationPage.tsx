@@ -23,8 +23,8 @@ export default function QuotationPage() {
 
   const today = new Date().toISOString().split("T")[0];
   const incomingQuotation = location.state?.quotation;
+  const originalQuotation = location.state?.originalQuotation;
 
-  /* ========= UI STATE (SIMPLE & STABLE) ========= */
   const [quotation, setQuotation] = useState<QuotationFormState>({
     ...(incomingQuotation
       ? mapQuoteToForm(incomingQuotation)
@@ -32,7 +32,6 @@ export default function QuotationPage() {
           quoteName: "",
           quoteNo: "",
           quoteDate: today,
-
           company: {
             country: "India",
             name: "",
@@ -42,7 +41,6 @@ export default function QuotationPage() {
             city: "",
             state: "",
           },
-
           client: {
             country: "India",
             name: "",
@@ -52,9 +50,7 @@ export default function QuotationPage() {
             city: "",
             state: "",
           },
-
           items: [{ name: "", qty: 1, unit: "Service", rate: 0 }],
-
           gst: null,
           discount: { type: "FLAT", value: 0 },
           terms: "",
@@ -65,16 +61,11 @@ export default function QuotationPage() {
 
   const [gstOpen, setGstOpen] = useState(false);
 
-  // console.log("🚀 QUOTATION PAGE STATE:", quotation);
-
-  /* ========= CALC ========= */
-  const subTotal = quotation.items.reduce((sum, i) => sum + i.qty * i.rate, 0);
-
+  const subTotal = quotation.items.reduce((sum, item) => sum + item.qty * item.rate, 0);
   const gstAmount =
     quotation.gstEnabled && quotation.gst
       ? (subTotal * quotation.gst.percentage) / 100
       : 0;
-
   const grandTotal = subTotal + gstAmount;
 
   const buildPartyPayload = (
@@ -84,36 +75,31 @@ export default function QuotationPage() {
     phone: formatPhoneWithCountryCode(party.country, party.phone),
   });
 
-  /* ========= SAVE ========= */
-  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("🔥 handleSave called");
-    e.preventDefault();
-
-    if (!quotation.quoteNo.trim()) {
-      alert("Quotation number is required");
-      return;
-    }
-
+  const buildPreviewQuotation = () => {
     const finalDate = quotation.quoteDate || today;
+    const baseQuote = originalQuotation ?? incomingQuotation;
 
-    const payload = {
+    return {
+      ...(baseQuote?.id ? { id: baseQuote.id } : {}),
+      ...(baseQuote?.userId ? { userId: baseQuote.userId } : {}),
+      ...(baseQuote?.status ? { status: baseQuote.status } : {}),
+      currency: baseQuote?.currency || "INR",
+      ...(baseQuote?.createdAt ? { createdAt: baseQuote.createdAt } : {}),
+      ...(baseQuote?.updatedAt ? { updatedAt: baseQuote.updatedAt } : {}),
       quoteName: quotation.quoteName.trim() || "Quotation",
       quoteNo: quotation.quoteNo,
       quoteDate: finalDate,
-
+      totalAmount: String(grandTotal),
       payload: {
         company: buildPartyPayload(quotation.company),
         client: buildPartyPayload(quotation.client),
-
-        items: quotation.items.map((i) => ({
-          name: i.name,
-          qty: i.qty,
-          unit: i.unit,
-          rate: i.rate,
-          amount: i.qty * i.rate,
+        items: quotation.items.map((item) => ({
+          name: item.name,
+          qty: item.qty,
+          unit: item.unit,
+          rate: item.rate,
+          amount: item.qty * item.rate,
         })),
-
-        // ✅ GST final format
         gst:
           quotation.gstEnabled && quotation.gst
             ? {
@@ -121,30 +107,37 @@ export default function QuotationPage() {
                 amount: quotation.gst.amount,
               }
             : null,
-
-        // gst: null,
-
         discount: {
           type: "FLAT",
           value: 0,
           amount: 0,
         },
-
         subTotal,
         grandTotal,
-
         terms: quotation.terms,
         notes: quotation.notes,
-
         meta: {
           showTotalInWords: true,
         },
       },
     };
+  };
 
-    // console.log("🚀 CREATE payload:", payload);
-    // dispatch(createQuotation(payload));
-    navigate("/preview", { state: { quotation: payload } });
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!quotation.quoteNo.trim()) {
+      alert("Quotation number is required");
+      return;
+    }
+
+    navigate("/preview", {
+      state: {
+        quotation: buildPreviewQuotation(),
+        originalQuotation:
+          originalQuotation ?? (incomingQuotation?.id ? incomingQuotation : undefined),
+      },
+    });
   };
 
   return (
@@ -153,7 +146,7 @@ export default function QuotationPage() {
         <UploadLogo />
         <QuotationHeader
           value={quotation}
-          onChange={(k, v) => setQuotation((prev) => ({ ...prev, [k]: v }))}
+          onChange={(key, value) => setQuotation((prev) => ({ ...prev, [key]: value }))}
         />
       </div>
 
@@ -161,10 +154,10 @@ export default function QuotationPage() {
         <PartyDetails
           title="Your Details"
           value={quotation.company}
-          onChange={(k, v) =>
+          onChange={(key, value) =>
             setQuotation((prev) => ({
               ...prev,
-              company: { ...prev.company, [k]: v },
+              company: { ...prev.company, [key]: value },
             }))
           }
         />
@@ -172,10 +165,10 @@ export default function QuotationPage() {
         <PartyDetails
           title="Client Details"
           value={quotation.client}
-          onChange={(k, v) =>
+          onChange={(key, value) =>
             setQuotation((prev) => ({
               ...prev,
-              client: { ...prev.client, [k]: v },
+              client: { ...prev.client, [key]: value },
             }))
           }
         />
@@ -183,27 +176,25 @@ export default function QuotationPage() {
 
       <ItemsTable
         items={quotation.items}
-        onChange={(i, f, v) => {
-          const copy = [...quotation.items];
-          (copy[i] as any)[f] = v;
-          setQuotation({ ...quotation, items: copy });
+        onChange={(index, field, value) => {
+          const nextItems = [...quotation.items];
+          (nextItems[index] as any)[field] = value;
+          setQuotation({ ...quotation, items: nextItems });
         }}
         onAdd={() =>
           setQuotation((prev) => ({
             ...prev,
-            items: [
-              ...prev.items,
-              { name: "", qty: 1, unit: "Service", rate: 0 },
-            ],
+            items: [...prev.items, { name: "", qty: 1, unit: "Service", rate: 0 }],
           }))
         }
-        onRemove={(i) =>
+        onRemove={(index) =>
           setQuotation((prev) => ({
             ...prev,
-            items: prev.items.filter((_, idx) => idx !== i),
+            items: prev.items.filter((_, itemIndex) => itemIndex !== index),
           }))
         }
       />
+
       <div className="quote-footer">
         <div className="summary-actions">
           <button
@@ -222,11 +213,7 @@ export default function QuotationPage() {
         </div>
       </div>
 
-      <button
-        type="submit" // 🔴 YE LINE BAHUT IMPORTANT HAI
-        className="save-btn"
-        disabled={loading}
-      >
+      <button type="submit" className="save-btn" disabled={loading}>
         {loading ? "Saving..." : "Save & Continue"}
       </button>
 
