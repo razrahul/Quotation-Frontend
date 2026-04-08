@@ -9,6 +9,25 @@ import {
   getQuotationListbyProfileSuccess
 } from "../slices/quotationSlice";
 
+async function getQuotationErrorMessage(
+  error: any,
+  fallbackMessage: string
+): Promise<string> {
+  const responseData = error?.response?.data;
+
+  if (responseData instanceof Blob) {
+    try {
+      const text = await responseData.text();
+      const parsed = JSON.parse(text);
+      return parsed?.message || fallbackMessage;
+    } catch (_) {
+      return fallbackMessage;
+    }
+  }
+
+  return error?.response?.data?.message || fallbackMessage;
+}
+
 /* ================= CREATE QUOTE ================= */
 export const createQuotation = (payload: any) => async (dispatch:any) => {
   try {
@@ -65,10 +84,12 @@ export const finalizeAndDownloadQuote = (payload: any) => async (dispatch: any) 
       dispatch(finalizeQuoteSuccess());
       return true;
     } catch (error: any) {
+      const message = await getQuotationErrorMessage(
+        error,
+        "Failed to download quotation"
+      );
       dispatch(
-        quotationFail(
-          error.response?.data?.message || "Failed to download quotation"
-        )
+        quotationFail(message)
       );
     }
   };
@@ -92,10 +113,12 @@ export const downloadQuoteById =
       dispatch(finalizeQuoteSuccess());
       return true;
     } catch (error: any) {
+      const message = await getQuotationErrorMessage(
+        error,
+        "Failed to download quotation"
+      );
       dispatch(
-        quotationFail(
-          error.response?.data?.message || "Failed to download quotation"
-        )
+        quotationFail(message)
       );
       return false;
     }
