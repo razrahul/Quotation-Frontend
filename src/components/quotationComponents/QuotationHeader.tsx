@@ -1,8 +1,14 @@
-import type { QuotationFormState } from "../../types/quotation.types";
+import { useEffect, useRef, useState } from "react";
+import type { KeyboardEvent } from "react";
+
+import type { QuotationFormState, QuoteField } from "../../types/quotation.types";
 
 import "./QuotationHeader.scss";
 
-type HeaderValue = Pick<QuotationFormState, "quoteNo" | "quoteDate">;
+type HeaderValue = Pick<
+  QuotationFormState,
+  "quoteName" | "quoteNo" | "quoteDate" | "validUntil" | "headerFields"
+>;
 
 type Props = {
   value: HeaderValue;
@@ -10,11 +16,60 @@ type Props = {
 };
 
 export default function QuotationHeader({ value, onChange }: Props) {
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const titleInputRef = useRef<HTMLInputElement>(null);
+  const displayTitle = value.quoteName.trim() || "Quotation";
+  const titleInputWidth = `${Math.max(displayTitle.length, 10)}ch`;
+
+  useEffect(() => {
+    if (isEditingTitle) {
+      titleInputRef.current?.focus();
+      titleInputRef.current?.select();
+    }
+  }, [isEditingTitle]);
+
+  const handleTitleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" || event.key === "Escape") {
+      setIsEditingTitle(false);
+    }
+  };
+
+  const updateField = (index: number, patch: Partial<QuoteField>) => {
+    const nextFields = value.headerFields.map((field, fieldIndex) =>
+      fieldIndex === index ? { ...field, ...patch } : field,
+    );
+    onChange("headerFields", nextFields);
+  };
+
   return (
     <div className="quotation-header">
       <div className="title">
-        Quotation <span className="edit">✎</span>
+        {isEditingTitle ? (
+          <input
+            ref={titleInputRef}
+            type="text"
+            className="title-input"
+            value={value.quoteName}
+            placeholder="Quotation"
+            maxLength={100}
+            style={{ width: titleInputWidth }}
+            onChange={(event) => onChange("quoteName", event.target.value)}
+            onBlur={() => setIsEditingTitle(false)}
+            onKeyDown={handleTitleKeyDown}
+          />
+        ) : (
+          <span>{displayTitle}</span>
+        )}
+        <button
+          type="button"
+          className="edit"
+          aria-label="Edit quotation title"
+          onClick={() => setIsEditingTitle(true)}
+        >
+          {"\u270E"}
+        </button>
       </div>
+
       <div className="fields">
         <div className="field">
           <label>
@@ -24,7 +79,7 @@ export default function QuotationHeader({ value, onChange }: Props) {
             className="quote-input"
             required
             value={value.quoteNo}
-            onChange={(e) => onChange("quoteNo", e.target.value)}
+            onChange={(event) => onChange("quoteNo", event.target.value)}
           />
         </div>
 
@@ -36,13 +91,60 @@ export default function QuotationHeader({ value, onChange }: Props) {
             type="date"
             className="quote-input"
             value={value.quoteDate}
-            onChange={(e) => onChange("quoteDate", e.target.value)}
+            onChange={(event) => onChange("quoteDate", event.target.value)}
           />
         </div>
 
+        <div className="field">
+          <label>Valid Till</label>
+          <input
+            type="date"
+            className="quote-input"
+            value={value.validUntil}
+            onChange={(event) => onChange("validUntil", event.target.value)}
+          />
+        </div>
+
+        {value.headerFields.map((field, index) => (
+          <div className="field field-dual" key={`${field.label}-${index}`}>
+            <input
+              className="quote-input"
+              placeholder="Field Name"
+              value={field.label}
+              onChange={(event) => updateField(index, { label: event.target.value })}
+            />
+            <div className="field-inline">
+              <input
+                className="quote-input"
+                placeholder="Value"
+                value={field.value}
+                onChange={(event) => updateField(index, { value: event.target.value })}
+              />
+              <button
+                type="button"
+                className="remove-field"
+                onClick={() =>
+                  onChange(
+                    "headerFields",
+                    value.headerFields.filter((_, fieldIndex) => fieldIndex !== index),
+                  )
+                }
+              >
+                x
+              </button>
+            </div>
+          </div>
+        ))}
+
         <div className="links">
-          <span>＋ Add due date</span>
-          <span>＋ Add Custom Fields</span>
+          <button
+            type="button"
+            onClick={() =>
+              onChange("headerFields", [...value.headerFields, { label: "", value: "" }])
+            }
+          >
+            + Add Custom Fields
+          </button>
         </div>
       </div>
     </div>

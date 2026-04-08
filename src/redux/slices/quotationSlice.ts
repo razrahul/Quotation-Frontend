@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { QuoteApiResponse } from "../../types/quotationApi.types";
+import type { QuoteApiResponse, QuoteRecord } from "../../types/quotationApi.types";
 
 type QuotationSliceState = {
   loading: boolean;
   quotation: QuoteApiResponse | null;
+  quotationList: QuoteRecord[] | null;
   error: string | null;
   success: boolean;
   items: any[];
@@ -13,6 +14,7 @@ type QuotationSliceState = {
 const initialState: QuotationSliceState = {
   loading: false,
   quotation: null,
+  quotationList: null,
   error: null,
   success: false,
   items: [],
@@ -79,6 +81,11 @@ const quotationSlice = createSlice({
     clearError(state) {
       state.error = null;
     },
+
+    getQuotationListbyProfileSuccess(state, action) {
+      state.loading = false;
+      state.quotationList = action.payload;
+    },
   },
 });
 
@@ -92,6 +99,7 @@ export const {
   removeRow,
   updateRow,
   clearError,
+  getQuotationListbyProfileSuccess,
 } = quotationSlice.actions;
 
 export default quotationSlice.reducer;

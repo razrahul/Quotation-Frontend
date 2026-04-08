@@ -11,7 +11,7 @@ export default function Quotation() {
   return (
     <div className="quotation-page">
       <div className="quote-header">
-        <UploadLogo />
+        <UploadLogo value={null} onChange={() => undefined} />
 
         {/* <QuotationHeader /> */}
       </div>

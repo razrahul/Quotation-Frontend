@@ -1,4 +1,9 @@
 import type { Party } from "../../types/quotation.types";
+import {
+  COUNTRY_OPTIONS,
+  INDIAN_STATE_OPTIONS,
+  getCountryPhoneCode,
+} from "../../utils/countryOptions";
 import "./PartyDetails.scss";
 
 type Props = {
@@ -9,106 +14,114 @@ type Props = {
 
 export default function PartyDetails({ title, value, onChange }: Props) {
   const isClient = title === "Client Details";
+  const phoneCode = getCountryPhoneCode(value.country);
+  const usesStateSelect = value.country === "India";
 
   return (
     <div className="party-card">
       <div className="header">{title}</div>
 
-      {/* Country */}
       <div className="field-row">
-        <label>Country :</label>
-        <select defaultValue="India">
-          <option>India</option>
+        <label>Country</label>
+        <select
+          className="party-input"
+          value={value.country}
+          onChange={(event) => onChange("country", event.target.value)}
+        >
+          {COUNTRY_OPTIONS.map((country) => (
+            <option key={country.value} value={country.value}>
+              {country.label}
+            </option>
+          ))}
         </select>
       </div>
 
-      {/* Name */}
       <div className="field-row">
-        <label>Name :</label>
+        <label>Name</label>
         <div className="field-control">
           <input
             className="party-input"
             placeholder={
-              isClient
-                ? "Clients Business Name (required)"
-                : "Your Business Name (required)"
+              isClient ? "Clients Business Name (required)" : "Your Business Name (required)"
             }
             required
             value={value.name}
-            onChange={(e) => onChange("name", e.target.value)}
+            onChange={(event) => onChange("name", event.target.value)}
           />
           {!value.name && (
-            <span className="error-text">Your Business Name is required.</span>
+            <span className="error-text">
+              {isClient ? "Clients business name is required." : "Your business name is required."}
+            </span>
           )}
         </div>
       </div>
 
-      {/* Phone */}
       <div className="field-row">
-        <label>Phone :</label>
+        <label>Phone</label>
         <div className="phone-field">
-          <span className="country-code">IN +91</span>
+          <span className="country-code">{phoneCode}</span>
           <input
             className="party-input"
-            placeholder={
-              isClient ? "Clients Phone (optional)" : "Your Phone (optional)"
-            }
+            placeholder={isClient ? "Clients Phone" : "Your Phone"}
             value={value.phone ?? ""}
-            onChange={(e) => onChange("phone", e.target.value)}
+            onChange={(event) => onChange("phone", event.target.value)}
           />
         </div>
       </div>
 
-      {/* GSTIN */}
       <div className="field-row">
-        <label>GSTIN :</label>
+        <label>GSTIN</label>
         <input
           className="party-input"
-          placeholder={
-            isClient ? "Clients GSTIN (optional)" : "Your GSTIN (optional)"
-          }
+          placeholder={isClient ? "Clients GSTIN (optional)" : "Your GSTIN (optional)"}
           value={value.gstin ?? ""}
-          onChange={(e) => onChange("gstin", e.target.value || null)}
+          onChange={(event) => onChange("gstin", event.target.value || null)}
         />
       </div>
 
-      {/* Address */}
       <div className="field-row">
-        <label>Address :</label>
-        <input
-          className="party-input"
-          placeholder={
-            isClient ? "Clients Address (optional)" : "Your Address (optional)"
-          }
+        <label>Address</label>
+        <textarea
+          className="party-input textarea"
+          placeholder={isClient ? "Clients Address (optional)" : "Your Address (optional)"}
           value={value.address ?? ""}
-          onChange={(e) => onChange("address", e.target.value)}
+          onChange={(event) => onChange("address", event.target.value)}
         />
       </div>
 
-      {/* City */}
       <div className="field-row">
-        <label>City :</label>
+        <label>City</label>
         <input
           className="party-input"
-          placeholder={
-            isClient ? "Clients City (optional)" : "Your City (optional)"
-          }
+          placeholder={isClient ? "Clients City" : "Your City"}
           value={value.city ?? ""}
-          onChange={(e) => onChange("city", e.target.value)}
+          onChange={(event) => onChange("city", event.target.value)}
         />
       </div>
 
-      {/* State */}
       <div className="field-row">
-        <label>State :</label>
-        <input
-          className="party-input"
-          placeholder={
-            isClient ? "Clients State (optional)" : "Your State (optional)"
-          }
-          value={value.state ?? ""}
-          onChange={(e) => onChange("state", e.target.value)}
-        />
+        <label>State</label>
+        {usesStateSelect ? (
+          <select
+            className="party-input"
+            value={value.state ?? ""}
+            onChange={(event) => onChange("state", event.target.value)}
+          >
+            <option value="">Select State</option>
+            {INDIAN_STATE_OPTIONS.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            className="party-input"
+            placeholder={isClient ? "Clients State" : "Your State"}
+            value={value.state ?? ""}
+            onChange={(event) => onChange("state", event.target.value)}
+          />
+        )}
       </div>
     </div>
   );
