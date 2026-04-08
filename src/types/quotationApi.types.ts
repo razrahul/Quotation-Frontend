@@ -21,8 +21,15 @@ export type QuoteRecord = {
     grandTotal?: number;
     terms?: string;
     notes?: string;
+    companyLogo?: QuotationFormState["companyLogo"];
+    signature?: QuotationFormState["signature"];
+    headerFields?: QuotationFormState["headerFields"];
+    additionalFields?: QuotationFormState["additionalFields"];
+    design?: QuotationFormState["design"];
+    taxConfig?: QuotationFormState["gstConfig"];
     meta?: {
       showTotalInWords?: boolean;
+      validUntil?: string;
     };
   };
 };
@@ -62,8 +69,6 @@ export type MeResponse = {
   message: string;
   data: User;
 };
-
-
 
 export type UserResponce = {
   success: boolean;

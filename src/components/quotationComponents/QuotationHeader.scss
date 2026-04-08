@@ -4,17 +4,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  min-width: 320px;
+  gap: 16px;
+  min-width: min(100%, 420px);
 
   .title {
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 34px;
+    font-weight: 700;
     color: $text-dark;
-    border-bottom: 1px dotted $border;
+    border-bottom: 1px solid rgba($primary-blue, 0.18);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 12px;
+    gap: 10px;
+    padding-bottom: 6px;
   }
 
   .title-input {
@@ -44,20 +45,24 @@
   .fields {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
+    background: #fff;
   }
 
   .field {
     display: grid;
-    grid-template-columns: 110px 1fr;
+    grid-template-columns: 132px 1fr;
     align-items: center;
-    column-gap: 12px;
+    column-gap: 16px;
 
     label {
       font-size: 12px;
       color: $text-muted;
       text-align: left;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .required {
@@ -65,29 +70,59 @@
     }
   }
 
+  .field-dual {
+    grid-template-columns: 132px 1fr;
+
+    > input {
+      margin-right: 10px;
+    }
+  }
+
+  .field-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .quote-input {
     width: 100%;
-    padding: 6px 0;
+    padding: 8px 0;
     border: none;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid rgba($primary-blue, 0.16);
     border-radius: 0;
     font-size: 14px;
     outline: none;
     background: transparent;
 
     &:focus {
-      border-bottom-color: $primary;
+      border-bottom-color: $primary-blue;
     }
   }
 
-  .links {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 13px;
+  .remove-field {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(15, 76, 129, 0.08);
     color: $primary-blue;
     cursor: pointer;
-    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .links {
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      border: none;
+      background: transparent;
+      color: $primary-blue;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 0;
+    }
   }
 }

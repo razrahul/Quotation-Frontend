@@ -8,12 +8,7 @@ type Props = {
   onRemove: (i: number) => void;
 };
 
-export default function ItemsTable({
-  items,
-  onChange,
-  onAdd,
-  onRemove,
-}: Props) {
+export default function ItemsTable({ items, onChange, onAdd, onRemove }: Props) {
   return (
     <>
       <table className="items-table">
@@ -30,43 +25,45 @@ export default function ItemsTable({
         </thead>
 
         <tbody>
-          {items.map((it, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
+          {items.map((item, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
               <td>
                 <input
                   placeholder="Add Item"
-                  value={it.name}
-                  onChange={(e) => onChange(i, "name", e.target.value)}
+                  value={item.name}
+                  onChange={(event) => onChange(index, "name", event.target.value)}
                 />
               </td>
               <td>
                 <input
-                  placeholder="₹ 0"
+                  placeholder="0"
                   type="number"
-                  value={it.qty === 0 ? "" : it.qty}
-                  onChange={(e) => onChange(i, "qty", +e.target.value)}
+                  value={item.qty === 0 ? "" : item.qty}
+                  onChange={(event) => onChange(index, "qty", +event.target.value)}
                 />
               </td>
               <td>
                 <input
                   placeholder="XYZ"
-                  value={it.unit === "Service" ? "" : it.unit}
-                  onChange={(e) => onChange(i, "unit", e.target.value)}
+                  value={item.unit === "Service" ? "" : item.unit}
+                  onChange={(event) => onChange(index, "unit", event.target.value)}
                 />
               </td>
               <td>
                 <input
                   type="number"
-                  placeholder="₹ 0.00"
-                  value={it.rate === 0 ? "" : it.rate}
-                  onChange={(e) => onChange(i, "rate", +e.target.value)}
+                  placeholder="Rs. 0.00"
+                  value={item.rate === 0 ? "" : item.rate}
+                  onChange={(event) => onChange(index, "rate", +event.target.value)}
                 />
               </td>
-              <td>₹ {(it.qty * it.rate).toFixed(2)}</td>
+              <td className="amount-cell">Rs. {(item.qty * item.rate).toFixed(2)}</td>
               <td>
                 {items.length > 1 && (
-                  <button onClick={() => onRemove(i)}>✕</button>
+                  <button type="button" onClick={() => onRemove(index)}>
+                    x
+                  </button>
                 )}
               </td>
             </tr>
@@ -74,9 +71,9 @@ export default function ItemsTable({
         </tbody>
       </table>
 
-      <div className="add-line" onClick={onAdd}>
-        ＋ Add New Line
-      </div>
+      <button type="button" className="add-line" onClick={onAdd}>
+        + Add New Line
+      </button>
     </>
   );
 }
