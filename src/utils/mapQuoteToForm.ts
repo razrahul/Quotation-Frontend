@@ -55,7 +55,8 @@ function normalizeAsset(asset?: Partial<QuoteAsset> | null): QuoteAsset | null {
     url: asset.url,
     dataUrl: asset.dataUrl,
     provider: asset.provider,
-    publicId: asset.publicId,
+    publicId: asset.publicId ?? asset.public_id,
+    public_id: asset.public_id ?? asset.publicId,
   };
 }
 

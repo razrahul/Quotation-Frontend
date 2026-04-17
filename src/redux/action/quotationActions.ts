@@ -1,5 +1,8 @@
 import api from "../../services/axios";
-import type { QuoteListApiResponse } from "../../types/quotationApi.types";
+import type {
+  CreateQuotePayload,
+  QuoteListApiResponse,
+} from "../../types/quotationApi.types";
 import {
   quotationRequest,
   quotationFail,
@@ -8,6 +11,7 @@ import {
   finalizeQuoteSuccess,
   getQuotationListbyProfileSuccess
 } from "../slices/quotationSlice";
+import { buildQuotationFormData } from "../../utils/quotationFormData";
 
 async function getQuotationErrorMessage(
   error: any,
@@ -29,11 +33,11 @@ async function getQuotationErrorMessage(
 }
 
 /* ================= CREATE QUOTE ================= */
-export const createQuotation = (payload: any) => async (dispatch:any) => {
+export const createQuotation = (payload: CreateQuotePayload) => async (dispatch:any) => {
   try {
     dispatch(quotationRequest());
 
-    const { data } = await api.post("/quote", payload);
+    const { data } = await api.post("/quote", buildQuotationFormData(payload));
 
     dispatch(createQuoteSuccess(data));
     return data;
@@ -66,11 +70,11 @@ export const getQuotationById = (id: number) => async (dispatch: any) => {
 
 
 /* ================= FINALIZE & DOWNLOAD ================= */
-export const finalizeAndDownloadQuote = (payload: any) => async (dispatch: any) => {
+export const finalizeAndDownloadQuote = (payload: CreateQuotePayload) => async (dispatch: any) => {
     try {
       dispatch(quotationRequest());
 
-      const { data } = await api.post("/quote/finalize", payload, {
+      const { data } = await api.post("/quote/finalize", buildQuotationFormData(payload), {
         responseType: "blob",
       });
 
@@ -125,11 +129,11 @@ export const downloadQuoteById =
   };
 
 export const updateQuotation =
-  (id: number, payload: any) => async (dispatch: any) => {
+  (id: number, payload: CreateQuotePayload) => async (dispatch: any) => {
     try {
       dispatch(quotationRequest());
 
-      const { data } = await api.put(`/quote/${id}`, payload);
+      const { data } = await api.put(`/quote/${id}`, buildQuotationFormData(payload));
 
       dispatch(getQuoteSuccess(data));
       return data;

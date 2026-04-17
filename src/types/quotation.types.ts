@@ -27,6 +27,8 @@ export type QuoteAsset = {
   dataUrl?: string;
   provider?: string;
   publicId?: string;
+  public_id?: string;
+  file?: File;
 };
 
 export type QuoteDesign = {

@@ -25,6 +25,7 @@ export default function UploadLogo({
     reader.onload = () => {
       onChange({
         name: file.name,
+        file,
         dataUrl: typeof reader.result === "string" ? reader.result : undefined,
         provider: "inline",
       });

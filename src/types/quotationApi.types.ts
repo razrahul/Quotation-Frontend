@@ -34,6 +34,20 @@ export type QuoteRecord = {
   };
 };
 
+export type CreateQuotePayload = {
+  id?: number;
+  userId?: number;
+  status?: string;
+  currency?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  quoteName: string;
+  quoteNo: string;
+  quoteDate: string;
+  totalAmount: string;
+  payload: QuoteRecord["payload"];
+};
+
 export type QuoteApiResponse = {
   success: boolean;
   message: string;
