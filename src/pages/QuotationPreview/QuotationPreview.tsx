@@ -481,7 +481,7 @@ export default function QuotationPreview() {
 
           {hasChanges && (
             <p className="preview-note">
-              Quote me changes detect hue hain. Download se pehle update save karna hoga.
+              Changes have been detected in the quotation. Please save the updates before downloading or printing.
             </p>
           )}
 

@@ -23,6 +23,8 @@ export default function Login() {
 
   const redirectTo = location.state?.redirectTo;
   const quotation = location.state?.quotation;
+  const originalQuotation = location.state?.originalQuotation;
+  const postLoginAction = location.state?.postLoginAction;
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -34,11 +36,17 @@ export default function Login() {
     if (!isAuthenticated) return;
 
     if (redirectTo) {
-      naviagte(redirectTo, { state: { quotation } });
+      naviagte(redirectTo, {
+        state: {
+          quotation,
+          originalQuotation,
+          postLoginAction,
+        },
+      });
     } else {
       naviagte("/dashboard");
     }
-  }, [isAuthenticated, redirectTo, quotation, naviagte]);
+  }, [isAuthenticated, redirectTo, quotation, originalQuotation, postLoginAction, naviagte]);
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -137,7 +145,7 @@ export default function Login() {
                   to="/register"
                   state={
                     redirectTo && quotation
-                      ? { redirectTo, quotation }
+                      ? { redirectTo, quotation, originalQuotation, postLoginAction }
                       : undefined
                   }
                 >
