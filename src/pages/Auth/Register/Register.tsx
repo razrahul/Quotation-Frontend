@@ -29,6 +29,8 @@ export default function Register() {
 
   const redirectTo = location.state?.redirectTo;
   const quotation = location.state?.quotation;
+  const originalQuotation = location.state?.originalQuotation;
+  const postLoginAction = location.state?.postLoginAction;
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -36,9 +38,15 @@ export default function Register() {
 
   useEffect(() => {
     if (isAuthenticated && redirectTo) {
-      naviagte(redirectTo, { state: { quotation } });
+      naviagte(redirectTo, {
+        state: {
+          quotation,
+          originalQuotation,
+          postLoginAction,
+        },
+      });
     }
-  }, [isAuthenticated, redirectTo, quotation, naviagte]);
+  }, [isAuthenticated, redirectTo, quotation, originalQuotation, postLoginAction, naviagte]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -176,7 +184,7 @@ export default function Register() {
                   to="/login"
                   state={
                     redirectTo && quotation
-                      ? { redirectTo, quotation }
+                      ? { redirectTo, quotation, originalQuotation, postLoginAction }
                       : undefined
                   }
                 >

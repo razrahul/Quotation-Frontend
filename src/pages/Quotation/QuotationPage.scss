@@ -209,13 +209,26 @@
 }
 
 .checkbox-row {
+  margin-top: 18px;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
+  flex-direction: row !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: auto;
+  width: fit-content;
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.45;
+  align-self: start;
 
   input {
     accent-color: var(--accent);
+    width: auto;
+    margin: 3px 0 0;
+    flex-shrink: 0;
+    transform: scale(1.2);
+    transform-origin: top left;
   }
 }
 
@@ -304,6 +317,7 @@
 
 .entry-input {
   width: 100%;
+  box-sizing: border-box;
   min-height: 44px;
   border: 1px solid rgba(15, 76, 129, 0.14);
   border-radius: 10px;

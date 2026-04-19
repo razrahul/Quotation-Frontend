@@ -60,6 +60,7 @@
 .gst-select,
 .gst-input {
   width: 100%;
+  box-sizing: border-box;
   min-height: 44px;
   border: 1px solid rgba($primary-blue, 0.16);
   border-radius: 14px;
@@ -116,21 +117,33 @@
 
 .gst-inline-grid {
   display: grid;
-  grid-template-columns: 1fr 140px;
+  grid-template-columns: minmax(0, 1fr) 140px;
   gap: 16px;
-  align-items: end;
+  align-items: flex-start;
+
+  > * {
+    min-width: 0;
+  }
+}
+
+.gst-percent {
+  align-self: flex-start;
 }
 
 .checkbox-line {
-  min-height: 42px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 10px;
   color: #334155;
   font-size: 14px;
+  line-height: 1.35;
 
   input {
     accent-color: $primary-blue;
+    width: auto;
+    margin: 3px 0 0;
+    flex-shrink: 0;
   }
 }
 

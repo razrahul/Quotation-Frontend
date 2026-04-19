@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../redux/store";
 import "./QuotationPreview.scss";
 import {
+  createQuotation,
   downloadQuoteById,
   finalizeAndDownloadQuote,
   updateQuotation,
@@ -90,6 +91,7 @@ function buildComparableQuote(quote: any) {
 export default function QuotationPreview() {
   const location = useLocation();
   const navigate = useNavigate();
+  const printTriggeredRef = useRef(false);
 
   const { isAuthenticated, authChecked } = useSelector(
     (state: RootState) => state.auth,
@@ -100,6 +102,7 @@ export default function QuotationPreview() {
 
   const data = location.state?.quotation;
   const originalQuotation = location.state?.originalQuotation;
+  const postLoginAction = location.state?.postLoginAction;
 
   const comparableCurrent = useMemo(() => buildComparableQuote(data), [data]);
   const comparableOriginal = useMemo(
@@ -128,6 +131,9 @@ export default function QuotationPreview() {
   const bodyFont = payload.design?.bodyFont || "Open Sans";
   const headingFontSize = payload.design?.headingFontSize || 20;
   const bodyFontSize = payload.design?.bodyFontSize || 14;
+  const paperSize = payload.design?.paperSize || "A4";
+  const marginPreset = payload.design?.marginPreset || "compact";
+  const textScale = payload.design?.textScale || "normal";
   const totalInWords =
     payload.meta?.showTotalInWordsLabel ||
     numberToWords(Math.round(Number(payload.grandTotal || 0)));
@@ -141,6 +147,12 @@ export default function QuotationPreview() {
         postLoginAction: action,
       },
     });
+  };
+
+  const triggerPrint = () => {
+    window.setTimeout(() => {
+      window.print();
+    }, 120);
   };
 
   const handleDownload = async () => {
@@ -159,11 +171,11 @@ export default function QuotationPreview() {
     await dispatch(finalizeAndDownloadQuote(data));
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (options?: { shouldPrint?: boolean }) => {
     if (!persistedQuoteId || !hasChanges || !authChecked) return;
 
     if (!isAuthenticated) {
-      requireLogin("update");
+      requireLogin(options?.shouldPrint ? "print" : "update");
       return;
     }
 
@@ -175,9 +187,65 @@ export default function QuotationPreview() {
       state: {
         quotation: response.data,
         originalQuotation: response.data,
+        ...(options?.shouldPrint ? { postLoginAction: "print" } : {}),
       },
     });
   };
+
+  const handlePrint = async () => {
+    if (!authChecked) return;
+
+    if (!isAuthenticated) {
+      requireLogin("print");
+      return;
+    }
+
+    if (hasExistingQuote && hasChanges) {
+      await handleUpdate({ shouldPrint: true });
+      return;
+    }
+
+    if (!hasExistingQuote) {
+      const response = await dispatch(createQuotation(data));
+      if (!response?.data) return;
+
+      navigate("/preview", {
+        replace: true,
+        state: {
+          quotation: response.data,
+          originalQuotation: response.data,
+          postLoginAction: "print",
+        },
+      });
+      return;
+    }
+
+    triggerPrint();
+  };
+
+  useEffect(() => {
+    if (!authChecked || !isAuthenticated || postLoginAction !== "print" || printTriggeredRef.current) {
+      return;
+    }
+
+    if (!data?.id || hasChanges) {
+      return;
+    }
+
+    printTriggeredRef.current = true;
+    triggerPrint();
+  }, [authChecked, data?.id, hasChanges, isAuthenticated, postLoginAction]);
+
+  useEffect(() => {
+    printTriggeredRef.current = false;
+  }, [data?.id, hasChanges]);
+
+  const paperWidth = paperSize === "Letter" ? "216mm" : "210mm";
+  const paperMinHeight = paperSize === "Letter" ? "279mm" : "297mm";
+  const paperPadding =
+    marginPreset === "wide" ? "22mm" : marginPreset === "normal" ? "18mm" : "14mm";
+  const textScaleMultiplier =
+    textScale === "small" ? 0.92 : textScale === "large" ? 1.08 : 1;
 
   return (
     <>
@@ -187,11 +255,17 @@ export default function QuotationPreview() {
           className="preview-container"
           style={{
             ["--accent" as string]: accentColor,
+            ["--heading-font" as string]: `${headingFont}`,
+            ["--body-font" as string]: `${bodyFont}`,
             ["--heading-size" as string]: `${headingFontSize + 14}px`,
             ["--body-size" as string]: `${bodyFontSize}px`,
+            ["--paper-width" as string]: paperWidth,
+            ["--paper-min-height" as string]: paperMinHeight,
+            ["--paper-padding" as string]: paperPadding,
+            ["--text-scale-multiplier" as string]: String(textScaleMultiplier),
           }}
         >
-          <div className="preview-paper" style={{ fontFamily: bodyFont, fontSize: bodyFontSize }}>
+          <div className="preview-paper">
             <div className="preview-header">
               <div className="brand-block">
                 {payload.companyLogo?.dataUrl || payload.companyLogo?.url ? (
@@ -207,7 +281,7 @@ export default function QuotationPreview() {
 
               <div className="meta-block">
                 <div className="heading-row">
-                  <h2 style={{ fontFamily: headingFont }}>{quoteName}</h2>
+                  <h2>{quoteName}</h2>
                 </div>
                 <div className="meta-list">
                   <p>
@@ -235,7 +309,7 @@ export default function QuotationPreview() {
             </div>
 
             <div className="party-grid">
-              <div className="party-card">
+              <div className="party-card-preview">
                 <h4>Your Details</h4>
                 <p>
                   <strong>{payload.company.name}</strong>
@@ -249,7 +323,7 @@ export default function QuotationPreview() {
                 </p>
               </div>
 
-              <div className="party-card">
+              <div className="party-card-preview">
                 <h4>Client Details</h4>
                 <p>
                   <strong>{payload.client.name}</strong>
@@ -264,7 +338,7 @@ export default function QuotationPreview() {
               </div>
             </div>
 
-            <table className="items-table">
+            <table className="items-priview-table">
               <thead>
                 <tr>
                   <th>Sr.</th>
@@ -407,12 +481,13 @@ export default function QuotationPreview() {
 
           {hasChanges && (
             <p className="preview-note">
-              Quote me changes detect hue hain. Download se pehle update save karna hoga.
+              Changes have been detected in the quotation. Please save the updates before downloading or printing.
             </p>
           )}
 
           <div className="preview-actions">
             <button
+              type="button"
               className="edit-btn"
               onClick={() =>
                 navigate("/quotation", {
@@ -427,14 +502,34 @@ export default function QuotationPreview() {
             </button>
 
             {hasChanges && (
-              <button className="update-btn" onClick={handleUpdate}>
+              <button type="button" className="update-btn" onClick={() => void handleUpdate()}>
                 {loading ? "Updating..." : "Update Quote"}
               </button>
             )}
 
             <button
+              type="button"
+              className="print-btn"
+              onClick={() => void handlePrint()}
+              disabled={!authChecked || loading}
+            >
+              {loading
+                ? "Loading..."
+                : !authChecked
+                  ? "Checking..."
+                  : !isAuthenticated
+                    ? "Login to Print"
+                    : hasChanges || !hasExistingQuote
+                      ? "Save / Print"
+                      : hasExistingQuote
+                        ? "Print"
+                        : "Save / Print"}
+            </button>
+
+            <button
+              type="button"
               className="download-btn"
-              onClick={handleDownload}
+              onClick={() => void handleDownload()}
               disabled={hasChanges}
             >
               {loading
