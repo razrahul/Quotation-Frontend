@@ -106,7 +106,7 @@ export default function QuotationHeader({ value, onChange }: Props) {
         </div>
 
         {value.headerFields.map((field, index) => (
-          <div className="field field-dual" key={`${field.label}-${index}`}>
+          <div className="field field-dual" key={`header-field-${index}`}>
             <input
               className="quote-input"
               placeholder="Field Name"

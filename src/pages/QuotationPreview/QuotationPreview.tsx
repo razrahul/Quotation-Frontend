@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../redux/store";
@@ -10,6 +10,83 @@ import {
   updateQuotation,
 } from "../../redux/action/quotationActions";
 import Navbar from "../../components/layout/Navbar/Navbar";
+
+type PreviewAction = "update" | "print" | "download" | null;
+
+function getPreviewAsset(asset: any) {
+  if (!asset) return null;
+
+  return {
+    name: asset.name,
+    url: asset.url,
+    dataUrl: asset.dataUrl,
+    provider: asset.provider,
+    publicId: asset.publicId ?? asset.public_id,
+    public_id: asset.public_id ?? asset.publicId,
+  };
+}
+
+function mergeAssetForPreview(savedAsset: any, currentAsset: any) {
+  const savedPreview = getPreviewAsset(savedAsset);
+  const currentPreview = getPreviewAsset(currentAsset);
+
+  if (!savedPreview && !currentPreview) return null;
+
+  return {
+    ...currentPreview,
+    ...savedPreview,
+    dataUrl: savedPreview?.dataUrl || currentPreview?.dataUrl,
+    url: savedPreview?.url || currentPreview?.url,
+  };
+}
+
+function mergeSavedQuoteForPreview(savedQuote: any, currentQuote: any) {
+  if (!savedQuote) return savedQuote;
+
+  return {
+    ...currentQuote,
+    ...savedQuote,
+    payload: {
+      ...currentQuote?.payload,
+      ...savedQuote.payload,
+      companyLogo: mergeAssetForPreview(
+        savedQuote.payload?.companyLogo,
+        currentQuote?.payload?.companyLogo,
+      ),
+      signature: mergeAssetForPreview(
+        savedQuote.payload?.signature,
+        currentQuote?.payload?.signature,
+      ),
+    },
+  };
+}
+
+async function waitForImagesToLoad(container: HTMLElement | null) {
+  if (!container) return;
+
+  const images = Array.from(container.querySelectorAll("img"));
+  if (!images.length) return;
+
+  await Promise.race([
+    Promise.all(
+      images.map(
+        (image) =>
+          new Promise<void>((resolve) => {
+            if (image.complete && image.naturalWidth > 0) {
+              resolve();
+              return;
+            }
+
+            image.addEventListener("load", () => resolve(), { once: true });
+            image.addEventListener("error", () => resolve(), { once: true });
+          }),
+      ),
+    ),
+    new Promise<void>((resolve) => {
+      window.setTimeout(resolve, 2000);
+    }),
+  ]);
+}
 
 function numberToWords(value: number) {
   const units = [
@@ -92,6 +169,8 @@ export default function QuotationPreview() {
   const location = useLocation();
   const navigate = useNavigate();
   const printTriggeredRef = useRef(false);
+  const previewPaperRef = useRef<HTMLDivElement>(null);
+  const [activeAction, setActiveAction] = useState<PreviewAction>(null);
 
   const { isAuthenticated, authChecked } = useSelector(
     (state: RootState) => state.auth,
@@ -125,6 +204,7 @@ export default function QuotationPreview() {
   const hasChanges =
     hasExistingQuote &&
     JSON.stringify(comparableCurrent) !== JSON.stringify(comparableOriginal);
+  const isActionBusy = Boolean(activeAction) || loading;
 
   const accentColor = payload.design?.accentColor || "#0f4c81";
   const headingFont = payload.design?.headingFont || "Open Sans";
@@ -149,78 +229,103 @@ export default function QuotationPreview() {
     });
   };
 
-  const triggerPrint = () => {
+  const triggerPrint = async () => {
+    await waitForImagesToLoad(previewPaperRef.current);
+
     window.setTimeout(() => {
       window.print();
     }, 120);
   };
 
   const handleDownload = async () => {
-    if (!authChecked || hasChanges) return;
+    if (!authChecked || hasChanges || isActionBusy) return;
 
     if (!isAuthenticated) {
       requireLogin("download");
       return;
     }
 
-    if (persistedQuoteId) {
-      await dispatch(downloadQuoteById(persistedQuoteId, quoteNo));
-      return;
-    }
+    setActiveAction("download");
+    try {
+      if (persistedQuoteId) {
+        await dispatch(downloadQuoteById(persistedQuoteId, quoteNo));
+        return;
+      }
 
-    await dispatch(finalizeAndDownloadQuote(data));
+      await dispatch(finalizeAndDownloadQuote(data));
+    } finally {
+      setActiveAction(null);
+    }
+  };
+
+  const saveQuotationUpdates = async (options?: { shouldPrint?: boolean }) => {
+    const response = await dispatch(updateQuotation(persistedQuoteId, data));
+    if (!response?.data) return false;
+    const previewQuote = mergeSavedQuoteForPreview(response.data, data);
+
+    navigate("/preview", {
+      replace: true,
+      state: {
+        quotation: previewQuote,
+        originalQuotation: previewQuote,
+        ...(options?.shouldPrint ? { postLoginAction: "print" } : {}),
+      },
+    });
+
+    return true;
   };
 
   const handleUpdate = async (options?: { shouldPrint?: boolean }) => {
-    if (!persistedQuoteId || !hasChanges || !authChecked) return;
+    if (!persistedQuoteId || !hasChanges || !authChecked || isActionBusy) return;
 
     if (!isAuthenticated) {
       requireLogin(options?.shouldPrint ? "print" : "update");
       return;
     }
 
-    const response = await dispatch(updateQuotation(persistedQuoteId, data));
-    if (!response?.data) return;
-
-    navigate("/preview", {
-      replace: true,
-      state: {
-        quotation: response.data,
-        originalQuotation: response.data,
-        ...(options?.shouldPrint ? { postLoginAction: "print" } : {}),
-      },
-    });
+    setActiveAction(options?.shouldPrint ? "print" : "update");
+    try {
+      await saveQuotationUpdates(options);
+    } finally {
+      setActiveAction(null);
+    }
   };
 
   const handlePrint = async () => {
-    if (!authChecked) return;
+    if (!authChecked || isActionBusy) return;
 
     if (!isAuthenticated) {
       requireLogin("print");
       return;
     }
 
-    if (hasExistingQuote && hasChanges) {
-      await handleUpdate({ shouldPrint: true });
-      return;
+    setActiveAction("print");
+    try {
+      if (hasExistingQuote && hasChanges) {
+        await saveQuotationUpdates({ shouldPrint: true });
+        return;
+      }
+
+      if (!hasExistingQuote) {
+        const response = await dispatch(createQuotation(data));
+        if (!response?.data) return;
+        const previewQuote = mergeSavedQuoteForPreview(response.data, data);
+
+        navigate("/preview", {
+          replace: true,
+          state: {
+            quotation: previewQuote,
+            originalQuotation: previewQuote,
+            postLoginAction: "print",
+          },
+        });
+        return;
+      }
+
+      await triggerPrint();
+    } finally {
+      setActiveAction(null);
     }
-
-    if (!hasExistingQuote) {
-      const response = await dispatch(createQuotation(data));
-      if (!response?.data) return;
-
-      navigate("/preview", {
-        replace: true,
-        state: {
-          quotation: response.data,
-          originalQuotation: response.data,
-          postLoginAction: "print",
-        },
-      });
-      return;
-    }
-
-    triggerPrint();
   };
 
   useEffect(() => {
@@ -233,7 +338,7 @@ export default function QuotationPreview() {
     }
 
     printTriggeredRef.current = true;
-    triggerPrint();
+    void triggerPrint();
   }, [authChecked, data?.id, hasChanges, isAuthenticated, postLoginAction]);
 
   useEffect(() => {
@@ -265,7 +370,7 @@ export default function QuotationPreview() {
             ["--text-scale-multiplier" as string]: String(textScaleMultiplier),
           }}
         >
-          <div className="preview-paper">
+          <div className="preview-paper" ref={previewPaperRef}>
             <div className="preview-header">
               <div className="brand-block">
                 {payload.companyLogo?.dataUrl || payload.companyLogo?.url ? (
@@ -489,6 +594,7 @@ export default function QuotationPreview() {
             <button
               type="button"
               className="edit-btn"
+              disabled={isActionBusy}
               onClick={() =>
                 navigate("/quotation", {
                   state: {
@@ -502,8 +608,13 @@ export default function QuotationPreview() {
             </button>
 
             {hasChanges && (
-              <button type="button" className="update-btn" onClick={() => void handleUpdate()}>
-                {loading ? "Updating..." : "Update Quote"}
+              <button
+                type="button"
+                className="update-btn"
+                onClick={() => void handleUpdate()}
+                disabled={isActionBusy}
+              >
+                {activeAction === "update" ? "Updating..." : "Update Quote"}
               </button>
             )}
 
@@ -511,9 +622,9 @@ export default function QuotationPreview() {
               type="button"
               className="print-btn"
               onClick={() => void handlePrint()}
-              disabled={!authChecked || loading}
+              disabled={!authChecked || isActionBusy}
             >
-              {loading
+              {activeAction === "print"
                 ? "Loading..."
                 : !authChecked
                   ? "Checking..."
@@ -530,9 +641,9 @@ export default function QuotationPreview() {
               type="button"
               className="download-btn"
               onClick={() => void handleDownload()}
-              disabled={hasChanges}
+              disabled={hasChanges || isActionBusy}
             >
-              {loading
+              {activeAction === "download"
                 ? "Loading..."
                 : !authChecked
                   ? "Checking..."

@@ -19,10 +19,16 @@ const UserMenu = () => {
   };
 
   return (
-    <div className="user-menu" onClick={() => setOpen(!open)}>
-      <div className="avatar">
-        {user?.name?.[0] ?? "U"}
-      </div>
+    <div className={`user-menu ${open ? "is-open" : ""}`}>
+      <button
+        className="avatar"
+        type="button"
+        aria-label="Open user menu"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+      >
+        {(user?.name?.[0] ?? "U").toUpperCase()}
+      </button>
 
       {open && (
         <div className="dropdown">
