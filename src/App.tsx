@@ -25,6 +25,12 @@ import { useEffect, useRef } from "react";
 import { loadUser, logoutUser } from "./redux/action/userActions";
 import type { AppDispatch, RootState } from "./redux/store";
 
+
+// for New-Schema 
+import NewHomePage from "./pages-new/Home/Home";
+import NewAboutPage from "./pages-new/AboutUs/AboutUs";
+import NewContactPage from "./pages-new/ContactUs/ContactUs";
+
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -76,6 +82,11 @@ export default function App() {
             </Route>
           </Route>
         </Route>
+
+        {/* New Schema Routes */}
+        <Route path="/home" element={<NewHomePage />} />
+        <Route path="/new-about" element={<NewAboutPage />} />
+        <Route path="/new-contact" element={<NewContactPage />} />
       </Routes>
     </>
   );
