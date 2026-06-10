@@ -5,7 +5,7 @@ import circleDoted3 from "@assets-new/About/Hero/circle_doted-3.png";
 
 export default function AboutHero() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#e7f2fd99] py-16 sm:py-24 md:py-28">
+    <section className="relative w-full h-[425px] flex items-center overflow-hidden bg-[#e7f2fd99]">
       {/* Decorative Dotted Circle - Left Top */}
       <img
         src={circleDoted1}
