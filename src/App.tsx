@@ -30,6 +30,8 @@ import type { AppDispatch, RootState } from "./redux/store";
 import NewHomePage from "./pages-new/Home/Home";
 import NewAboutPage from "./pages-new/AboutUs/AboutUs";
 import NewContactPage from "./pages-new/ContactUs/ContactUs";
+import UnderDevelopmentPage from "./pages-new/Product/UnderDevelopment";
+
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -87,6 +89,9 @@ export default function App() {
         <Route path="/home" element={<NewHomePage />} />
         <Route path="/new-about" element={<NewAboutPage />} />
         <Route path="/new-contact" element={<NewContactPage />} />
+        <Route path="/invoice-generator" element={<UnderDevelopmentPage />} />
+        <Route path="/gst-calculator" element={<UnderDevelopmentPage />} />
+        <Route path="/smm-panel" element={<UnderDevelopmentPage />} />
       </Routes>
     </>
   );
