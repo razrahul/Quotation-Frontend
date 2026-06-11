@@ -3,11 +3,7 @@ import img2 from "@assets-new/OurProducts/our-product-image-2.png";
 import img3 from "@assets-new/OurProducts/our-product-image-3.png";
 import img4 from "@assets-new/OurProducts/our-product-image-4.png";
 
-// Ellipse backgrounds for section
-import elipse3by4 from "@assets-new/OurProducts/our-product-3by4-elipse.png";
-import elipseFull from "@assets-new/OurProducts/our-product-full-elipse.png";
-import elipseSidow from "@assets-new/OurProducts/our-product-full-sidow-elipse.png";
-import elipseHalf from "@assets-new/OurProducts/our-product-half-elipse.png";
+// Decorative elements built with CSS
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -25,64 +21,81 @@ export default function OurProducts() {
       title: "Invoice Generator",
       description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
       image: img2,
-      link: "#",
+      link: "/invoice-generator",
     },
     {
       title: "GST Calculator",
       description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
       image: img3,
-      link: "#",
+      link: "/gst-calculator",
     },
     {
       title: "SMM Panel",
       description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
       image: img4,
-      link: "#",
+      link: "/smm-panel",
     },
   ];
 
   return (
-    <section id="products" className="relative py-20 bg-[#e9f2ff] overflow-hidden">
-      {/* Background decorative ellipses */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-        <img
-          src={elipse3by4}
-          alt=""
-          className="absolute top-[-40px] left-[-40px] w-64 h-64 object-contain opacity-50"
-        />
-        <img
-          src={elipseFull}
-          alt=""
-          className="absolute top-[10%] left-[45%] w-48 h-48 object-contain opacity-50"
-        />
-        <img
-          src={elipseHalf}
-          alt=""
-          className="absolute top-[20%] right-[-50px] w-56 h-56 object-contain opacity-50"
-        />
-        <img
-          src={elipseSidow}
-          alt=""
-          className="absolute bottom-[-60px] left-[15%] w-72 h-72 object-contain opacity-50"
-        />
-        <img
-          src={elipseFull}
-          alt=""
-          className="absolute bottom-[-100px] right-[-20px] w-80 h-80 object-contain opacity-50"
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <section id="products" className="bg-white pt-20 pb-0 overflow-hidden">
+      {/* Section Header - Outside the blue background container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 relative z-10">
+        <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Our Products
           </h2>
-          <p className="text-slate-600 text-lg">
-            Choose the right tool to speed up your administrative processes and business efficiency.
-          </p>
         </div>
+      </div>
+
+      {/* Blue Background Container for Swiper/Cards and CSS Circles */}
+      <div className="relative bg-[#E7F2FD] py-20">
+        {/* Background decorative CSS circles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+          {/* --- 5 Solid Yellow One-Line Circles --- */}
+          {/* 1. Top Left Corner (cut off) */}
+          <div className="absolute top-[-60px] left-[16%] w-[105px] h-[100px] border-4 border-[#f5c324] rounded-full opacity-85" />
+          
+          {/* 2. Top Middle (above Card 3) */}
+          <div className="absolute top-[-30px] right-[32%] w-[80px] h-[85px] border-4 border-[#f5c324] rounded-full opacity-85" />
+          
+          {/* 3. Top Right Corner (cut off) */}
+          <div className="absolute bottom-[50px] right-[10%] w-[110px] h-[110px] border-4 border-[#f5c324] rounded-full opacity-85" />
+          
+          {/* 4. Bottom Left (below Card 1) */}
+          <div className="absolute bottom-[32px] left-[9%] w-[80px] h-[80px] border-4 border-[#f5c324] rounded-full opacity-85" />
+          
+          {/* 5. Bottom Right (below Card 4, cut off) */}
+          <div className="absolute bottom-[-30px] right-[40%] w-[50px] h-[50px] border-4 border-[#f5c324] rounded-full opacity-85" />
+
+          {/* --- 4 Two-Line Dotted/Dashed Circles --- */}
+          {/* 1. Left Edge Dotted Circle (cut off, half) */}
+          <div className="absolute top-[25%] left-[-45px] w-[90px] h-[90px] border-2 border-dotted border-[#f5c324] rounded-full opacity-70">
+            <div className="absolute inset-[4px] border-2 border-dotted border-[#f5c324] rounded-full" />
+          </div>
+
+          {/* 2. Top Center Dotted Circle (above Card 2, full/3-half) */}
+          <div className="absolute top-[40px] left-[35%] w-[120px] h-[115px] border-2 border-dotted border-[#f5c324] rounded-full opacity-70">
+            <div className="absolute inset-[4px] border-2 border-dotted border-[#f5c324] rounded-full" />
+          </div>
+
+          {/* 3. Bottom Left-Center Dotted Circle (below Card 2) */}
+          <div className="absolute bottom-[36px] left-[28%] w-[70px] h-[70px] border-2 border-dotted border-[#f5c324] rounded-full opacity-70">
+            <div className="absolute inset-[4px] border-2 border-dotted border-[#f5c324] rounded-full" />
+          </div>
+
+          {/* 4. Bottom Right-Center Dotted Circle (below Card 3-4) */}
+          <div className="absolute bottom-[52px] right-[32%] w-[70px] h-[70px] border-2 border-dotted border-[#f5c324] rounded-full opacity-70">
+            <div className="absolute inset-[4px] border-2 border-dotted border-[#f5c324] rounded-full" />
+          </div>
+
+          {/* 5. top Right-Center Dotted Circle (below Card 3-4) */}
+          <div className="absolute top-[28px] right-[18%] w-[70px] h-[70px] border-2 border-dotted border-[#f5c324] rounded-full opacity-70">
+            <div className="absolute inset-[4px] border-2 border-dotted border-[#f5c324] rounded-full" />
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Products Swiper Carousel */}
         <div className="w-full max-w-6xl mx-auto">
@@ -155,6 +168,7 @@ export default function OurProducts() {
           </Swiper>
         </div>
 
+      </div>
       </div>
     </section>
   );

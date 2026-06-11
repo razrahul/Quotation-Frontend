@@ -18,34 +18,34 @@ export default function MeetTechtime() {
         </div>
 
         {/* Two Side-by-Side Cards wrapped in Dotted Border Frame */}
-        <div className="relative max-w-6xl mx-auto bg-[#e9f2ff]">
+        <div className="relative max-w-[1200px] w-full mx-auto bg-[#e9f2ff] lg:h-[572px] flex items-center justify-center overflow-hidden">
           {/* Figma Yellow Dotted Frame Backdrop */}
           <img
             src={frameDecor}
             alt=""
-            className="absolute inset-0 w-full h-full object-fill pointer-events-none"
+            className="absolute inset-0 w-full h-full object-fill pointer-events-none scale-[1.01] origin-center"
           />
           
-          <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
-            {/* Centered inner light-blue box with white border */}
-            <div className="bg-[#e9f2ff] border-8 sm:border-12 md:border-16 border-white outline outline-[#014798]/10 shadow-[0_10px_35px_rgba(0,0,0,0.06)] rounded-none">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 sm:p-8">
+          <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-0 w-full flex items-center justify-center">
+            {/* Centered inner light-blue box with thin white border */}
+            <div className="bg-[#e7f4fd] rounded-none lg:w-[1074px] lg:h-[446px] flex items-center justify-center">
+              <div className="flex flex-col md:flex-row gap-6 lg:gap-[30px] p-6 sm:p-8 lg:p-[30px] w-full items-center justify-center">
                 
                 {/* Card 1: Digital Efficiency (Blue Card) */}
-                <div className="bg-[#014798] text-white rounded-none p-8 sm:p-10 flex flex-col justify-between shadow-md transform transition-transform duration-300 hover:-translate-y-1">
-                  <div className="space-y-6">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug">
-                      Your Partner in <br />
-                      <span className="inline-flex flex-col items-start gap-1 pb-2">
-                        <span>Digital Efficiency</span>
+                <div className="bg-[#014798] text-white rounded-none p-6 lg:p-[30px] w-full lg:w-[462px] lg:h-[326px] flex flex-col justify-between shadow-md transform transition-transform duration-300 hover:-translate-y-1 shrink-0">
+                  <div className="space-y-4">
+                    <h3 className="text-xl lg:text-[22px] font-extrabold tracking-tight leading-tight pb-3">
+                      Your Partner in{" "}
+                      <span className="relative inline-block">
+                        Digital Efficiency
                         <img
                           src={vectorLine}
                           alt="yellow highlight"
-                          className="w-full h-auto pointer-events-none"
+                          className="absolute left-0 bottom-[-24px] w-full h-auto pointer-events-none"
                         />
                       </span>
                     </h3>
-                    <div className="space-y-4 text-sm sm:text-base text-blue-50/90 leading-relaxed font-normal">
+                    <div className="space-y-2 text-xs lg:text-[15px] text-blue-50/90 leading-normal font-normal">
                       <p>
                         We build simple, powerful, and efficient online tools to
                         help businesses streamline their daily operations. Our
@@ -62,13 +62,13 @@ export default function MeetTechtime() {
                 </div>
 
                 {/* Card 2: Our Promise (Yellow Card) */}
-                <div className="bg-[#ffb703] text-slate-900 rounded-none p-8 sm:p-10 flex flex-col justify-between shadow-md transform transition-transform duration-300 hover:-translate-y-1">
-                  <div className="space-y-6">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950">
+                <div className="bg-[#ffb703] text-slate-900 rounded-none p-6 lg:p-[30px] w-full lg:w-[462px] lg:h-[326px] flex flex-col justify-between shadow-md transform transition-transform duration-300 hover:-translate-y-1 shrink-0">
+                  <div className="space-y-4">
+                    <h3 className="text-xl lg:text-[22px] font-extrabold tracking-tight text-slate-950 leading-tight">
                       Our Promise
                     </h3>
                     
-                    <ul className="space-y-3.5 text-sm sm:text-base font-medium">
+                    <ul className="space-y-1.5 text-xs lg:text-[13px] font-medium leading-normal">
                       <li className="flex items-start gap-2.5">
                         <span className="text-slate-900 font-bold select-none">•</span>
                         <span>
@@ -94,11 +94,11 @@ export default function MeetTechtime() {
                   </div>
 
                   {/* Mockup image inside yellow card */}
-                  <div className="mt-8 rounded-none overflow-hidden shadow-sm border border-slate-900/10 bg-white">
+                  <div className="mt-4 lg:mt-0 rounded-none overflow-hidden shadow-sm border border-slate-900/10 bg-white h-[90px] lg:h-[100px] shrink-0">
                     <img
                       src={softwareImg}
                       alt="TechTime Interface Preview"
-                      className="w-full h-auto object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                 </div>
