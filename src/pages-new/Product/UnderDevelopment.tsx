@@ -32,23 +32,22 @@ export default function UnderDevelopment() {
         {/* Absolute Background Circles */}
         <img
           src={circleDoted1}
-          alt=""
-          className="absolute left-24 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-80"
+          alt="dotted circle left top"
+          className="absolute left-12 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-85"
         />
         <img
           src={circleDoted2}
-          alt=""
-          className="absolute left-68 bottom-0 w-48 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-80"
+          alt="dotted circle left bottom"
+          className="absolute left-62 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-85"
         />
         <img
           src={circleDoted3}
-          alt=""
-          className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-80"
+          alt="dotted circle right vertical"
+          className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85"
         />
 
         {/* Content Box */}
         <div className="relative max-w-2xl w-full text-center space-y-8 z-10 px-4">
-          
           {/* Animated Construction SVG (Gears) */}
           <div className="flex justify-center select-none pointer-events-none">
             <div className="relative w-28 h-28 bg-[#edf6fe] rounded-3xl border border-blue-100 flex items-center justify-center shadow-xs">
@@ -88,13 +87,18 @@ export default function UnderDevelopment() {
               Feature Under Development
             </h1>
             <p className="text-slate-500 text-sm sm:text-base leading-relaxed max-w-md mx-auto font-normal">
-              We are actively working on this feature to bring you the best tools. Submit your email below to get notified as soon as it goes live!
+              We are actively working on this feature to bring you the best
+              tools. Submit your email below to get notified as soon as it goes
+              live!
             </p>
           </div>
 
           {/* Email Form */}
           <div className="max-w-md mx-auto">
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3"
+            >
               <input
                 type="email"
                 required
@@ -127,7 +131,6 @@ export default function UnderDevelopment() {
               Back to Home
             </Link>
           </div>
-
         </div>
       </main>
 

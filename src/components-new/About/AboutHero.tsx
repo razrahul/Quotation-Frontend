@@ -1,7 +1,7 @@
 import heroLine from "@assets-new/About/Hero/hero Vector line.png";
-import circleDoted1 from "@assets-new/About/Hero/circle_doted-1.png";
-import circleDoted2 from "@assets-new/About/Hero/circle_doted-2.png";
-import circleDoted3 from "@assets-new/About/Hero/circle_doted-3.png";
+import circleDoted1 from "@assets-new/Contact/Hero/circle_doted-1.png";
+import circleDoted2 from "@assets-new/Contact/Hero/circle_doted-2.png";
+import circleDoted3 from "@assets-new/Contact/Hero/circle_doted-3.png";
 
 export default function AboutHero() {
   return (
@@ -10,21 +10,21 @@ export default function AboutHero() {
       <img
         src={circleDoted1}
         alt="dotted circle left top"
-        className="absolute left-15 top-0 w-42 sm:w-48 md:w-64 lg:w-[320px] pointer-events-none"
+        className="absolute left-12 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-85"
       />
 
       {/* Decorative Dotted Circle - Left Bottom */}
-      <img
+     <img
         src={circleDoted2}
         alt="dotted circle left bottom"
-        className="absolute right-0 top-0 w-48 sm:w-64 md:w-80 lg:w-[180px] pointer-events-none"
+        className="absolute left-62 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-85"
       />
 
       {/* Decorative Dotted Circle - Right Vertical */}
       <img
         src={circleDoted3}
         alt="dotted circle right vertical"
-        className="absolute left-[16%] -bottom-40 h-full w-2xl sm:max-w-[250px] md:max-w-[300px] lg:w-[360px] pointer-events-none object-contain"
+        className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 z-10">
