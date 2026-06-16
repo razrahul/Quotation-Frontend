@@ -14,13 +14,13 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        <NavLink to="/" className="logo-link">
+        <NavLink to="/nexquote" className="logo-link">
           <img src={logo} alt="Logo" className="logo" />
         </NavLink>
 
         <ul className="navbar__menu">
           <li>
-            <NavLink to="/" end>
+            <NavLink to="/nexquote" end>
               Home
             </NavLink>
           </li>

@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10">
           {/* Brand Column */}
           <div className="w-full lg:max-w-sm space-y-6">
-            <Link to="/home" className="inline-block">
+            <Link to="/" className="inline-block">
               <div className="relative h-12 w-44">
                 {/* White parts (Hand icon + TechTime) */}
                 <img
@@ -56,7 +56,7 @@ export default function Footer() {
               <ul className="space-y-2.5 text-sm text-white">
                 <li>
                   <Link
-                    to="/home"
+                    to="/"
                     className="hover:text-blue-200 transition-colors"
                   >
                     Home
@@ -64,7 +64,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    to="/new-about"
+                    to="/about"
                     className="hover:text-blue-200 transition-colors"
                   >
                     Product
@@ -72,7 +72,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    to="/new-about"
+                    to="/about"
                     className="hover:text-blue-200 transition-colors"
                   >
                     About us
@@ -80,7 +80,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    to="/new-contact"
+                    to="/contact"
                     className="hover:text-blue-200 transition-colors"
                   >
                     Contact us
@@ -103,16 +103,38 @@ export default function Footer() {
                 Products
               </h3>
               <ul className="space-y-2.5 text-sm text-white">
-                {Array.from({ length: 6 }).map((_, idx) => (
-                  <li key={idx}>
-                    <a
-                      href="#"
-                      className="hover:text-blue-200 transition-colors"
-                    >
-                      Invoice Generator
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <Link
+                    to="/nexquote"
+                    className="hover:text-blue-200 transition-colors"
+                  >
+                    Quotation Generator
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/invoice-generator"
+                    className="hover:text-blue-200 transition-colors"
+                  >
+                    Invoice Generator
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/gst-calculator"
+                    className="hover:text-blue-200 transition-colors"
+                  >
+                    GST Calculator
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/smm-panel"
+                    className="hover:text-blue-200 transition-colors"
+                  >
+                    SMM Panel
+                  </Link>
+                </li>
               </ul>
             </div>
 

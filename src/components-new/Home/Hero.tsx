@@ -1,5 +1,6 @@
 import heroImg from "@assets-new/Hero/hero-1.png";
 import heroLine from "@assets-new/Hero/hero-vector-line.png";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -35,12 +36,12 @@ export default function Hero() {
             </p>
 
             <div className="pt-2">
-              <a
-                href="/quotation"
+              <Link
+                to="/nexquote"
                 className="inline-flex items-center justify-center px-8 py-3.5 text-xs sm:text-sm font-bold text-white bg-[#00489a] hover:bg-[#003b80] rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
               >
                 Create a Quote Now
-              </a>
+              </Link>
             </div>
           </div>
 

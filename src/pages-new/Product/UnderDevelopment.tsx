@@ -125,7 +125,7 @@ export default function UnderDevelopment() {
           {/* Back to Home Button */}
           <div className="pt-2">
             <Link
-              to="/home"
+              to="/"
               className="inline-block border border-slate-200 bg-white hover:bg-slate-50 text-slate-650 px-6 py-2.5 rounded-full text-sm font-bold shadow-xs hover:shadow-sm transition-all"
             >
               Back to Home

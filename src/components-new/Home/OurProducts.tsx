@@ -8,6 +8,7 @@ import img4 from "@assets-new/OurProducts/our-product-image-4.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { Link } from "react-router-dom";
 
 export default function OurProducts() {
   const products = [
@@ -155,12 +156,12 @@ export default function OurProducts() {
 
                   {/* Button */}
                   <div className="mt-6">
-                    <a
-                      href={product.link}
+                    <Link
+                      to={product.link}
                       className="inline-flex items-center justify-center bg-[#014798] hover:bg-[#003d82] text-white text-xs font-semibold rounded-full px-5 py-3 transition-colors shadow-sm"
                     >
                       View Product Details
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </SwiperSlide>

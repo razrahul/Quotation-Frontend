@@ -22,7 +22,7 @@ export default function Navbar() {
   const showUserMenu = isAuthenticated && authChecked;
 
   const products = [
-    { name: "Quotation Generator", path: "/quotation", icon: quotGenIcon },
+    { name: "Quotation Generator", path: "/nexquote", icon: quotGenIcon },
     { name: "Invoice Generator", path: "/invoice-generator", icon: invGenIcon },
     { name: "GST Calculator", path: "/gst-calculator", icon: gstCalcIcon },
     { name: "SMM Panel", path: "/smm-panel", icon: smmPanelIcon },
@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="shrink-0 flex items-center">
-            <Link to="/home" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img
                 src={logo}
                 alt="TechTime Logo"
@@ -48,7 +48,8 @@ export default function Navbar() {
             {/* Desktop Nav Links */}
             <div className="flex items-center space-x-8">
               <NavLink
-                to="/home"
+                to="/"
+                end
                 className={({ isActive }) =>
                   `text-[15px] font-medium transition-all duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-250 ${
                     isActive
@@ -111,7 +112,7 @@ export default function Navbar() {
               </div>
 
               <NavLink
-                to="/new-about"
+                to="/about"
                 className={({ isActive }) =>
                   `text-[15px] font-medium transition-all duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-250 ${
                     isActive
@@ -124,7 +125,7 @@ export default function Navbar() {
               </NavLink>
 
               <NavLink
-                to="/new-contact"
+                to="/contact"
                 className={({ isActive }) =>
                   `text-[15px] font-medium transition-all duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-250 ${
                     isActive
@@ -226,7 +227,8 @@ export default function Navbar() {
         <div className="md:hidden animate-fadeIn border-t border-gray-100 bg-white" id="mobile-menu">
           <div className="px-2 pt-3 pb-4 space-y-1">
             <NavLink
-              to="/home"
+              to="/"
+              end
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
                 `block px-3 py-3 rounded-md text-base font-medium transition-colors ${
@@ -282,7 +284,7 @@ export default function Navbar() {
             </div>
 
             <NavLink
-              to="/new-about"
+              to="/about"
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
                 `block px-3 py-3 rounded-md text-base font-medium transition-colors ${
@@ -296,7 +298,7 @@ export default function Navbar() {
             </NavLink>
 
             <NavLink
-              to="/new-contact"
+              to="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
                 `block px-3 py-3 rounded-md text-base font-medium transition-colors ${
