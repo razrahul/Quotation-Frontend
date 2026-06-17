@@ -1,8 +1,9 @@
+import { NEXQUOTE_CONFIG } from "../../../utils/contex";
 import "./PrivacyPolicy.scss";
 
 const privacyData = {
-  effectiveYear: 2025,
-  intro: `Welcome to [Your Website Name]! By using our platform to create, customize, and manage business quotations, you agree to comply with our Terms & Conditions. These terms form a legal agreement between you and [Your Company Name], so please read them carefully. If you do not accept any part of these terms, we recommend not using our services. Our platform is designed to simplify your quoting process while ensuring ease, speed, and accuracy. By continuing to use the site, you acknowledge that you understand and accept all policies outlined here.`,
+  effectiveYear: NEXQUOTE_CONFIG.effectiveYear,
+  intro: `Welcome to ${NEXQUOTE_CONFIG.websiteName}! By using our platform to create, customize, and manage business quotations, you agree to comply with our Terms & Conditions. These terms form a legal agreement between you and ${NEXQUOTE_CONFIG.companyName}, so please read them carefully. If you do not accept any part of these terms, we recommend not using our services. Our platform is designed to simplify your quoting process while ensuring ease, speed, and accuracy. By continuing to use the site, you acknowledge that you understand and accept all policies outlined here.`,
   sections: [
     {
       title: "Information We Collect",
@@ -47,7 +48,7 @@ const privacyData = {
     {
       title: "Contact Us",
       content:
-        "For questions or concerns about your privacy, feel free to contact us at [support@yourwebsite.com].",
+        `For questions or concerns about your privacy, feel free to contact us at [${NEXQUOTE_CONFIG.supportEmail}].`,
     },
   ],
 };
