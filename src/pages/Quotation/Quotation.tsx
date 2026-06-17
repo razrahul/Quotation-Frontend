@@ -16,7 +16,7 @@ export default function Quotation() {
         {/* <QuotationHeader /> */}
       </div>
 
-      <div className="grid">
+      <div className="quotation-grid">
         {/* <PartyDetails /> */}
       </div>
 

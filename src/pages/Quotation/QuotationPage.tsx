@@ -305,7 +305,7 @@ export default function QuotationPage() {
             />
           </div>
 
-          <div className="grid">
+          <div className="builder-grid">
             <PartyDetails
               title="Your Details"
               value={quotation.company}
