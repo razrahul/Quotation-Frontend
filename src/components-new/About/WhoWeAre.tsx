@@ -1,10 +1,10 @@
 export default function WhoWeAre() {
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-12 sm:py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-8 md:gap-12 lg:gap-16">
           {/* Left Block - Solid Blue */}
-          <div className="w-full sm:w-[22%] aspect-3/4 sm:aspect-square md:aspect-3/4 lg:aspect-square max-h-[300px] bg-[#014798] shrink-0 rounded-none shadow-sm"></div>
+          <div className="hidden sm:block w-full sm:w-[22%] aspect-3/4 sm:aspect-square md:aspect-3/4 lg:aspect-square max-h-[300px] bg-[#014798] shrink-0 rounded-none shadow-sm"></div>
 
           {/* Center Content */}
           <div className="flex-1 text-center space-y-6 max-w-2xl">
@@ -21,7 +21,7 @@ export default function WhoWeAre() {
           </div>
 
           {/* Right Block - Solid Yellow */}
-          <div className="w-full sm:w-[22%] aspect-3/4 sm:aspect-square md:aspect-3/4 lg:aspect-square max-h-[300px] bg-[#ffb703] shrink-0 rounded-none shadow-sm"></div>
+          <div className="hidden sm:block w-full sm:w-[22%] aspect-3/4 sm:aspect-square md:aspect-3/4 lg:aspect-square max-h-[300px] bg-[#ffb703] shrink-0 rounded-none shadow-sm"></div>
         </div>
       </div>
     </section>

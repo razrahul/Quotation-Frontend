@@ -4,33 +4,31 @@ import vectorLine from "@assets-new/KeyFeatures/key-feature-vector-line.png";
 
 export default function MeetTechtime() {
   return (
-    <section className="relative py-20 bg-white overflow-hidden">
+    <section className="relative py-12 lg:py-20 bg-white overflow-hidden">
       {/* Background decoration blur */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-300/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        
         {/* Centered Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 lg:mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Meet Techtime Software
           </h2>
         </div>
 
         {/* Two Side-by-Side Cards wrapped in Dotted Border Frame */}
-        <div className="relative max-w-[1200px] w-full mx-auto bg-[#e9f2ff] lg:h-[572px] flex items-center justify-center overflow-hidden">
+        <div className="relative max-w-[1200px] w-full mx-auto bg-[#e9f2ff] lg:h-[572px] flex items-center justify-center overflow-hidden border-[3.5px] border-dashed border-[#ffb703] lg:border-none rounded-3xl lg:rounded-none">
           {/* Figma Yellow Dotted Frame Backdrop */}
           <img
             src={frameDecor}
             alt=""
-            className="absolute inset-0 w-full h-full object-fill pointer-events-none scale-[1.01] origin-center"
+            className="hidden lg:block absolute inset-0 w-full h-full object-fill pointer-events-none scale-[1.01] origin-center"
           />
-          
+
           <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-0 w-full flex items-center justify-center">
             {/* Centered inner light-blue box with thin white border */}
             <div className="bg-[#e7f4fd] rounded-none lg:w-[1074px] lg:h-[446px] flex items-center justify-center">
               <div className="flex flex-col md:flex-row gap-6 lg:gap-[30px] p-6 sm:p-8 lg:p-[30px] w-full items-center justify-center">
-                
                 {/* Card 1: Digital Efficiency (Blue Card) */}
                 <div className="bg-[#014798] text-white rounded-none p-6 lg:p-[30px] w-full lg:w-[462px] lg:h-[326px] flex flex-col justify-between shadow-md transform transition-transform duration-300 hover:-translate-y-1 shrink-0">
                   <div className="space-y-4">
@@ -67,27 +65,45 @@ export default function MeetTechtime() {
                     <h3 className="text-xl lg:text-[22px] font-extrabold tracking-tight text-slate-950 leading-tight">
                       Our Promise
                     </h3>
-                    
+
                     <ul className="space-y-1.5 text-xs lg:text-[13px] font-medium leading-normal">
                       <li className="flex items-start gap-2.5">
-                        <span className="text-slate-900 font-bold select-none">•</span>
+                        <span className="text-slate-900 font-bold select-none">
+                          •
+                        </span>
                         <span>
-                          <strong className="font-extrabold text-slate-950">Free tools:</strong>{" "}
-                          <span className="text-slate-800">Zero cost to get started.</span>
+                          <strong className="font-extrabold text-slate-950">
+                            Free tools:
+                          </strong>{" "}
+                          <span className="text-slate-800">
+                            Zero cost to get started.
+                          </span>
                         </span>
                       </li>
                       <li className="flex items-start gap-2.5">
-                        <span className="text-slate-900 font-bold select-none">•</span>
+                        <span className="text-slate-900 font-bold select-none">
+                          •
+                        </span>
                         <span>
-                          <strong className="font-extrabold text-slate-950">Simple design:</strong>{" "}
-                          <span className="text-slate-800">Learn in seconds</span>
+                          <strong className="font-extrabold text-slate-950">
+                            Simple design:
+                          </strong>{" "}
+                          <span className="text-slate-800">
+                            Learn in seconds
+                          </span>
                         </span>
                       </li>
                       <li className="flex items-start gap-2.5">
-                        <span className="text-slate-900 font-bold select-none">•</span>
+                        <span className="text-slate-900 font-bold select-none">
+                          •
+                        </span>
                         <span>
-                          <strong className="font-extrabold text-slate-950">Reliable service:</strong>{" "}
-                          <span className="text-slate-800">Your data is secure.</span>
+                          <strong className="font-extrabold text-slate-950">
+                            Reliable service:
+                          </strong>{" "}
+                          <span className="text-slate-800">
+                            Your data is secure.
+                          </span>
                         </span>
                       </li>
                     </ul>
@@ -102,14 +118,11 @@ export default function MeetTechtime() {
                     />
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
 }
-
