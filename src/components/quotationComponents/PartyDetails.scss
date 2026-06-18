@@ -95,3 +95,29 @@
     margin-top: 4px;
   }
 }
+
+/* ================= RESPONSIVE PARTY DETAILS ================= */
+@media (max-width: 480px) {
+  .party-card {
+    .field-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 8px 12px;
+
+      label {
+        padding-top: 0;
+        font-size: 12px;
+      }
+    }
+
+    .phone-field {
+      gap: 6px;
+      
+      .country-code {
+        min-width: 48px;
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+    }
+  }
+}

@@ -56,3 +56,65 @@
   }
 }
 
+/* ================= RESPONSIVE GETINTOUCH ================= */
+@media (max-width: 768px) {
+  .getintouch {
+    margin-bottom: -80px;
+    padding: 0 16px;
+  }
+
+  .getintouch__overlay {
+    background: linear-gradient(135deg, rgba(5, 59, 115, 0.95) 0%, rgba(12, 47, 80, 0.98) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 44px 24px;
+    border-radius: 32px;
+    box-shadow: 0 24px 48px rgba(5, 59, 115, 0.18);
+  }
+
+  .getintouch__content {
+    flex-direction: column;
+    text-align: center;
+    gap: 28px;
+  }
+
+  .getintouch h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+
+  .getintouch p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 auto;
+    max-width: 460px;
+  }
+
+  .getintouch__btn {
+    width: 100%;
+    max-width: 220px;
+    background: #ffffff;
+    color: #053b73;
+    font-size: 15px;
+    font-weight: 650;
+    border-radius: 30px;
+    padding: 14px 36px;
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255, 255, 255, 0.18);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+

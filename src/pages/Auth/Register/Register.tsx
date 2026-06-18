@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Register.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createUser } from "../../../redux/action/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../redux/store";
@@ -23,6 +23,21 @@ export default function Register() {
   const [country, setCountry] = useState("India");
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const location = useLocation();
   const naviagte = useNavigate();
@@ -102,16 +117,32 @@ export default function Register() {
             <h2>Register</h2>
 
             <form className="register-form" onSubmit={handleSubmit}>
-              <select
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              >
-                {COUNTRY_OPTIONS.map((countryOption) => (
-                  <option key={countryOption.value} value={countryOption.value}>
-                    {countryOption.label}
-                  </option>
-                ))}
-              </select>
+              <div className="field-select-container" ref={dropdownRef}>
+                <div
+                  className="field-select-trigger"
+                  onClick={() => setIsDropdownOpen((prev) => !prev)}
+                >
+                  <span className="icon">🌍</span>
+                  <span className="selected-value">{country || "Select Country *"}</span>
+                  <span className={`arrow ${isDropdownOpen ? "arrow--open" : ""}`}>▼</span>
+                </div>
+                {isDropdownOpen && (
+                  <div className="custom-dropdown-list">
+                    {COUNTRY_OPTIONS.map((countryOption) => (
+                      <div
+                        key={countryOption.value}
+                        className={`custom-dropdown-item ${country === countryOption.value ? "active" : ""}`}
+                        onClick={() => {
+                          setCountry(countryOption.value);
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        {countryOption.label}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               <div className="field">
                 <span className="icon">👤</span>

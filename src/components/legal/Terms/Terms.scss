@@ -53,3 +53,47 @@
     color: #475569;
   }
 }
+
+/* ===== RESPONSIVE TERMS ===== */
+@media (max-width: 768px) {
+  .terms {
+    padding: 32px 0;
+  }
+
+  .terms__container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .terms h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .terms__effective {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .terms__intro {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .terms__content {
+    gap: 20px;
+  }
+
+  .terms__section {
+    h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+  }
+}
