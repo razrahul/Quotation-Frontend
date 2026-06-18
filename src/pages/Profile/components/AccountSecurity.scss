@@ -100,3 +100,30 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 768px) {
+  .account-security {
+    .security-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+
+      .change-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .password-form {
+      grid-template-columns: 1fr;
+      padding: 16px;
+      gap: 16px;
+
+      .pass-btn {
+        grid-column: span 1;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
