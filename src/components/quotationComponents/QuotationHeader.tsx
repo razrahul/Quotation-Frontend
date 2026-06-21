@@ -92,6 +92,13 @@ export default function QuotationHeader({ value, onChange }: Props) {
             className="quote-input"
             value={value.quoteDate}
             onChange={(event) => onChange("quoteDate", event.target.value)}
+            onClick={(event) => {
+              try {
+                event.currentTarget.showPicker();
+              } catch {
+                void 0;
+              }
+            }}
           />
         </div>
 
@@ -102,6 +109,13 @@ export default function QuotationHeader({ value, onChange }: Props) {
             className="quote-input"
             value={value.validUntil}
             onChange={(event) => onChange("validUntil", event.target.value)}
+            onClick={(event) => {
+              try {
+                event.currentTarget.showPicker();
+              } catch {
+                void 0;
+              }
+            }}
           />
         </div>
 

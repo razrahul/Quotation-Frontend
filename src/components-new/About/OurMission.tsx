@@ -10,68 +10,77 @@ export default function OurMission() {
   const missionPoints = [
     {
       title: "All in one product",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
     },
     {
       title: "Dedicated dashboard",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
     },
     {
       title: "Data security",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
     },
     {
       title: "Accessibility",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
-    }
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
+    },
   ];
 
   return (
-    <section className="relative w-full h-full bg-[#EDF6FE] py-16 overflow-hidden z-10">
+    <section className="relative w-full h-full bg-[#EDF6FE] py-12 sm:py-16 overflow-hidden z-10">
       {/* Background Blue concentric circle Ellipses */}
       <img
         src={elipse1}
         alt=""
-        className="absolute top-16 -right-14 w-48 h-48 object-contain pointer-events-none z-0 opacity-60"
+        className="absolute top-16 -right-14 w-36 sm:w-48 h-auto object-contain pointer-events-none z-0 opacity-60"
       />
       <img
         src={elipse2}
         alt=""
-        className="absolute -top-5 right-[24%] w-28 h-16 object-contain pointer-events-none z-0 opacity-60"
+        className="absolute -top-5 right-[24%] w-20 sm:w-28 h-auto object-contain pointer-events-none z-0 opacity-60"
       />
       <img
         src={elipse3}
         alt=""
-        className="absolute top-14 left-[28%] w-16 h-16 object-contain pointer-events-none z-0 opacity-60"
+        className="absolute top-14 left-[28%] w-12 sm:w-16 h-auto object-contain pointer-events-none z-0 opacity-60"
       />
       <img
         src={elipse4}
         alt=""
-        className="absolute left-[48%] -bottom-4 w-48 h-48 object-contain pointer-events-none z-0 opacity-60"
+        className="absolute left-[48%] -bottom-4 w-36 sm:w-48 h-auto object-contain pointer-events-none z-0 opacity-60"
       />
       <img
         src={elipse5}
         alt=""
-        className="absolute -bottom-5 left-16 w-32 h-18 object-contain pointer-events-none z-0 opacity-60"
+        className="absolute -bottom-5 left-16 w-24 sm:w-32 h-auto object-contain pointer-events-none z-0 opacity-60"
       />
       <img
         src={elipse6}
         alt=""
-        className="absolute top-0 -left-5 w-42 h-42 object-contain pointer-events-none z-0 opacity-50"
+        className="absolute top-0 -left-5 w-32 sm:w-42 h-auto object-contain pointer-events-none z-0 opacity-50"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12 lg:gap-16 w-full">
           {/* Left Column: Mission Points */}
-          <div className="flex-1 max-w-2xl w-full space-y-8 lg:space-y-10 text-left">
-            <h2 className="flex text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <div className="flex-1 max-w-2xl w-full space-y-4 sm:space-y-8 lg:space-y-10 text-left">
+            <h2 className="flex text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               Our Mission
             </h2>
 
-            <ul className="list-disc pl-5 space-y-6 marker:text-slate-950">
+            <ul className="list-disc pl-5 space-y-3 sm:space-y-6 marker:text-slate-950">
               {missionPoints.map((point, idx) => (
-                <li key={idx} className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
-                  <strong className="font-bold text-slate-900">{point.title}: </strong>
+                <li
+                  key={idx}
+                  className="text-slate-700 text-[13px] sm:text-base leading-normal sm:leading-relaxed font-normal"
+                >
+                  <strong className="font-bold text-slate-900">
+                    {point.title}:{" "}
+                  </strong>
                   {point.description}
                 </li>
               ))}

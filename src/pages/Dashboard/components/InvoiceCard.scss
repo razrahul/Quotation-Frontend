@@ -77,6 +77,10 @@
     strong {
       font-size: 14px;
       color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
     }
   }
 
@@ -120,6 +124,68 @@
 
     &:active {
       transform: translateY(1px);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .invoice-card {
+    padding: 14px;
+    border-radius: 16px;
+
+    .preview {
+      padding: 12px;
+      margin-bottom: 12px;
+      min-height: auto;
+    }
+
+    .preview__header {
+      margin-bottom: 14px;
+
+      h4 {
+        font-size: 15px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .preview__amount {
+      font-size: 12px;
+      padding: 6px 8px;
+    }
+
+    .preview__body {
+      gap: 8px;
+
+      div {
+        padding: 8px;
+        gap: 2px;
+      }
+
+      span {
+        font-size: 11px;
+      }
+
+      strong {
+        font-size: 13px;
+      }
+    }
+
+    .preview__footer {
+      margin-top: 12px;
+      padding-top: 12px;
+      gap: 4px;
+
+      span {
+        font-size: 11px;
+      }
+    }
+
+    button {
+      padding: 10px 12px;
+      font-size: 13.5px;
     }
   }
 }

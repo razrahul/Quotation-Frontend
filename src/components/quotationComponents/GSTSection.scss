@@ -3,74 +3,103 @@
 .gst-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.38);
+  background: rgba(15, 23, 42, 0.34);
+  backdrop-filter: blur(4px);
   z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px;
+  padding: 16px;
+  overflow-y: auto;
+  animation: gstFadeIn 0.2s ease-out;
 }
 
 .gst-modal {
   background: #fff;
-  width: min(100%, 520px);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+  width: min(100%, 480px);
+  border-radius: 18px;
+  overflow: visible; // Allow dropdowns to overlay if necessary, but max-height/flex handle bounds
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.16);
+  border: 1px solid rgba($primary-blue, 0.1);
+  animation: gstSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: auto;
+  max-height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
 }
 
 .gst-header {
   color: #0f172a;
-  padding: 16px 18px 12px;
+  padding: 12px 18px 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 700;
-  font-size: 18px;
-  border-bottom: 1px solid rgba($primary-blue, 0.1);
+  font-size: 16px;
+  border-bottom: 1px solid rgba($primary-blue, 0.08);
+  flex-shrink: 0;
 
   button {
     background: transparent;
     border: none;
-    color: #475569;
-    font-size: 18px;
+    color: #64748b;
+    font-size: 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(15, 76, 129, 0.06);
+      color: #1e293b;
+    }
   }
 }
 
 .gst-body {
-  padding: 18px;
+  padding: 14px 18px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .gst-stack {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 
   > label {
-    font-size: 14px;
+    font-size: 12.5px;
     font-weight: 700;
-    color: #334155;
+    color: #475569;
   }
 }
 
-.gst-select,
 .gst-input {
   width: 100%;
   box-sizing: border-box;
-  min-height: 44px;
-  border: 1px solid rgba($primary-blue, 0.16);
-  border-radius: 14px;
-  padding: 0 14px;
+  min-height: 38px;
+  border: 1.5px solid rgba($primary-blue, 0.22);
+  border-radius: 10px;
+  padding: 0 12px;
   outline: none;
-  font-size: 14px;
+  font-size: 13px;
   background: #fff;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba($primary-blue, 0.4);
+  }
 
   &:focus {
     border-color: $primary-blue;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.08);
   }
 }
 
@@ -85,31 +114,120 @@
   }
 }
 
+// Custom Select Dropdown styles
+.gst-select-container {
+  position: relative;
+  width: 100%;
+}
+
+.gst-select-trigger {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 38px;
+  border: 1.5px solid rgba($primary-blue, 0.22);
+  border-radius: 10px;
+  padding: 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: #fff;
+  font-size: 13px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba($primary-blue, 0.4);
+  }
+
+  .selected-value {
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .arrow {
+    font-size: 8px;
+    color: rgba($primary-blue, 0.5);
+    transition: transform 0.25s ease;
+    margin-left: 8px;
+    flex-shrink: 0;
+
+    &--open {
+      transform: rotate(180deg);
+      color: $primary-blue;
+    }
+  }
+}
+
+.gst-dropdown-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 160px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(11, 79, 138, 0.15);
+  border: 1px solid rgba(11, 79, 138, 0.08);
+  overflow-y: auto;
+  z-index: 100;
+  padding: 6px 0;
+  animation: gstDropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gst-dropdown-item {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+
+  &:hover {
+    background: #f1f5f9;
+    color: $primary-blue;
+  }
+
+  &.active {
+    background: #eef2ff;
+    color: $primary-blue;
+    font-weight: 600;
+  }
+}
+
 .radio-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .radio-chip {
-  min-height: 42px;
-  padding: 0 14px;
-  border: 1px solid rgba($primary-blue, 0.16);
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1.5px solid rgba($primary-blue, 0.22);
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: #334155;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 
   input {
     accent-color: $primary-blue;
   }
 
+  &:hover {
+    background: rgba($primary-blue, 0.03);
+    border-color: rgba($primary-blue, 0.3);
+  }
+
   &.active {
     background: rgba($primary-blue, 0.08);
-    border-color: rgba($primary-blue, 0.3);
+    border-color: $primary-blue;
     color: $primary-blue;
     font-weight: 700;
   }
@@ -117,8 +235,8 @@
 
 .gst-inline-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 140px;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: 12px;
   align-items: flex-start;
 
   > * {
@@ -134,76 +252,113 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 8px;
   color: #334155;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.35;
 
   input {
     accent-color: $primary-blue;
     width: auto;
-    margin: 3px 0 0;
+    margin: 2px 0 0;
     flex-shrink: 0;
   }
 }
 
 .gst-row.amount {
   border-top: 1px dashed rgba($primary-blue, 0.16);
-  padding-top: 14px;
+  padding-top: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   span {
     color: #475569;
+    font-size: 13px;
   }
 
   strong {
-    font-size: 18px;
+    font-size: 16px;
     color: $text-dark;
   }
 }
 
 .gst-footer {
-  padding: 16px 18px 18px;
+  padding: 12px 18px 14px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  border-top: 1px solid rgba($primary-blue, 0.1);
+  border-top: 1px solid rgba($primary-blue, 0.08);
+  flex-shrink: 0;
 
   button {
-    min-width: 140px;
-    min-height: 44px;
+    min-width: 120px;
+    min-height: 38px;
     border-radius: 999px;
     cursor: pointer;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
+    transition: all 0.2s ease;
   }
 
   .btn-secondary {
     background: #fff;
     border: 1px solid rgba($primary-blue, 0.16);
     color: #334155;
+
+    &:hover {
+      background: #f8fafc;
+      border-color: rgba($primary-blue, 0.3);
+    }
   }
 
   .btn-primary {
     background: $primary-blue;
     color: white;
     border: none;
-    box-shadow: 0 12px 24px rgba(15, 76, 129, 0.2);
+    box-shadow: 0 10px 20px rgba(15, 76, 129, 0.2);
+
+    &:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 12px 24px rgba(15, 76, 129, 0.3);
+    }
   }
 }
 
 @media (max-width: 520px) {
-  .gst-inline-grid {
-    grid-template-columns: 1fr;
+  .gst-modal {
+    width: 100%;
+    border-radius: 16px;
+    max-height: calc(100vh - 24px);
   }
 
   .gst-footer {
     flex-direction: column;
+    gap: 8px;
 
     button {
       width: 100%;
     }
+  }
+}
+
+@keyframes gstFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes gstSlideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes gstDropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

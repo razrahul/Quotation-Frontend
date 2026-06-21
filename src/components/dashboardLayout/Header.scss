@@ -7,6 +7,16 @@
   justify-content: space-between;
   align-items: center;
 
+  .header__left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .sidebar-toggle {
+    display: none;
+  }
+
   .logo {
     font-weight: 700;
     color: #0b5ed7;
@@ -18,6 +28,33 @@
 
     span {
       color: #fbbf24;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+
+    .sidebar-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      color: #374151;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 0;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #f1f5f9;
+        color: #0b5ed7;
+      }
     }
   }
 }

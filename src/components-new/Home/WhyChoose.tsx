@@ -26,10 +26,10 @@ export default function WhyChoose() {
   ];
 
   return (
-    <section className="relative py-20 bg-white overflow-hidden">
+    <section className="relative py-12 lg:py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 lg:mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Why Businesses Choose Techtime
           </h2>
@@ -46,11 +46,11 @@ export default function WhyChoose() {
             />
           </div>
 
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-20 md:gap-x-28 md:gap-y-28 p-6 sm:p-10">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 md:gap-x-28 md:gap-y-28 p-4 sm:p-10">
             {points.map((point, idx) => (
               <div
                 key={idx}
-                className="flex flex-col space-y-4 text-left p-4"
+                className="flex flex-col space-y-3 text-left p-2 pb-6 border-b border-slate-100 last:border-b-0 md:border-b-0 md:p-4 md:pb-4"
               >
                 {/* Title with number badge */}
                 <div className="flex flex-col space-y-1">

@@ -12,21 +12,28 @@ export default function Hero() {
       <img
         src={circleDoted1}
         alt="dotted circle left top"
-        className="absolute left-12 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-85"
+        className="absolute left-12 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-85 z-0"
       />
 
       {/* Decorative Dotted Circle - Left Bottom */}
       <img
         src={circleDoted2}
         alt="dotted circle left bottom"
-        className="absolute left-62 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-85"
+        className="absolute left-62 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-85 z-0"
       />
 
       {/* Decorative Dotted Circle - Right Vertical */}
       <img
         src={circleDoted3}
         alt="dotted circle right vertical"
-        className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85"
+        className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85 z-0"
+      />
+
+      {/* Mobile/Tablet Background Illustration Mockup */}
+      <img
+        src={frameImg}
+        alt="mockup background"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[280px] sm:max-h-[320px] w-auto object-contain opacity-15 pointer-events-none select-none lg:hidden z-0"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -43,7 +50,7 @@ export default function Hero() {
                   className="absolute right-2.5 bottom-0 pointer-events-none"
                 />
               </span>
-              <br />
+              <br className="hidden sm:inline" />
               to Simplify Your Work
             </h1>
 
@@ -63,8 +70,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Frame Image Column */}
-          <div className="hidden lg:flex lg:col-span-6 justify-end items-center">
+          {/* Right Frame Image Column - Desktop Only */}
+          <div className="hidden lg:flex lg:col-span-6 justify-end items-center relative z-10">
             <img
               src={frameImg}
               alt="Business Tools Frame"
