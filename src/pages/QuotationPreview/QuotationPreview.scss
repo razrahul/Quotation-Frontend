@@ -1,4 +1,5 @@
 @use "../../styles/index" as *;
+
 .preview-page {
   background: #fff;
   min-height: 100vh;
@@ -291,18 +292,28 @@
 .signature-card {
   width: 190px;
   text-align: center;
+  border: 1px dashed color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 1%, white);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   span {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     color: #64748b;
     text-transform: uppercase;
     margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
   }
 
   img {
     width: 120px;
-    height: 64px;
+    height: 56px;
     object-fit: contain;
   }
 }
@@ -410,25 +421,257 @@
   }
 }
 
-@media (max-width: 920px) {
-  .preview-header,
-  .design-impact__body {
-    grid-template-columns: 1fr;
+/* Tax Config card and grid */
+.tax-config-card {
+  .tax-grid {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    span {
+      font-size: 10px;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    strong {
+      font-size: 12px;
+      color: #1e293b;
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .design-impact__body {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .party-grid,
-  .preview-bottom,
   .footer-strip {
     flex-direction: column;
   }
 
-  .preview-header {
-    justify-content: start;
+  .preview-bottom {
+    display: flex;
+    flex-direction: column-reverse; // summary on top, notes/tax on bottom
+    gap: 16px;
   }
 
   .meta-block {
-    width: 100%;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .preview-header {
+    gap: 12px;
+
+    .brand-logo {
+      width: 90px;
+      height: 64px;
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .heading-row h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .meta-list p {
+      padding: 5px 0;
+      gap: 10px;
+    }
+
+    .meta-list span {
+      font-size: 11px;
+    }
+
+    .meta-list strong {
+      font-size: 11.5px;
+    }
+  }
+
+  .supporting-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .info-card {
+      flex: 1 1 calc(50% - 6px);
+      min-width: 180px;
+    }
+  }
+
+  .info-card,
+  .additional-card,
+  .signature-card {
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+
+    h5 {
+      font-size: 11px !important;
+      margin-bottom: 6px !important;
+    }
+
+    p {
+      font-size: 11.5px !important;
+      margin: 4px 0 !important;
+    }
+
+    .tax-grid {
+      gap: 8px !important;
+
+      span {
+        font-size: 9px !important;
+      }
+
+      strong {
+        font-size: 11px !important;
+      }
+    }
+  }
+
+  .summary {
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+
+    .summary-row {
+      padding: 4px 0 !important;
+      font-size: 12.5px !important;
+
+      &.total {
+        font-size: 15px !important;
+        padding-top: 8px !important;
+        margin-top: 6px !important;
+      }
+    }
+
+    .summary-words {
+      margin-top: 8px !important;
+      padding-top: 8px !important;
+
+      span {
+        font-size: 10px !important;
+      }
+
+      strong {
+        font-size: 11px !important;
+      }
+    }
+  }
+
+  .items-priview-table {
+    display: block;
+    background: transparent;
+    border-radius: 0;
+
+    thead {
+      display: none; // Hide the header bar on mobile
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 16px; // space between row cards
+      width: 100%;
+    }
+
+    tr {
+      display: grid;
+      grid-template-columns: 1fr 1fr; // 2 columns layout inside the card
+      gap: 12px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 76, 129, 0.12);
+      border-color: color-mix(in srgb, var(--accent, #0f4c81) 12%, transparent);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(15, 76, 129, 0.03);
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    td {
+      display: block;
+      padding: 0 !important;
+      border: none !important;
+      background: transparent !important;
+      width: 100% !important;
+      text-align: left !important;
+      font-size: 13px;
+
+      // Custom mobile column labels using HTML data-label values
+      &::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--accent, #0f4c81);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    // Column 1: Sr. No (Top row card indicator header with accent background)
+    td:nth-child(1) {
+      grid-column: span 2;
+      background: var(--accent, #0f4c81) !important;
+      color: white !important;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 16px !important;
+      margin: -16px -16px 4px -16px;
+      width: calc(100% + 32px) !important;
+      box-sizing: border-box;
+      border-top-left-radius: 17px;
+      border-top-right-radius: 17px;
+
+      &::before {
+        content: "Item #" !important;
+        display: inline !important;
+        text-transform: none !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        color: white !important;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    // Column 2: Item Description (Spans full width)
+    td:nth-child(2) {
+      grid-column: span 2;
+    }
+
+    // Columns 3 & 4: Qty & Unit (Side-by-side)
+    td:nth-child(3) {
+      grid-column: span 1;
+    }
+
+    td:nth-child(4) {
+      grid-column: span 1;
+    }
+
+    // Columns 5 & 6: Rate & Amount (Side-by-side)
+    td:nth-child(5) {
+      grid-column: span 1;
+    }
+
+    td:nth-child(6) {
+      grid-column: span 1;
+      font-weight: 700;
+      color: #0f172a;
+    }
   }
 }
 
@@ -444,27 +687,102 @@
     border-radius: 20px;
   }
 
-  .meta-list p,
-  .additional-card p,
-  .preview-bottom,
-  .party-grid,
-  .footer-strip {
+  .party-grid {
     flex-direction: column;
+    gap: 16px;
   }
 
-  .meta-list strong,
-  .additional-card strong {
-    text-align: left;
+  .footer-strip {
+    flex-direction: row !important;
+    gap: 10px;
   }
 
   .summary,
-  .signature-card,
   .meta-block {
     width: 100%;
   }
 
+  .signature-card {
+    flex: 0 0 140px !important;
+    width: 140px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px !important;
+
+    span {
+      font-size: 9.5px !important;
+      margin-bottom: 6px !important;
+    }
+
+    img {
+      width: 100% !important;
+      height: 48px !important;
+    }
+  }
+
+  .additional-card {
+    flex: 1 !important;
+  }
+
+  .design-impact__body {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 10px;
+
+    span {
+      font-size: 9.5px;
+    }
+
+    strong {
+      font-size: 11.5px;
+    }
+  }
+
   .preview-actions {
     flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    button {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .supporting-column {
+    width: 100%;
+    flex-direction: column !important;
+
+    .info-card {
+      width: 100% !important;
+    }
+  }
+
+  .footer-strip {
+    gap: 8px;
+  }
+
+  .signature-card {
+    flex: 0 0 110px !important;
+    width: 110px !important;
+    padding: 6px !important;
+
+    span {
+      font-size: 8.5px !important;
+    }
+
+    img {
+      height: 38px !important;
+    }
+  }
+
+  .design-impact__body {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
   }
 }
 
@@ -495,7 +813,7 @@
     display: none !important;
   }
 
-  .navbar + * {
+  .navbar+* {
     margin-top: 0 !important;
   }
 
