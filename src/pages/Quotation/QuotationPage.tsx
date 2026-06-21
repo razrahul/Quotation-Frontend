@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -92,6 +92,76 @@ function numberToWords(value: number) {
   if (hundred) parts.push(convertBelowThousand(hundred));
 
   return `${parts.join(" ").trim()} Rupees Only`;
+}
+
+function CustomSelect({
+  value,
+  onChange,
+  options,
+}: {
+  value: string | number;
+  onChange: (val: any) => void;
+  options: { value: string | number; label: string | number }[] | (string | number)[];
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const normalizedOptions = options.map((opt) => {
+    if (typeof opt === "object" && opt !== null) {
+      return opt;
+    }
+    return { value: opt, label: opt };
+  });
+
+  const selectedOpt = normalizedOptions.find((opt) => String(opt.value) === String(value));
+
+  return (
+    <div className="custom-select-container" ref={dropdownRef}>
+      <div
+        className={`custom-select-trigger ${isOpen ? "open" : ""}`}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <span className="selected-value">{selectedOpt ? selectedOpt.label : value}</span>
+        <span className={`arrow ${isOpen ? "arrow--open" : ""}`}>▼</span>
+      </div>
+      {isOpen && (
+        <div className="custom-dropdown-list">
+          {normalizedOptions.map((opt) => {
+            const isFontOption = typeof opt.value === "string" && FONT_OPTIONS.includes(opt.value);
+            const itemStyle: React.CSSProperties | undefined = isFontOption
+              ? { fontFamily: opt.value as string }
+              : undefined;
+
+            return (
+              <div
+                key={opt.value}
+                className={`custom-dropdown-item ${String(opt.value) === String(value) ? "active" : ""}`}
+                style={itemStyle}
+                onClick={() => {
+                  onChange(opt.value);
+                  setIsOpen(false);
+                }}
+              >
+                {opt.label}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function EntryModal({
@@ -305,7 +375,7 @@ export default function QuotationPage() {
             />
           </div>
 
-          <div className="grid">
+          <div className="builder-grid">
             <PartyDetails
               title="Your Details"
               value={quotation.company}
@@ -434,100 +504,75 @@ export default function QuotationPage() {
 
                 <label>
                   Select Language
-                  <select
+                  <CustomSelect
                     value={quotation.design.language}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
-                        design: { ...prev.design, language: event.target.value },
+                        design: { ...prev.design, language: val },
                       }))
                     }
-                  >
-                    {LANGUAGE_OPTIONS.map((language) => (
-                      <option key={language} value={language}>
-                        {language}
-                      </option>
-                    ))}
-                  </select>
+                    options={LANGUAGE_OPTIONS}
+                  />
                 </label>
 
                 <label>
                   Select Heading Font Family
-                  <select
+                  <CustomSelect
                     value={quotation.design.headingFont}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
-                        design: { ...prev.design, headingFont: event.target.value },
+                        design: { ...prev.design, headingFont: val },
                       }))
                     }
-                  >
-                    {FONT_OPTIONS.map((font) => (
-                      <option key={font} value={font}>
-                        {font}
-                      </option>
-                    ))}
-                  </select>
+                    options={FONT_OPTIONS}
+                  />
                 </label>
 
                 <label>
                   Select Body Font Family
-                  <select
+                  <CustomSelect
                     value={quotation.design.bodyFont}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
-                        design: { ...prev.design, bodyFont: event.target.value },
+                        design: { ...prev.design, bodyFont: val },
                       }))
                     }
-                  >
-                    {FONT_OPTIONS.map((font) => (
-                      <option key={font} value={font}>
-                        {font}
-                      </option>
-                    ))}
-                  </select>
+                    options={FONT_OPTIONS}
+                  />
                 </label>
 
                 <label>
                   Select Heading Font Size
-                  <select
+                  <CustomSelect
                     value={quotation.design.headingFontSize}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
                         design: {
                           ...prev.design,
-                          headingFontSize: Number(event.target.value),
+                          headingFontSize: Number(val),
                         },
                       }))
                     }
-                  >
-                    {[18, 20, 22, 24, 26].map((size) => (
-                      <option key={size} value={size}>
-                        {size}px
-                      </option>
-                    ))}
-                  </select>
+                    options={[18, 20, 22, 24, 26].map((size) => ({ value: size, label: `${size}px` }))}
+                  />
                 </label>
 
                 <label>
                   Select Body Font Size
-                  <select
+                  <CustomSelect
                     value={quotation.design.bodyFontSize}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
-                        design: { ...prev.design, bodyFontSize: Number(event.target.value) },
+                        design: { ...prev.design, bodyFontSize: Number(val) },
                       }))
                     }
-                  >
-                    {[12, 14, 16, 18].map((size) => (
-                      <option key={size} value={size}>
-                        {size}px
-                      </option>
-                    ))}
-                  </select>
+                    options={[12, 14, 16, 18].map((size) => ({ value: size, label: `${size}px` }))}
+                  />
                 </label>
               </div>
             </div>
@@ -540,61 +585,61 @@ export default function QuotationPage() {
               <div className="design-grid compact">
                 <label>
                   Select Paper Size
-                  <select
+                  <CustomSelect
                     value={quotation.design.paperSize}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
                         design: {
                           ...prev.design,
-                          paperSize: event.target.value as QuoteDesign["paperSize"],
+                          paperSize: val as QuoteDesign["paperSize"],
                         },
                       }))
                     }
-                  >
-                    <option value="A4">A4</option>
-                    <option value="Letter">Letter</option>
-                  </select>
+                    options={["A4", "Letter"]}
+                  />
                 </label>
 
                 <label>
                   Select Margin
-                  <select
+                  <CustomSelect
                     value={quotation.design.marginPreset}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
                         design: {
                           ...prev.design,
-                          marginPreset: event.target.value as QuoteDesign["marginPreset"],
+                          marginPreset: val as QuoteDesign["marginPreset"],
                         },
                       }))
                     }
-                  >
-                    <option value="compact">Compact</option>
-                    <option value="normal">Normal</option>
-                    <option value="wide">Wide</option>
-                  </select>
+                    options={[
+                      { value: "compact", label: "Compact" },
+                      { value: "normal", label: "Normal" },
+                      { value: "wide", label: "Wide" },
+                    ]}
+                  />
                 </label>
 
                 <label>
                   Text Scale
-                  <select
+                  <CustomSelect
                     value={quotation.design.textScale}
-                    onChange={(event) =>
+                    onChange={(val) =>
                       setQuotation((prev) => ({
                         ...prev,
                         design: {
                           ...prev.design,
-                          textScale: event.target.value as QuoteDesign["textScale"],
+                          textScale: val as QuoteDesign["textScale"],
                         },
                       }))
                     }
-                  >
-                    <option value="small">Small</option>
-                    <option value="normal">Normal</option>
-                    <option value="large">Large</option>
-                  </select>
+                    options={[
+                      { value: "small", label: "Small" },
+                      { value: "normal", label: "Normal" },
+                      { value: "large", label: "Large" },
+                    ]}
+                  />
                 </label>
 
                 <label className="checkbox-row">

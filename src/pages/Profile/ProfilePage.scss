@@ -9,3 +9,14 @@
   border-radius: 12px;
   padding: 24px;
 }
+
+@media (max-width: 768px) {
+  .profile-page {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .profile-content {
+    padding: 16px;
+  }
+}

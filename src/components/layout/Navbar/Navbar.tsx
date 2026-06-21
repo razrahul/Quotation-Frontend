@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
 import logo from "../../../assets/logo.png";
@@ -6,6 +7,7 @@ import type { RootState } from "../../../redux/store";
 import UserMenu from "../Common/UserMenu";
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, authChecked } = useSelector(
     (state: RootState) => state.auth,
   );
@@ -14,27 +16,56 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        <NavLink to="/" className="logo-link">
+        <NavLink to="/nexquote" className="logo-link">
           <img src={logo} alt="Logo" className="logo" />
         </NavLink>
 
-        <ul className="navbar__menu">
+        <div className="navbar__mobile-right">
+          {showUserMenu && <UserMenu />}
+          <button
+            className="navbar__toggle"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`hamburger-bar ${isMenuOpen ? "open" : ""}`} />
+            <span className={`hamburger-bar ${isMenuOpen ? "open" : ""}`} />
+            <span className={`hamburger-bar ${isMenuOpen ? "open" : ""}`} />
+          </button>
+        </div>
+
+        <ul className={`navbar__menu ${isMenuOpen ? "open" : ""}`}>
           <li>
-            <NavLink to="/" end>
+            <NavLink to="/nexquote" end onClick={() => setIsMenuOpen(false)}>
               Home
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/contact-us">Contact Us</NavLink>
+            <NavLink to="/contact-us" onClick={() => setIsMenuOpen(false)}>
+              Contact Us
+            </NavLink>
           </li>
+
+          {showUserMenu && (
+            <li>
+              <NavLink to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                Dashboard
+              </NavLink>
+            </li>
+          )}
 
           {/* 🔐 Auth based UI */}
           <li className="auth-area">
             {showUserMenu ? (
-              <UserMenu />
+              <div className="desktop-user-menu">
+                <UserMenu />
+              </div>
             ) : (
-              <NavLink to="/register" className="btn">
+              <NavLink
+                to="/register"
+                className="btn"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Register
               </NavLink>
             )}

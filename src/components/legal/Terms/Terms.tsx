@@ -1,8 +1,11 @@
+import { getBrandConfig } from "../../../utils/contex";
 import "./Terms.scss";
 
+const NEXQUOTE_CONFIG =  getBrandConfig("nexquote");
+
 const termsData = {
-  effectiveYear: 2025,
-  intro: `Welcome to [Your Website Name]! By using our platform to create, customize, and manage business quotations, you agree to comply with our Terms & Conditions. These terms form a legal agreement between you and [Your Company Name], so please read them carefully. If you do not accept any part of these terms, we recommend not using our services. Our platform is designed to simplify your quoting process while ensuring ease, speed, and accuracy. By continuing to use the site, you acknowledge that you understand and accept all policies outlined here.`,
+  effectiveYear: NEXQUOTE_CONFIG.effectiveYear,
+  intro: `Welcome to ${NEXQUOTE_CONFIG.websiteName}! By using our platform to create, customize, and manage business quotations, you agree to comply with our Terms & Conditions. These terms form a legal agreement between you and ${NEXQUOTE_CONFIG.companyName}, so please read them carefully. If you do not accept any part of these terms, we recommend not using our services. Our platform is designed to simplify your quoting process while ensuring ease, speed, and accuracy. By continuing to use the site, you acknowledge that you understand and accept all policies outlined here.`,
   sections: [
     {
       title: "Acceptance of Terms",
@@ -17,7 +20,7 @@ const termsData = {
     {
       title: "Intellectual Property",
       content:
-        "All content, including templates, designs, logos, text, and features on this site, are the property of [Your Company Name] and are protected by intellectual property laws. Unauthorized use or reproduction is strictly prohibited.",
+        `All content, including templates, designs, logos, text, and features on this site, are the property of ${NEXQUOTE_CONFIG.companyName} and are protected by intellectual property laws. Unauthorized use or reproduction is strictly prohibited.`,
     },
     {
       title: "Updates and Modifications",
@@ -47,7 +50,7 @@ const termsData = {
     {
       title: "Governing Law",
       content:
-        "These Terms & Conditions are governed by and construed in accordance with the laws of [Your Country/State], and any disputes will be handled in its courts.",
+        `These Terms & Conditions are governed by and construed in accordance with the laws of ${NEXQUOTE_CONFIG.countryState}, and any disputes will be handled in its courts.`,
     },
   ],
 };

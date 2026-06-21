@@ -30,7 +30,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="relative w-full bg-white py-16 sm:py-20 overflow-hidden">
+    <section className="relative w-full bg-white py-12 sm:py-20 overflow-hidden">
       {/* Background Decorative Outline Triangle - Top Right */}
       <div className="absolute right-[20%] top-[8%] pointer-events-none select-none opacity-80 animate-bounce delay-150">
         <svg
@@ -71,7 +71,7 @@ export default function ContactForm() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 max-w-6xl mx-auto">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-16 max-w-6xl mx-auto">
           
           {/* Left Column: Phone Illustration */}
           <div className="w-full lg:w-[48%] flex justify-center">
@@ -83,10 +83,10 @@ export default function ContactForm() {
           </div>
 
           {/* Right Column: Contact Us Form */}
-          <div className="w-full lg:w-[48%] space-y-8">
+          <div className="w-full lg:w-[48%] space-y-8 bg-slate-50/40 p-6 sm:p-8 lg:p-0 rounded-3xl border border-slate-100/80 lg:border-none lg:bg-transparent">
             {/* Header row with Title and Back to Home button */}
             <div className="flex items-center justify-between gap-4">
-              <h2 className="text-3xl sm:text-[34px] font-extrabold text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-[34px] font-extrabold text-slate-900 tracking-tight">
                 Contact Us
               </h2>
               <Link

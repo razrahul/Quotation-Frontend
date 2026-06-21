@@ -97,3 +97,31 @@
 .swiper-button-prev:hover {
   background: rgba(255, 255, 255, 0.12);
 }
+
+/* ================= RESPONSIVE TESTIMONIALS ================= */
+@media (max-width: 960px) {
+  .testimonials {
+    padding: 40px 0;
+  }
+
+  .testimonials__title {
+    font-size: 24px;
+    margin: 20px 0 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonials__container {
+    padding: 0 16px;
+  }
+
+  // hide navigation arrows on small screens to prevent overlaying the cards
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+
+  .testimonial-card {
+    padding: 40px 16px;
+  }
+}

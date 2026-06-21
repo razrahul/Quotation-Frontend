@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop";
 import QuotationPreview from "./pages/QuotationPreview/QuotationPreview";
-import Home from "./pages/Home/Home";
+import QuotationHome from "./pages/Home/Home";
 import ContactPage from "./pages/ContactUs/ContactPage";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/Register/Register";
@@ -60,7 +60,8 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<NewHomePage />} />
+        <Route path="/nexquote" element={<QuotationHome />} />
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/preview" element={<QuotationPreview />} />
         <Route path="/login" element={<Login />} />
@@ -86,9 +87,8 @@ export default function App() {
         </Route>
 
         {/* New Schema Routes */}
-        <Route path="/home" element={<NewHomePage />} />
-        <Route path="/new-about" element={<NewAboutPage />} />
-        <Route path="/new-contact" element={<NewContactPage />} />
+        <Route path="/about" element={<NewAboutPage />} />
+        <Route path="/contact" element={<NewContactPage />} />
         <Route path="/invoice-generator" element={<UnderDevelopmentPage />} />
         <Route path="/gst-calculator" element={<UnderDevelopmentPage />} />
         <Route path="/smm-panel" element={<UnderDevelopmentPage />} />

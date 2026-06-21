@@ -4,13 +4,10 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 24px;
-  border: 1px solid rgba($primary-blue, 0.16);
-  border-radius: 18px;
   overflow: hidden;
 
   thead th {
-    background: linear-gradient(135deg, $primary-blue 0%, #123f69 100%);
+    background: $primary-blue;
     color: white;
     padding: 14px 12px;
     font-size: 13px;
@@ -103,5 +100,171 @@
 
   &:hover {
     background: #eef6ff;
+  }
+}
+
+.items-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 24px;
+  border: 1px solid rgba($primary-blue, 0.16);
+  border-radius: 18px;
+
+  .items-table {
+    margin-top: 0;
+    border: none;
+    min-width: 700px;
+  }
+}
+
+// Strictly isolated responsive table styles for screens smaller than 768px (Mobile & Tablet)
+// Converts the table structure into clean stacked cards, leaving the laptop/desktop view
+// and server-side PDF generator layout 100% original and untouched.
+@media (max-width: 768px) {
+  .items-table-wrapper {
+    margin-top: 16px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+
+    .items-table {
+      min-width: 100% !important;
+      display: block;
+      background: transparent;
+
+      thead {
+        display: none; // Hide the header bar on mobile
+      }
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 16px; // space between row cards
+        width: 100%;
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr; // 2 columns layout inside the card
+        gap: 12px;
+        background: #ffffff;
+        border: 1px solid rgba($primary-blue, 0.12);
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.03);
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      td {
+        display: block;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        width: 100% !important;
+        text-align: left !important;
+
+        // Custom mobile column labels using HTML data-label values
+        &::before {
+          content: attr(data-label);
+          display: block;
+          font-size: 11px;
+          font-weight: 600;
+          color: rgba($primary-blue, 1.5);
+          margin-bottom: 4px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      // Column 1: Sr. No (Top row card indicator header with primary-blue background)
+      td:nth-child(1) {
+        grid-column: span 2;
+        background: $primary-blue !important;
+        color: white !important;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 10px 16px !important;
+        margin: -16px -16px 12px -16px;
+        width: calc(100% + 32px) !important;
+        box-sizing: border-box;
+        border-top-left-radius: 17px;
+        border-top-right-radius: 17px;
+        border-bottom: none !important;
+
+        &::before {
+          content: "Item #" !important;
+          display: inline !important;
+          text-transform: none !important;
+          font-size: 13px !important;
+          font-weight: 700 !important;
+          color: white !important;
+          margin-bottom: 0 !important;
+        }
+      }
+
+      // Column 2: Item Description (Spans full width)
+      td:nth-child(2) {
+        grid-column: span 2;
+      }
+
+      // Columns 3 & 4: Quantity & Unit (Side-by-side)
+      td:nth-child(3) {
+        grid-column: span 1;
+      }
+
+      td:nth-child(4) {
+        grid-column: span 1;
+      }
+
+      // Columns 5 & 6: Rate & Amount (Side-by-side)
+      td:nth-child(5) {
+        grid-column: span 1;
+      }
+
+      td:nth-child(6) {
+        grid-column: span 1;
+        font-weight: 700;
+        color: #0f172a;
+        
+        // Vertically align amount value beautifully inside card
+        padding-top: 4px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      // Column 7: Delete action (Absolute-positioned at the top-right corner of the card)
+      td:nth-child(7) {
+        position: absolute;
+        top: 6px;
+        right: 12px;
+        width: auto !important;
+
+        &::before {
+          display: none !important; // No label
+        }
+
+        button {
+          color: rgba(255, 255, 255, 0.85);
+          width: 28px;
+          height: 28px;
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+
+          &:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.18);
+          }
+        }
+      }
+    }
   }
 }

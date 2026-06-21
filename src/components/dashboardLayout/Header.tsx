@@ -1,63 +1,31 @@
-import { useState } from "react";
 import "./Header.scss";
-import { logout } from "../../redux/slices/authSlice";
-import type { AppDispatch, RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import UserMenu from "../layout/Common/UserMenu";
 
-const Header = () => {
-  const [open, setOpen] = useState(false);
+interface HeaderProps {
+  toggleSidebar: () => void;
+  isSidebarOpen: boolean;
+}
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-
-  const { user } = useSelector((state: RootState) => state.auth);
-
-  const logoutHandler = () => {
-    localStorage.removeItem("tt_token");
-    dispatch(logout());
-    navigate("/");
-  };
-
+const Header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
   return (
     <header className="header">
-      <div className="logo">
-        <Link to="/">
-          Nex<span>Quote</span>
-        </Link>
-      </div>
-
-      <div className={`user ${open ? "is-open" : ""}`}>
+      <div className="header__left">
         <button
-          className="avatar"
-          type="button"
-          aria-label="Open user menu"
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
+          className="sidebar-toggle"
+          onClick={toggleSidebar}
+          aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
         >
-          {(user?.name?.[0] ?? "U").toUpperCase()}
+          {isSidebarOpen ? "✕" : "☰"}
         </button>
-
-        {open && (
-          <div className="dropdown">
-            <Link to="/profile" className="menu-item">
-              Profile
-            </Link>
-
-            <Link to="/profile/security" className="menu-item">
-              Security
-            </Link>
-
-            <button
-              className="menu-item danger"
-              type="button"
-              onClick={logoutHandler}
-            >
-              Log out
-            </button>
-          </div>
-        )}
+        <div className="logo">
+          <Link to="/nexquote">
+            Nex<span>Quote</span>
+          </Link>
+        </div>
       </div>
+
+      <UserMenu />
     </header>
   );
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { INDIAN_STATE_OPTIONS } from "../../utils/countryOptions";
 import type { QuoteTaxConfig } from "../../types/quotation.types";
 import "./GSTSection.scss";
@@ -23,10 +23,44 @@ export default function GSTPopup({
   const [percentage, setPercentage] = useState(initialPercentage);
   const [taxConfig, setTaxConfig] = useState<QuoteTaxConfig>(initialConfig);
 
+  const [isTaxTypeOpen, setIsTaxTypeOpen] = useState(false);
+  const [isPlaceOfSupplyOpen, setIsPlaceOfSupplyOpen] = useState(false);
+
+  const taxTypeDropdownRef = useRef<HTMLDivElement>(null);
+  const placeOfSupplyDropdownRef = useRef<HTMLDivElement>(null);
+
+  const [prevOpen, setPrevOpen] = useState(open);
+
+  if (open !== prevOpen) {
+    setPrevOpen(open);
+    if (open) {
+      setPercentage(initialPercentage);
+      setTaxConfig(initialConfig);
+      setIsTaxTypeOpen(false);
+      setIsPlaceOfSupplyOpen(false);
+    }
+  }
+
   useEffect(() => {
-    setPercentage(initialPercentage);
-    setTaxConfig(initialConfig);
-  }, [initialPercentage, initialConfig, open]);
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        taxTypeDropdownRef.current &&
+        !taxTypeDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsTaxTypeOpen(false);
+      }
+      if (
+        placeOfSupplyDropdownRef.current &&
+        !placeOfSupplyDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsPlaceOfSupplyOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   if (!open) return null;
 
@@ -38,40 +72,73 @@ export default function GSTPopup({
         <div className="gst-header">
           <span>Configure Tax</span>
           <button type="button" onClick={onClose}>
-            x
+            ×
           </button>
         </div>
 
         <div className="gst-body">
           <div className="gst-stack">
             <label>1. Select Tax Type</label>
-            <select
-              className="gst-select"
-              value={taxConfig.taxType}
-              onChange={(event) =>
-                setTaxConfig((prev) => ({ ...prev, taxType: event.target.value }))
-              }
-            >
-              <option value="GST India">GST India</option>
-              <option value="IGST">IGST</option>
-            </select>
+            <div className="gst-select-container" ref={taxTypeDropdownRef}>
+              <div
+                className="gst-select-trigger"
+                onClick={() => setIsTaxTypeOpen((prev) => !prev)}
+              >
+                <span className="selected-value">{taxConfig.taxType || "Select Tax Type"}</span>
+                <span className={`arrow ${isTaxTypeOpen ? "arrow--open" : ""}`}>▼</span>
+              </div>
+              {isTaxTypeOpen && (
+                <div className="gst-dropdown-list">
+                  <div
+                    className={`gst-dropdown-item ${taxConfig.taxType === "GST India" ? "active" : ""}`}
+                    onClick={() => {
+                      setTaxConfig((prev) => ({ ...prev, taxType: "GST India" }));
+                      setIsTaxTypeOpen(false);
+                    }}
+                  >
+                    GST India
+                  </div>
+                  <div
+                    className={`gst-dropdown-item ${taxConfig.taxType === "IGST" ? "active" : ""}`}
+                    onClick={() => {
+                      setTaxConfig((prev) => ({ ...prev, taxType: "IGST" }));
+                      setIsTaxTypeOpen(false);
+                    }}
+                  >
+                    IGST
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="gst-stack">
             <label>2. Place Of Supply</label>
-            <select
-              className="gst-select"
-              value={taxConfig.placeOfSupply}
-              onChange={(event) =>
-                setTaxConfig((prev) => ({ ...prev, placeOfSupply: event.target.value }))
-              }
-            >
-              {INDIAN_STATE_OPTIONS.map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </select>
+            <div className="gst-select-container" ref={placeOfSupplyDropdownRef}>
+              <div
+                className="gst-select-trigger"
+                onClick={() => setIsPlaceOfSupplyOpen((prev) => !prev)}
+              >
+                <span className="selected-value">{taxConfig.placeOfSupply || "Select State"}</span>
+                <span className={`arrow ${isPlaceOfSupplyOpen ? "arrow--open" : ""}`}>▼</span>
+              </div>
+              {isPlaceOfSupplyOpen && (
+                <div className="gst-dropdown-list">
+                  {INDIAN_STATE_OPTIONS.map((state) => (
+                    <div
+                      key={state}
+                      className={`gst-dropdown-item ${taxConfig.placeOfSupply === state ? "active" : ""}`}
+                      onClick={() => {
+                        setTaxConfig((prev) => ({ ...prev, placeOfSupply: state }));
+                        setIsPlaceOfSupplyOpen(false);
+                      }}
+                    >
+                      {state}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="gst-stack">

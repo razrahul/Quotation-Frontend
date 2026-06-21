@@ -457,12 +457,12 @@ export default function QuotationPreview() {
               <tbody>
                 {payload.items.map((item: any, index: number) => (
                   <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.qty}</td>
-                    <td>{item.unit}</td>
-                    <td>Rs. {item.rate}</td>
-                    <td>Rs. {item.amount}</td>
+                    <td data-label="Sr.">{index + 1}</td>
+                    <td data-label="Item">{item.name}</td>
+                    <td data-label="Qty">{item.qty}</td>
+                    <td data-label="Unit">{item.unit}</td>
+                    <td data-label="Rate">Rs. {item.rate}</td>
+                    <td data-label="Amount">Rs. {item.amount}</td>
                   </tr>
                 ))}
               </tbody>
@@ -471,17 +471,28 @@ export default function QuotationPreview() {
             <div className="preview-bottom">
               <div className="supporting-column">
                 {payload.taxConfig && (
-                  <div className="info-card">
+                  <div className="info-card tax-config-card">
                     <h5>Tax Configuration</h5>
-                    <p>Tax Type: {payload.taxConfig.taxType}</p>
-                    <p>Place of Supply: {payload.taxConfig.placeOfSupply}</p>
-                    <p>
-                      GST Type:{" "}
-                      {payload.taxConfig.gstMode === "cgst_sgst" ? "CGST & SGST" : "IGST"}
-                    </p>
-                    <p>
-                      Reverse Charge: {payload.taxConfig.reverseCharge ? "Applicable" : "No"}
-                    </p>
+                    <div className="tax-grid">
+                      <div>
+                        <span>Tax Type</span>
+                        <strong>{payload.taxConfig.taxType}</strong>
+                      </div>
+                      <div>
+                        <span>Place of Supply</span>
+                        <strong>{payload.taxConfig.placeOfSupply}</strong>
+                      </div>
+                      <div>
+                        <span>GST Type</span>
+                        <strong>
+                          {payload.taxConfig.gstMode === "cgst_sgst" ? "CGST & SGST" : "IGST"}
+                        </strong>
+                      </div>
+                      <div>
+                        <span>Reverse Charge</span>
+                        <strong>{payload.taxConfig.reverseCharge ? "Applicable" : "No"}</strong>
+                      </div>
+                    </div>
                   </div>
                 )}
 

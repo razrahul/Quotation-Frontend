@@ -5,8 +5,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;            // 🔥 full width
-  height: $navbar-height;           // figma height
+  width: 100%; // 🔥 full width
+  height: $navbar-height; // figma height
   z-index: 1000;
   background: $white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -83,6 +83,124 @@
 }
 
 /* ===== CONTENT PUSH (NO HOME.SCSS NEEDED) ===== */
-.navbar + * {
-  margin-top: 80px;   // navbar height ke barabar
+.navbar+* {
+  margin-top: 80px; // navbar height ke barabar
+}
+
+.navbar__mobile-right {
+  display: none;
+}
+
+.desktop-user-menu {
+  display: block;
+}
+
+/* ===== RESPONSIVE NAVBAR ===== */
+@media (max-width: 768px) {
+  .navbar__container {
+    padding: 0 20px; // 🔥 keeps logo on left and toggle on right corners of screen
+  }
+
+  .navbar__mobile-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1001;
+  }
+
+  .navbar__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    .hamburger-bar {
+      width: 24px;
+      height: 2px;
+      background-color: #053b73;
+      transition: all 0.3s ease;
+      transform-origin: center;
+
+      &.open {
+        &:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+          width: 0%;
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  .desktop-user-menu {
+    display: none;
+  }
+
+  .navbar__menu {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: $white;
+    flex-direction: column;
+    gap: 0;
+    padding: 16px 0;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+    li {
+      width: 100%;
+      text-align: center;
+
+      a {
+        display: block;
+        padding: 14px 0;
+        font-size: 16px;
+        transition: all 0.2s ease;
+
+        &.active {
+          background: #f0f7ff;
+          color: #053b73;
+          font-weight: 600;
+
+          &::after {
+            display: none !important;
+          }
+        }
+
+        &:hover {
+          background: #f8fafc;
+          color: #053b73;
+        }
+      }
+    }
+
+    .auth-area {
+      width: 100%;
+      padding: 10px 20px;
+      box-sizing: border-box;
+
+      .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    &.open {
+      display: flex;
+    }
+  }
 }

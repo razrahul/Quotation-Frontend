@@ -28,22 +28,21 @@ export default function UnderDevelopment() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar />
 
-      <main className=" h-[520px] grow flex items-center justify-center py-16 px-4 relative overflow-hidden bg-white">
-        {/* Absolute Background Circles */}
+      <main className="min-h-[500px] lg:h-[520px] grow flex items-center justify-center py-16 px-4 relative overflow-hidden bg-white">
         <img
           src={circleDoted1}
           alt="dotted circle left top"
-          className="absolute left-12 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-85"
+          className="absolute left-12 top-0 w-36 sm:w-48 md:w-64 lg:w-[280px] pointer-events-none select-none opacity-85 z-0"
         />
         <img
           src={circleDoted2}
           alt="dotted circle left bottom"
-          className="absolute left-62 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-85"
+          className="absolute left-62 bottom-0 w-52 sm:w-64 md:w-80 lg:w-[320px] pointer-events-none select-none opacity-85 z-0"
         />
         <img
           src={circleDoted3}
           alt="dotted circle right vertical"
-          className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85"
+          className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85 z-0"
         />
 
         {/* Content Box */}
@@ -125,7 +124,7 @@ export default function UnderDevelopment() {
           {/* Back to Home Button */}
           <div className="pt-2">
             <Link
-              to="/home"
+              to="/"
               className="inline-block border border-slate-200 bg-white hover:bg-slate-50 text-slate-650 px-6 py-2.5 rounded-full text-sm font-bold shadow-xs hover:shadow-sm transition-all"
             >
               Back to Home

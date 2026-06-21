@@ -5,10 +5,18 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 16px;
-  min-width: min(100%, 420px);
+  width: 100%;
+  max-width: 420px;
+
+  @media (max-width: 768px) {
+    flex: 1;
+    min-width: 0;
+    max-width: unset;
+    align-items: flex-end;
+  }
 
   .title {
-    font-size: 34px;
+    font-size: clamp(20px, 4.5vw, 34px);
     font-weight: 700;
     color: $text-dark;
     border-bottom: 1px solid rgba($primary-blue, 0.18);
@@ -16,6 +24,8 @@
     align-items: center;
     gap: 10px;
     padding-bottom: 6px;
+    width: fit-content;
+    max-width: 100%;
   }
 
   .title-input {
@@ -30,6 +40,7 @@
     padding: 0;
     margin: 0;
     line-height: 1.2;
+    text-align: right;
   }
 
   .edit {
@@ -40,6 +51,18 @@
     font-size: 16px;
     padding: 0;
     line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba($primary-blue, 0.06);
+      color: $primary-blue;
+    }
   }
 
   .fields {
@@ -68,6 +91,22 @@
     .required {
       color: #dc2626;
     }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 120px 1fr;
+      column-gap: 12px;
+      align-items: center;
+
+      label {
+        font-size: 11px;
+        padding-bottom: 0;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .quote-input {
+        text-align: right;
+      }
+    }
   }
 
   .field-dual {
@@ -76,16 +115,34 @@
     > input {
       margin-right: 10px;
     }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 120px 1fr;
+      column-gap: 12px;
+      align-items: center;
+
+      > input {
+        margin-right: 0;
+        text-align: left;
+        font-size: 13px;
+      }
+    }
   }
 
   .field-inline {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      justify-content: flex-end;
+    }
   }
 
   .quote-input {
     width: 100%;
+    min-width: 0;
     padding: 8px 0;
     border: none;
     border-bottom: 1px solid rgba($primary-blue, 0.16);
@@ -93,9 +150,42 @@
     font-size: 14px;
     outline: none;
     background: transparent;
+    text-align: right;
 
     &:focus {
       border-bottom-color: $primary-blue;
+    }
+
+    &[type="date"] {
+      cursor: pointer;
+      position: relative;
+      padding-right: 24px !important;
+
+      &::-webkit-calendar-picker-indicator {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 14px;
+          height: 14px;
+          opacity: 0.5;
+        }
+      }
     }
   }
 
@@ -108,12 +198,25 @@
     color: $primary-blue;
     cursor: pointer;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(220, 38, 38, 0.1);
+      color: #dc2626;
+    }
   }
 
   .links {
     margin-top: 4px;
     display: flex;
     justify-content: flex-end;
+
+    @media (max-width: 768px) {
+      justify-content: flex-end;
+    }
 
     button {
       border: none;
@@ -122,7 +225,13 @@
       cursor: pointer;
       font-size: 13px;
       font-weight: 600;
-      padding: 0;
+      padding: 6px 0;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $primary-dark;
+        text-decoration: underline;
+      }
     }
   }
 }
