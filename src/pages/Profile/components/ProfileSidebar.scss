@@ -30,3 +30,13 @@
     text-align: left;
   }
 }
+
+@media (max-width: 768px) {
+  .profile-sidebar {
+    width: 100%;
+
+    .delete-btn {
+      margin-top: 12px;
+    }
+  }
+}

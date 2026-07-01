@@ -8,7 +8,7 @@ export default function ContactTeam() {
   }));
 
   return (
-    <section className="relative w-full bg-white py-16 sm:py-20 overflow-hidden">
+    <section className="relative w-full bg-white py-12 sm:py-20 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -24,11 +24,8 @@ export default function ContactTeam() {
           </p>
         </div>
 
-        {/* Members Grid (forced 3 columns via inline CSS) */}
-        <div 
-          className="grid gap-3 sm:gap-4 max-w-4xl mx-auto"
-          style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
-        >
+        {/* Members Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
           {teamMembers.map((member) => (
             <div
               key={member.id}

@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from "react";
+
 import type { Party } from "../../types/quotation.types";
 import {
   COUNTRY_OPTIONS,
@@ -17,23 +19,70 @@ export default function PartyDetails({ title, value, onChange }: Props) {
   const phoneCode = getCountryPhoneCode(value.country);
   const usesStateSelect = value.country === "India";
 
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [isStateOpen, setIsStateOpen] = useState(false);
+
+  const countryDropdownRef = useRef<HTMLDivElement>(null);
+  const stateDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        countryDropdownRef.current &&
+        !countryDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsCountryOpen(false);
+      }
+      if (
+        stateDropdownRef.current &&
+        !stateDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsStateOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const selectedCountry = COUNTRY_OPTIONS.find((c) => c.value === value.country);
+  const countryLabel = selectedCountry ? selectedCountry.label : "Select Country";
+  const stateLabel = value.state || "Select State";
+
+  const hasOpenDropdown = isCountryOpen || isStateOpen;
+
   return (
-    <div className="party-card">
+    <div className={`party-card ${hasOpenDropdown ? "has-open-dropdown" : ""}`}>
       <div className="header">{title}</div>
 
       <div className="field-row">
         <label>Country</label>
-        <select
-          className="party-input"
-          value={value.country}
-          onChange={(event) => onChange("country", event.target.value)}
-        >
-          {COUNTRY_OPTIONS.map((country) => (
-            <option key={country.value} value={country.value}>
-              {country.label}
-            </option>
-          ))}
-        </select>
+        <div className="party-select-container" ref={countryDropdownRef}>
+          <div
+            className="party-select-trigger"
+            onClick={() => setIsCountryOpen((prev) => !prev)}
+          >
+            <span className="selected-value">{countryLabel}</span>
+            <span className={`arrow ${isCountryOpen ? "arrow--open" : ""}`}>▼</span>
+          </div>
+          {isCountryOpen && (
+            <div className="custom-dropdown-list">
+              {COUNTRY_OPTIONS.map((countryOption) => (
+                <div
+                  key={countryOption.value}
+                  className={`custom-dropdown-item ${value.country === countryOption.value ? "active" : ""}`}
+                  onClick={() => {
+                    onChange("country", countryOption.value);
+                    setIsCountryOpen(false);
+                  }}
+                >
+                  {countryOption.label}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="field-row">
@@ -42,7 +91,9 @@ export default function PartyDetails({ title, value, onChange }: Props) {
           <input
             className="party-input"
             placeholder={
-              isClient ? "Clients Business Name (required)" : "Your Business Name (required)"
+              isClient
+                ? "Clients Business Name (required)"
+                : "Your Business Name (required)"
             }
             required
             value={value.name}
@@ -50,7 +101,9 @@ export default function PartyDetails({ title, value, onChange }: Props) {
           />
           {!value.name && (
             <span className="error-text">
-              {isClient ? "Clients business name is required." : "Your business name is required."}
+              {isClient
+                ? "Clients business name is required."
+                : "Your business name is required."}
             </span>
           )}
         </div>
@@ -73,7 +126,9 @@ export default function PartyDetails({ title, value, onChange }: Props) {
         <label>GSTIN</label>
         <input
           className="party-input"
-          placeholder={isClient ? "Clients GSTIN (optional)" : "Your GSTIN (optional)"}
+          placeholder={
+            isClient ? "Clients GSTIN (optional)" : "Your GSTIN (optional)"
+          }
           value={value.gstin ?? ""}
           onChange={(event) => onChange("gstin", event.target.value || null)}
         />
@@ -83,7 +138,9 @@ export default function PartyDetails({ title, value, onChange }: Props) {
         <label>Address</label>
         <textarea
           className="party-input textarea"
-          placeholder={isClient ? "Clients Address (optional)" : "Your Address (optional)"}
+          placeholder={
+            isClient ? "Clients Address (optional)" : "Your Address (optional)"
+          }
           value={value.address ?? ""}
           onChange={(event) => onChange("address", event.target.value)}
         />
@@ -102,18 +159,31 @@ export default function PartyDetails({ title, value, onChange }: Props) {
       <div className="field-row">
         <label>State</label>
         {usesStateSelect ? (
-          <select
-            className="party-input"
-            value={value.state ?? ""}
-            onChange={(event) => onChange("state", event.target.value)}
-          >
-            <option value="">Select State</option>
-            {INDIAN_STATE_OPTIONS.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
+          <div className="party-select-container" ref={stateDropdownRef}>
+            <div
+              className="party-select-trigger"
+              onClick={() => setIsStateOpen((prev) => !prev)}
+            >
+              <span className="selected-value">{stateLabel}</span>
+              <span className={`arrow ${isStateOpen ? "arrow--open" : ""}`}>▼</span>
+            </div>
+            {isStateOpen && (
+              <div className="custom-dropdown-list">
+                {INDIAN_STATE_OPTIONS.map((stateOption) => (
+                  <div
+                    key={stateOption}
+                    className={`custom-dropdown-item ${value.state === stateOption ? "active" : ""}`}
+                    onClick={() => {
+                      onChange("state", stateOption);
+                      setIsStateOpen(false);
+                    }}
+                  >
+                    {stateOption}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ) : (
           <input
             className="party-input"

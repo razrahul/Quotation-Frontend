@@ -20,13 +20,13 @@ export default function Footer() {
             <span>X</span>
           </div>
 
-          <small>
+          <small className="desktop-copy">
             © 2025 NexQuote | All rights reserved
           </small>
         </div>
 
         {/* Company */}
-        <div className="footer__col">
+        <div className="footer__col footer__col--company">
           <h4>Company</h4>
           <ul>
             <li>Home</li>
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
 
         {/* Products */}
-        <div className="footer__col">
+        <div className="footer__col footer__col--products">
           <h4>Products</h4>
           <ul>
             <li>ToolsBuzz</li>
@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
 
         {/* Contact */}
-        <div className="footer__col">
+        <div className="footer__col footer__col--contact">
           <h4>Contact Us</h4>
           <ul className="footer__contact">
             <li>📍 123 Business Avenue, Suite 456, City, Country</li>
@@ -53,6 +53,10 @@ export default function Footer() {
             <li>📞 +1 (123) 456-7890</li>
           </ul>
         </div>
+
+        <small className="mobile-copy">
+          © 2025 NexQuote | All rights reserved
+        </small>
       </div>
     </footer>
   );

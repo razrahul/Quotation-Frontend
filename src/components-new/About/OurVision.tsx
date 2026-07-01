@@ -10,24 +10,28 @@ export default function OurVision() {
   const visionPoints = [
     {
       title: "All in one product",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
     },
     {
       title: "Dedicated dashboard",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
     },
     {
       title: "Data security",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
     },
     {
       title: "Accessibility",
-      description: "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool."
-    }
+      description:
+        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
+    },
   ];
 
   return (
-    <section className="relative max-w-7xl mx-auto bg-[#EDF6FE] py-20 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-none  z-10 my-8 shadow-sm">
+    <section className="relative max-w-7xl mx-4 sm:mx-6 lg:mx-auto bg-[#EDF6FE] py-12 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-3xl lg:rounded-none z-10 my-8 shadow-sm">
       {/* Background Ellipses positioned exactly as per Figma */}
       <img
         src={ellipse130}
@@ -37,46 +41,51 @@ export default function OurVision() {
       <img
         src={ellipse127}
         alt=""
-        className="absolute top-0 right-[10%] w-24 sm:w-24 h-auto object-contain pointer-events-none z-0"
+        className="absolute top-0 right-[10%] w-16 sm:w-24 h-auto object-contain pointer-events-none z-0"
       />
       <img
         src={ellipse128}
         alt=""
-        className="absolute bottom-0 left-[3%] w-32 h-auto object-contain pointer-events-none z-0"
+        className="absolute bottom-0 left-[3%] w-24 sm:w-32 h-auto object-contain pointer-events-none z-0"
       />
       <img
         src={ellipse121}
         alt=""
-        className="absolute top-[8%] left-[85%] md:left-[48%] lg:left-[55%] w-28 sm:w-28 h-auto object-contain pointer-events-none z-0"
+        className="absolute top-[8%] left-[85%] md:left-[48%] lg:left-[55%] w-20 sm:w-28 h-auto object-contain pointer-events-none z-0"
       />
       <img
         src={ellipse131}
         alt=""
-        className="absolute bottom-2 -right-10 w-28 sm:w-20 h-auto object-contain pointer-events-none z-0"
+        className="absolute bottom-2 -right-10 w-20 sm:w-28 h-auto object-contain pointer-events-none z-0"
       />
       <img
         src={ellipse129}
         alt=""
-        className="absolute bottom-[-10px] left-[35%] w-24 h-auto object-contain pointer-events-none z-0"
+        className="absolute bottom-[-10px] left-[35%] w-16 sm:w-24 h-auto object-contain pointer-events-none z-0"
       />
 
       <div className="relative w-full z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12 lg:gap-16 w-full">
           {/* Left Column: Vision Points */}
           <div className="flex-1 max-w-2xl w-full">
-            <div className="inline-block relative">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight select-none pb-1">
+            <div className="inline-block relative mb-4 sm:mb-0">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight select-none pb-1">
                 Our Vision
               </h2>
             </div>
 
-            <ul className="space-y-5 max-w-xl">
+            <ul className="space-y-3 sm:space-y-5 max-w-xl">
               {visionPoints.map((point, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                <li
+                  key={idx}
+                  className="flex items-start gap-3 text-slate-600 text-[13px] sm:text-base leading-normal sm:leading-relaxed"
+                >
                   <span className="mt-2 w-1.5 h-1.5 rounded-full bg-slate-950 shrink-0"></span>
                   <span className="font-normal text-slate-700">
-                  <strong className="font-bold text-slate-950">{point.title}: </strong>
-                  {point.description}
+                    <strong className="font-bold text-slate-950">
+                      {point.title}:{" "}
+                    </strong>
+                    {point.description}
                   </span>
                 </li>
               ))}
@@ -98,4 +107,3 @@ export default function OurVision() {
     </section>
   );
 }
-

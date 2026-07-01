@@ -5,7 +5,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#014798] text-white pt-16 pb-12">
+    <footer className="bg-[#014798] text-white pt-12 pb-10 lg:pt-16 lg:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Columns Container */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10">
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
 
           {/* Links and Info Columns Wrapper */}
-          <div className="w-full lg:flex-1 flex flex-col sm:flex-row justify-between items-start gap-10 lg:pl-16">
+          <div className="w-full lg:flex-1 grid grid-cols-2 gap-10 sm:flex sm:flex-row justify-between items-start lg:pl-16">
             {/* Quick Links Column */}
             <div className="space-y-4 min-w-[120px]">
               <h3 className="text-[#ffb703] font-bold text-lg tracking-wider">
@@ -139,7 +139,7 @@ export default function Footer() {
             </div>
 
             {/* Contact Info Column */}
-            <div className="space-y-4 min-w-[200px]">
+            <div className="space-y-4 min-w-[200px] col-span-2 sm:col-span-1">
               <h3 className="text-[#ffb703] font-bold text-lg tracking-wider">
                 Contact
               </h3>
