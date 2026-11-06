@@ -1,6 +1,6 @@
-import Navbar from "../../components/layout/Navbar/Navbar";
-import Footer from "../../components/layout/Footer/Footer";
-import GetInTouch from "../../components/home/GetInTouch/GetInTouch";
+import Navbar from "../../components-new/Layout/Navbar";
+import Footer from "../../components-new/Layout/Footer";
+// import GetInTouch from "../../components/home/GetInTouch/GetInTouch";
 import PrivacyPolicy from "../../components/legal/PrivacyPolicy/PrivacyPolicy";
 
 export default function PrivacyPolicyPage() {
@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
     <>
       <Navbar />
       <PrivacyPolicy />
-      <GetInTouch />
+      {/* <GetInTouch /> */}
       <Footer />
     </>
   );

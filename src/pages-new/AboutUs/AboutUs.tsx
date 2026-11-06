@@ -4,7 +4,7 @@ import AboutHero from "@components-new/About/AboutHero";
 import WhoWeAre from "@components-new/About/WhoWeAre";
 import OurVision from "@components-new/About/OurVision";
 import OurMission from "@components-new/About/OurMission";
-import FeaturesDifference from "@components-new/Home/FeaturesDifference";
+import AboutFeaturesDifference from "@components-new/About/AboutFeaturesDifference";
 
 export default function AboutUs() {
   return (
@@ -26,7 +26,7 @@ export default function AboutUs() {
         <OurMission />
 
         {/* Section 5: Features That Make a Difference */}
-        <FeaturesDifference />
+        <AboutFeaturesDifference />
       </main>
 
       {/* Section 6: Footer */}
@@ -34,4 +34,3 @@ export default function AboutUs() {
     </div>
   );
 }
-

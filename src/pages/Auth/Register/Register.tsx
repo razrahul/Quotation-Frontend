@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { createUser } from "../../../redux/action/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../redux/store";
-import Navbar from "../../../components/layout/Navbar/Navbar";
+import Navbar from "../../../components-new/Layout/Navbar";
 import type { RootState } from "../../../redux/store";
 import { COUNTRY_OPTIONS } from "../../../utils/countryOptions";
 

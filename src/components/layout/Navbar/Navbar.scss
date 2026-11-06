@@ -14,10 +14,8 @@
 
 /* ===== INNER CONTAINER (WIDTH + PADDING HERE) ===== */
 .navbar__container {
-  max-width: 1440px;
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
-  padding: $padd-left-right;
 
   display: flex;
   align-items: center;
@@ -97,10 +95,6 @@
 
 /* ===== RESPONSIVE NAVBAR ===== */
 @media (max-width: 768px) {
-  .navbar__container {
-    padding: 0 20px; // 🔥 keeps logo on left and toggle on right corners of screen
-  }
-
   .navbar__mobile-right {
     display: flex;
     align-items: center;

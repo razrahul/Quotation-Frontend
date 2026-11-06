@@ -31,3 +31,4 @@ dist*
 
 .antigravityignore
 .geminiignore
+.agentignore

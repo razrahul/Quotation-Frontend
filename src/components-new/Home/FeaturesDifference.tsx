@@ -3,13 +3,19 @@ import img2 from "@assets-new/FeaturesDifference/feature-image-2.png";
 
 export default function FeaturesDifference() {
   return (
-    <section className="py-12 lg:py-20 bg-white overflow-hidden">
+    <section className="pt-6 pb-12 lg:pt-10 lg:pb-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 lg:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Features That Make a Difference
+        <div className="text-center max-w-3xl mx-auto mb-8 lg:mb-12">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#014798] mb-2">
+            SMARTER FEATURES
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+            Smart Features That Simplify Your Business Workflow
           </h2>
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Make business documentation easier with practical features designed to improve speed, accuracy, and convenience. From professional templates to document downloads, TechTime Software helps streamline essential business activities.
+          </p>
         </div>
 
         {/* 3-Column Showcase Layout */}
@@ -19,14 +25,14 @@ export default function FeaturesDifference() {
             {/* Column 1: Image 1 */}
             <img
               src={img1}
-              alt="Workspace image 1"
+              alt="Workspace preview 1"
               className="w-full object-cover rounded-3xl border border-slate-200/50 shadow-sm aspect-square sm:aspect-4/3 lg:aspect-3/4 lg:flex-1 lg:basis-0"
             />
 
             {/* Column 2: Image 2 */}
             <img
               src={img2}
-              alt="Workspace image 2"
+              alt="Workspace preview 2"
               className="w-full object-cover rounded-3xl border border-slate-200/50 shadow-sm aspect-square sm:aspect-4/3 lg:aspect-3/4 lg:flex-1 lg:basis-0"
             />
           </div>
@@ -36,34 +42,30 @@ export default function FeaturesDifference() {
             {/* Feature 1 */}
             <div className="space-y-2">
               <h3 className="text-lg sm:text-xl font-bold text-slate-950 tracking-tight">
-                Professional Templates
+                Professional Quotation & Invoice Templates
               </h3>
               <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
-                Choose from multiple professionally designed templates that
-                match your brand identity. Customizable to match your company
-                colors and logo.
+                Create business documents using clean, organized templates designed for professional communication. Present customer information, product details, service descriptions, pricing, and totals in a clear and readable format.
               </p>
             </div>
 
             {/* Feature 2 */}
             <div className="space-y-2">
               <h3 className="text-lg sm:text-xl font-bold text-slate-950 tracking-tight">
-                PDF Export
+                Download Professional Quotations & Invoices as PDFs
               </h3>
               <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
-                Download quotes as PDF files instantly. Perfect for sharing with
-                clients and keeping records organized.
+                Convert your completed quotations and invoices into convenient PDF documents. Easily download, share, print, and maintain digital records of important business transactions.
               </p>
             </div>
 
             {/* Feature 3 */}
             <div className="space-y-2">
               <h3 className="text-lg sm:text-xl font-bold text-slate-950 tracking-tight">
-                Cloud Sync
+                Convenient Access to Your Business Documents
               </h3>
               <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
-                Access your quotes from any device. Never lose track of
-                important documents again.
+                Keep your business workflow organized with convenient access to your online tools. Where account-based document storage and synchronization are available, you can manage saved business documents across supported devices.
               </p>
             </div>
           </div>

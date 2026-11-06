@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { loginUser } from "../../../redux/action/userActions";
-import Navbar from "../../../components/layout/Navbar/Navbar";
+import Navbar from "../../../components-new/Layout/Navbar";
 
 type LoginFormSubmit = {
   email: string;

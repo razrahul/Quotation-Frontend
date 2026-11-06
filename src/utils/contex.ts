@@ -21,7 +21,7 @@ export const BRAND_CONFIGS: BrandConfigType[] = [
         phone: "+91 9876543210",
         address: "123 Business Avenue, Suite 456, City, Country",
         countryState: "India",
-        effectiveYear: 2025
+        effectiveYear: 2026
     },
     {
         id: "nexquote",
@@ -73,6 +73,6 @@ export const getBrandConfig = (id: string): BrandConfigType => {
     return BRAND_CONFIGS.find(config => config.id === id) || BRAND_CONFIGS[0];
 };
 
-export const NEXQUOTE_CONFIG = BRAND_CONFIGS[1];
+export const NEXQUOTE_CONFIG = BRAND_CONFIGS[0];
     
     

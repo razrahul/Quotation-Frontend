@@ -2,15 +2,13 @@ import { Link } from "react-router-dom";
 import logo from "@assets-new/logowithtext.png";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="bg-[#014798] text-white pt-12 pb-10 lg:pt-16 lg:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Columns Container */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10">
           {/* Brand Column */}
-          <div className="w-full lg:max-w-sm space-y-6">
+          <div className="w-full lg:max-w-sm space-y-5">
             <Link to="/" className="inline-block">
               <div className="relative h-12 w-44">
                 {/* White parts (Hand icon + TechTime) */}
@@ -33,24 +31,20 @@ export default function Footer() {
                 />
               </div>
             </Link>
-            <p className="text-white text-sm leading-relaxed font-normal">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus magna fringilla
-              urna, porttitor rhoncus dolor purus non enim praesent elementum
-              facilisis leo, vel Lorem ipsum dolor sit amet, consectetur
-              adipiscing
-            </p>
-            {/* Copyright notice nested inside Brand Column matching Figma exactly */}
-            <p className="text-white/50 text-xs pt-4 hidden lg:block">
-              © {currentYear} techtime.software. All rights reserved.
+            <p className="text-white/90 text-sm leading-relaxed font-normal">
+              TechTime Software offers free online business tools to simplify
+              quotations, invoicing, GST calculations, and everyday business
+              activities. Our easy-to-use digital solutions help freelancers,
+              startups, and small businesses save time, improve productivity, and
+              manage essential tasks efficiently.
             </p>
           </div>
 
           {/* Links and Info Columns Wrapper */}
-          <div className="w-full lg:flex-1 grid grid-cols-2 gap-10 sm:flex sm:flex-row justify-between items-start lg:pl-16">
+          <div className="w-full lg:flex-1 grid grid-cols-2 gap-8 sm:flex sm:flex-row justify-between items-start lg:pl-16">
             {/* Quick Links Column */}
             <div className="space-y-4 min-w-[120px]">
-              <h3 className="text-[#ffb703] font-bold text-lg tracking-wider">
+              <h3 className="text-[#ffb703] font-bold text-base sm:text-lg tracking-wider">
                 Quick Links
               </h3>
               <ul className="space-y-2.5 text-sm text-white">
@@ -63,19 +57,25 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to="/about"
+                  <a
+                    href="#products"
+                    onClick={(e) => {
+                      if (window.location.pathname === "/") {
+                        e.preventDefault();
+                        document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
                     className="hover:text-blue-200 transition-colors"
                   >
-                    Product
-                  </Link>
+                    Our Products
+                  </a>
                 </li>
                 <li>
                   <Link
                     to="/about"
                     className="hover:text-blue-200 transition-colors"
                   >
-                    About us
+                    About Us
                   </Link>
                 </li>
                 <li>
@@ -83,24 +83,24 @@ export default function Footer() {
                     to="/contact"
                     className="hover:text-blue-200 transition-colors"
                   >
-                    Contact us
+                    Contact Us
                   </Link>
                 </li>
               </ul>
-              <div className="pt-4">
+              <div className="pt-2">
                 <Link
                   to="/register"
-                  className="inline-flex items-center justify-center bg-white text-[#014798] font-bold rounded-full px-8 py-2.5 shadow-md hover:bg-slate-50 transition-colors text-sm"
+                  className="inline-flex items-center justify-center bg-white text-[#014798] font-bold rounded-full px-6 py-2.5 shadow-md hover:bg-slate-50 transition-colors text-xs sm:text-sm"
                 >
-                  Register
+                  Get Started Free →
                 </Link>
               </div>
             </div>
 
             {/* Products Column */}
-            <div className="space-y-4 min-w-[120px]">
-              <h3 className="text-[#ffb703] font-bold text-lg tracking-wider">
-                Products
+            <div className="space-y-4 min-w-[140px]">
+              <h3 className="text-[#ffb703] font-bold text-base sm:text-lg tracking-wider">
+                Our Products
               </h3>
               <ul className="space-y-2.5 text-sm text-white">
                 <li>
@@ -108,7 +108,7 @@ export default function Footer() {
                     to="/nexquote"
                     className="hover:text-blue-200 transition-colors"
                   >
-                    Quotation Generator
+                    Free Quotation Generator
                   </Link>
                 </li>
                 <li>
@@ -116,7 +116,7 @@ export default function Footer() {
                     to="/invoice-generator"
                     className="hover:text-blue-200 transition-colors"
                   >
-                    Invoice Generator
+                    Online Invoice Generator
                   </Link>
                 </li>
                 <li>
@@ -139,17 +139,20 @@ export default function Footer() {
             </div>
 
             {/* Contact Info Column */}
-            <div className="space-y-4 min-w-[200px] col-span-2 sm:col-span-1">
-              <h3 className="text-[#ffb703] font-bold text-lg tracking-wider">
-                Contact
+            <div className="space-y-4 min-w-[180px] col-span-2 sm:col-span-1">
+              <h3 className="text-[#ffb703] font-bold text-base sm:text-lg tracking-wider">
+                Contact Us
               </h3>
               <div className="space-y-4 text-sm text-white">
                 <div className="space-y-1">
                   <div className="text-white/60 text-xs font-semibold uppercase tracking-wider">
                     Email
                   </div>
-                  <div className="hover:text-blue-200 transition-colors">
-                    <a href="mailto:support@techtimesoftware.com">
+                  <div>
+                    <a
+                      href="mailto:support@techtimesoftware.com"
+                      className="hover:text-blue-200 transition-colors break-all"
+                    >
                       support@techtimesoftware.com
                     </a>
                   </div>
@@ -158,16 +161,43 @@ export default function Footer() {
                   <div className="text-white/60 text-xs font-semibold uppercase tracking-wider">
                     Phone
                   </div>
-                  <div>+91 9876543210</div>
+                  <div>
+                    <a
+                      href="tel:+919876543210"
+                      className="hover:text-blue-200 transition-colors"
+                    >
+                      +91 9876543210
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright notice for mobile view at the very bottom */}
-        <div className="pt-8 text-sm text-white/50 text-left lg:hidden">
-          <p>© {currentYear} techtime.software. All rights reserved.</p>
+        {/* Bottom Bar: Copyright & Recommended Footer Links */}
+        <div className="pt-8 mt-10 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/70">
+          <p>© 2026 TechTime Software. All Rights Reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <Link
+              to="/privacy-policy"
+              className="hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/terms"
+              className="hover:text-white transition-colors"
+            >
+              Terms & Conditions
+            </Link>
+            <Link
+              to="/disclaimer"
+              className="hover:text-white transition-colors"
+            >
+              Disclaimer
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -15,7 +15,7 @@ export default function Navbar() {
   const showUserMenu = isAuthenticated && authChecked;
   return (
     <nav className="navbar">
-      <div className="navbar__container">
+      <div className="navbar__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <NavLink to="/nexquote" className="logo-link">
           <img src={logo} alt="Logo" className="logo" />
         </NavLink>
