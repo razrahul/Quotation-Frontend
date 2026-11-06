@@ -49,7 +49,7 @@
   color: #64748b;
 }
 
-.footer__col h4 {
+.sayad h4 {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 16px;
@@ -57,7 +57,7 @@
 
 .footer__col ul {
   list-style: none;
-  padding: 0;
+  padding-top: 10px;
 
   li {
     font-size: 14px;
@@ -69,6 +69,7 @@
 .footer__contact li {
   display: flex;
   gap: 8px;
+  letter-spacing: $traking-tight;
 }
 
 .mobile-copy {

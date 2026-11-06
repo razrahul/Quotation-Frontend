@@ -2,22 +2,37 @@ import "./Hero.scss";
 import heroImg from "../../../assets/images/hero-invoice.png";
 
 export default function Hero() {
+  const scrollToQuotation = () => {
+    const el = document.getElementById("quotation-section") || document.querySelector(".quotation-page");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollBy({ top: 500, behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="hero">
       <div className="hero-container">
         <div className="left">
           <h1>
-            Fast & Accurate Quotes <br />
-            for Your Business
+            Free Online Quotation Generator – 
+            Create Professional Quotes in Minutes
           </h1>
 
           <p>
-            Generate accurate, ready-to-send quotations anytime, anywhere.
-            Customize templates to match your needs and simplify your quoting
-            process—all for free.
+            Create accurate, professional, and ready-to-share business quotations
+            with NexQuote&apos;s free online quotation generator. Easily add business
+            details, customize quotation templates, calculate pricing and taxes,
+            and download high-quality PDF quotations in minutes. Whether
+            you&apos;re a freelancer, startup, small business owner, or service
+            provider, our quotation maker helps you simplify your quoting
+            process without complicated software or additional costs.
           </p>
 
-          <button className="cta-btn">Create a Quote Now</button>
+          <button onClick={scrollToQuotation} className="cta-btn">
+            Create a Free Quotation Now →
+          </button>
         </div>
 
         <div className="right">

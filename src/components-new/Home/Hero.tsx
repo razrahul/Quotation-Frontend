@@ -1,5 +1,4 @@
 import heroLine from "@assets-new/Hero/hero-vector-line.png";
-import { Link } from "react-router-dom";
 import frameImg from "@assets-new/Hero/frame-image.png";
 import circleDoted1 from "@assets-new/Contact/Hero/circle_doted-1.png";
 import circleDoted2 from "@assets-new/Contact/Hero/circle_doted-2.png";
@@ -41,7 +40,7 @@ export default function Hero() {
           {/* Left Text Column */}
           <div className="lg:col-span-6 text-center lg:text-left space-y-4 lg:space-y-5">
             <h1 className="text-3xl sm:text-4xl lg:text-[38px] xl:text-[44px] font-extrabold text-slate-800 tracking-tight leading-tight lg:leading-[1.2]">
-              All-in-One{" "}
+              Free Online{" "}
               <span className="relative inline-block pb-2 lg:pb-3">
                 Business Tools
                 <img
@@ -55,18 +54,24 @@ export default function Hero() {
             </h1>
 
             <p className="text-slate-700 text-sm sm:text-base lg:text-base font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Generate accurate, ready-to-send quotations anytime, anywhere.
-              Customize templates to match your needs and simplify your quoting
-              process—all for free.
+              Create professional quotations, generate invoices, calculate GST,
+              and manage everyday business tasks with TechTime Software. Our
+              easy-to-use online business tools help freelancers, startups, and
+              small businesses save time, reduce manual work, and improve
+              productivity.
             </p>
 
             <div className="pt-1">
-              <Link
-                to="/nexquote"
-                className="inline-flex items-center justify-center px-8 py-3.5 text-xs sm:text-sm font-bold text-white bg-[#00489a] hover:bg-[#003b80] rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+              <a
+                href="#products"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="inline-flex items-center justify-center px-8 py-3.5 text-xs sm:text-sm font-bold text-white bg-[#00489a] hover:bg-[#003b80] rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
               >
-                Create a Quote Now
-              </Link>
+                Explore Free Business Tools →
+              </a>
             </div>
           </div>
 

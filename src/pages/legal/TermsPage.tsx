@@ -1,6 +1,6 @@
-import Navbar from "../../components/layout/Navbar/Navbar";
-import Footer from "../../components/layout/Footer/Footer";
-import GetInTouch from "../../components/home/GetInTouch/GetInTouch";
+import Navbar from "@components-new/Layout/Navbar";
+import Footer from "../../components-new/Layout/Footer";
+// import GetInTouch from "../../components/home/GetInTouch/GetInTouch";
 import Terms from "../../components/legal/Terms/Terms";
 
 export default function TermsPage() {
@@ -8,7 +8,7 @@ export default function TermsPage() {
     <>
       <Navbar />
       <Terms />
-      <GetInTouch />
+      {/* <GetInTouch /> */}
       <Footer />
     </>
   );

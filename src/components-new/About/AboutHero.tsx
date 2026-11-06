@@ -5,7 +5,7 @@ import circleDoted3 from "@assets-new/Contact/Hero/circle_doted-3.png";
 
 export default function AboutHero() {
   return (
-    <section className="relative w-full pt-12 pb-12 lg:pt-0 lg:pb-0 lg:h-[425px] flex items-center overflow-hidden bg-[#e7f2fd99]">
+    <section className="relative w-full pt-16 pb-16 lg:pt-0 lg:pb-0 lg:min-h-[440px] flex items-center overflow-hidden bg-[#e7f2fd99]">
       {/* Decorative Dotted Circle - Left Top */}
       <img
         src={circleDoted1}
@@ -29,24 +29,29 @@ export default function AboutHero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 z-10">
         <div className="inline-block relative">
-          <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold text-slate-800 tracking-tight pb-3 select-none">
-            About Us
+          <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900 tracking-tight leading-tight pb-3">
+            About Us – {" "}
+            <span className="relative inline-block">
+              Making Professional Quotations
+              <img
+                src={heroLine}
+                alt="underline highlight"
+                className="absolute right-[-68px] bottom-[-20px] w-72 pointer-events-none"
+              />
+            </span>{" "}
+            Simple & Accessible
           </h1>
-          <img
-            src={heroLine}
-            alt="underline highlight"
-            className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[110%] max-w-[190px] pointer-events-none"
-          />
         </div>
-        <p className="text-slate-600 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-3xl mx-auto font-normal">
-          Generate accurate, ready-to-send quotations anytime, anywhere.
-          Customize templates to match your needs and simplify your quoting
-          process—all for free. Generate accurate, ready-to-send quotations
-          anytime, anywhere. Customize templates to match your needs and
-          simplify your quoting process—all for free.
+        <p className="text-slate-700 text-justify tracking-tight text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-4xl mx-auto font-normal">
+          At TechTime Software, we believe creating professional business
+          quotations should be simple, fast, and accessible to everyone. Our free
+          online quotation generator helps freelancers, startups, and businesses
+          create accurate, well-structured quotations without complicated software
+          or manual calculations. We are committed to simplifying the quotation
+          process with practical digital tools that save time, improve
+          productivity, and support everyday business operations.
         </p>
       </div>
     </section>
   );
 }
-

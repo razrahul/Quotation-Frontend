@@ -9,29 +9,29 @@ import missionImg from "@assets-new/About/Our-Mission/image.png";
 export default function OurMission() {
   const missionPoints = [
     {
-      title: "All in one product",
+      title: "Simplify Quotation Creation",
       description:
-        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
+        "We aim to eliminate the complexity of preparing business quotations manually. Our free online quotation maker helps users organize customer details, product information, quantities, and pricing to create professional quotations through a straightforward process.",
     },
     {
-      title: "Dedicated dashboard",
+      title: "Improve Business Productivity",
       description:
-        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
+        "Our mission is to help businesses spend less time preparing quotations and more time serving customers. By simplifying repetitive documentation tasks, we support faster workflows, better organization, and more efficient business communication.",
     },
     {
-      title: "Data security",
+      title: "Promote Secure & Reliable Operations",
       description:
-        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
+        "We strive to maintain a dependable platform that respects the importance of business information. Our approach emphasizes responsible data handling, platform reliability, and ongoing improvements to the user experience.",
     },
     {
-      title: "Accessibility",
+      title: "Make Professional Tools Accessible",
       description:
-        "Create professional quotations online instantly. Manage, download, and share quotes easily with our free tool.",
+        "We are committed to making essential business tools easier to use and more affordable. Our free quotation generator helps entrepreneurs, freelancers, and growing businesses prepare professional quotations without requiring advanced technical skills.",
     },
   ];
 
   return (
-    <section className="relative w-full h-full bg-[#EDF6FE] py-12 sm:py-16 overflow-hidden z-10">
+    <section className="relative w-full bg-[#EDF6FE] py-8 sm:py-10 lg:py-12 overflow-hidden z-10">
       {/* Background Blue concentric circle Ellipses */}
       <img
         src={elipse1}
@@ -65,23 +65,34 @@ export default function OurMission() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12 lg:gap-16 w-full">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10 lg:gap-12 w-full">
           {/* Left Column: Mission Points */}
-          <div className="flex-1 max-w-2xl w-full space-y-4 sm:space-y-8 lg:space-y-10 text-left">
-            <h2 className="flex text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Our Mission
+          <div className="flex-1 max-w-2xl w-full text-left space-y-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-slate-900 tracking-tight leading-snug">
+              Our Mission – Helping Businesses Create Quotations Faster & Smarter
             </h2>
 
-            <ul className="list-disc pl-5 space-y-3 sm:space-y-6 marker:text-slate-950">
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal text-justify [text-align:justify]">
+              Our mission is to simplify quotation creation by providing an easy-to-use
+              online platform that helps businesses save time, reduce manual effort,
+              and prepare professional business documents. We focus on practical features
+              that support efficient quotation management and improve everyday business
+              productivity.
+            </p>
+
+            <ul className="space-y-2.5 sm:space-y-3 pt-1">
               {missionPoints.map((point, idx) => (
                 <li
                   key={idx}
-                  className="text-slate-700 text-[13px] sm:text-base leading-normal sm:leading-relaxed font-normal"
+                  className="flex items-start gap-3 text-slate-700 text-xs sm:text-sm leading-relaxed"
                 >
-                  <strong className="font-bold text-slate-900">
-                    {point.title}:{" "}
-                  </strong>
-                  {point.description}
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#014798] shrink-0"></span>
+                  <span className="flex-1 text-justify [text-align:justify]">
+                    <strong className="font-bold text-slate-900 tracking-tight">
+                      {point.title}:{" "}
+                    </strong>
+                    {point.description}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -89,11 +100,11 @@ export default function OurMission() {
 
           {/* Right Column: Mission Laptops Image */}
           <div className="w-full md:w-[420px] lg:w-[480px] shrink-0 flex justify-center md:justify-end">
-            <div className="w-full aspect-16/10 overflow-hidden rounded-none shadow-sm">
+            <div className="w-full aspect-16/10 overflow-hidden rounded-2xl shadow-sm border border-slate-200/40 bg-white p-2">
               <img
                 src={missionImg}
                 alt="Montage of three laptops displaying vibrant screens"
-                className="w-full h-full object-contain transform hover:scale-[1.01] transition-transform duration-500"
+                className="w-full h-full object-contain transform hover:scale-[1.03] transition-transform duration-500"
               />
             </div>
           </div>

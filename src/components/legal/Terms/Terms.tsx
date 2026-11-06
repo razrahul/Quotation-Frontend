@@ -1,7 +1,7 @@
 import { getBrandConfig } from "../../../utils/contex";
 import "./Terms.scss";
 
-const NEXQUOTE_CONFIG =  getBrandConfig("nexquote");
+const NEXQUOTE_CONFIG =  getBrandConfig("techtime");
 
 const termsData = {
   effectiveYear: NEXQUOTE_CONFIG.effectiveYear,

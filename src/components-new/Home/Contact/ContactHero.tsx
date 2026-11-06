@@ -5,7 +5,7 @@ import circleDoted3 from "@assets-new/Contact/Hero/circle_doted-3.png";
 
 export default function ContactHero() {
   return (
-    <section className="relative w-full pt-12 pb-12 lg:pt-0 lg:pb-0 lg:h-[425px] flex items-center overflow-hidden bg-[#e7f2fd99] animate-fadeIn">
+    <section className="relative w-full pt-16 pb-16 lg:pt-0 lg:pb-0 lg:min-h-[440px] flex items-center overflow-hidden bg-[#e7f2fd99] animate-fadeIn mb-12 lg:mb-20">
       {/* Decorative Dotted Circle - Left Top */}
       <img
         src={circleDoted1}
@@ -27,23 +27,35 @@ export default function ContactHero() {
         className="absolute right-0 top-0 bottom-0 h-full w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] pointer-events-none select-none object-contain opacity-85 z-0"
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 z-10">
-        <div className="inline-block relative">
-          <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold text-slate-800 tracking-tight pb-3 select-none">
-            Contact Us
-          </h1>
-          <img
-            src={heroLine}
-            alt="underline highlight"
-            className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[110%] max-w-[190px] pointer-events-none select-none"
-          />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5 z-10">
+        <div>
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#014798] mb-2">
+            GET IN TOUCH WITH US
+          </p>
+          <div className="inline-block relative">
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900 tracking-tight leading-tight pb-3">
+              Contact Us – Get Support for Your{" "}
+              <span className="relative inline-block">
+                Online Quotation
+                <img
+                  src={heroLine}
+                  alt="underline highlight"
+                  className="absolute left-6 bottom-[-14px] w-72 pointer-events-none select-none"
+                />
+              </span>{" "}
+              Generator
+            </h1>
+          </div>
         </div>
-        <p className="text-slate-650 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-3xl mx-auto font-normal">
-          Generate accurate, ready-to-send quotations anytime, anywhere.
-          Customize templates to match your needs and simplify your quoting
-          process—all for free. Generate accurate, ready-to-send quotations
-          anytime, anywhere. Customize templates to match your needs and
-          simplify your quoting process—all for free.
+        <p className="text-slate-700 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-4xl mx-auto font-normal">
+          Have questions about creating professional business quotations? The
+          TechTime Software team is here to help. Whether you need assistance
+          using our free online quotation generator, customizing quotation
+          templates, downloading PDF quotations, or understanding our
+          platform&apos;s features, we&apos;re ready to hear from you. Contact us for
+          product inquiries, technical support, feedback, or general
+          assistance, and let us help make your quotation creation process
+          easier, faster, and more efficient.
         </p>
       </div>
     </section>
