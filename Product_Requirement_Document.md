@@ -272,9 +272,9 @@ When writing or executing tests via TestSprite, target the following areas:
 To run and execute the application locally, the following environment variables must be declared in a `.env` file in the root directory:
 ```ini
 # Backend API Base URL
-VITE_SERVER_BASEURL=http://localhost:5000/api/V1
+VITE_SERVER_BASEURL=<YOUR_LOCAL_URL>
 ```
 For production staging or rendering tests, use the live base URL:
 ```ini
-VITE_SERVER_BASEURL=https://quotation-backend-lnl8.onrender.com/api/v1
+VITE_SERVER_BASEURL=<YOUR_BACKEND_URL>
 ```
